@@ -1,0 +1,252 @@
+1. Whats the value of attributes as per below class inheritance
+
+	class A(object):
+	        
+	    vara=100
+	    varb=200
+	    varc=300
+
+	class B(A):
+	    
+	    vara=200
+	    varb=200
+	    varc=300
+	    varz="Hello World"
+
+	class D(B):
+
+	    vara=2000
+	    varb1=2000
+	    varc=3000
+	    varz="Hello"
+
+	class C(D):
+	    varc=300
+
+	if __name__ == "__main__":
+	    print(C.vara,C.varb,C.varc,C.varz)    
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+2. Whats the output of the following function
+
+
+	def func(mapper,*args):
+	    for record in args:
+	       if record%10 == 0:
+	          mapper[record] = record*record
+	    return sorted(mapper.values()) + sorted(mapper.keys())
+
+
+	if __name__ == "__main__":
+		result = func({},12,22,33,45,67,89,120,100,410)
+		print(result)
+	
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+3. Whats the output of the following function
+
+
+	def func(*args):
+		_copy_args = args[::-1]
+		for _reca,_recb in zip(args,_copy_args):
+			yield((_recb+10)+(_reca+5))
+
+
+	if __name__ == "__main__":
+		result = func(12,22,33,45,67,89,120,100,410)
+		print(list(result))
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+4. Whats the output of the following function
+
+	class Alpha:
+
+	    def __init__(self,a,b,c):
+
+	       self.a = a
+	       self.b = b
+	       self.c = c
+
+	    def __call__(self):
+
+	       return self.a*self.b if self.a.__class__ == str and self.a.__len__() >10 and self.a.count(self.c)>0 else 0
+
+	if __name__ ==  "__main__":
+	    alpha_obj = Alpha("Hello World",5,"C")
+	    print(alpha_obj())
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+5. Whats the output of the following function
+
+	def return_fin_val(*args):
+	        def process_records():
+	            def inner_process():
+	                for each_rec in args:
+	                    yield True if each_rec.__class__ == int and each_rec%5==3 and each_rec < 1000 else False
+	            return inner_process()
+	        return process_records()
+
+	if __name__ == "__main__":
+		print(list(return_fin_val(1000,1100,2300,400,210,103,453,100,50,10,12,14)))
+	
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+6. Whats the output of the following statement
+	
+	x = [1,2,3,4,5]
+	y = x[:]
+	y[2]=20
+	
+	result = x+y
+	fin_result = sorted({_k:_k**2 for _k in result}.values())[::-1]
+	print(fin_result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+7. Whats the output of the following statement
+	
+	x = [100,200,300,400,500,600,700,800,900,1000]
+	y = x[::]
+	y[2],x[4],x[3],y[6]=1,4,8,0	
+	result = x+y
+	fin_result = sorted({_k:_k+10 for _k in result}.values())
+	print(fin_result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+8. Whats the output of the following statement
+
+	def return_fin_val(arrayA,arrayB):
+	        def process_return():
+	            for rec_a , rec_b in zip(arrayA,arrayB):
+	                try:
+	                    yield rec_a*rec_b
+	                except TypeError as error:
+	                    yield 0
+	                except Exception as error:
+	                    yield "None"
+	        return list(process_return())
+
+	if __name__ == "__main__":
+
+	    resultA = return_fin_val(arrayA=range(100,110),arrayB=range(10,20))
+	    resultB = return_fin_val(arrayA=["python",2,3,4,20],arrayB=["c++","200",3,4])
+	    print(sorted(resultA))
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+9. Whats the output of the following statement
+
+
+	def return_fin_val(arrayA,arrayB):
+	        def process_return():
+	            for rec_a , rec_b in zip(arrayA,arrayB):
+	                try:
+	                    yield rec_a*rec_b
+	                except TypeError as error:
+	                    yield 0
+	                except Exception as error:
+	                    yield "None"
+	        return list(process_return())
+
+	if __name__ == "__main__":
+
+	    resultB = return_fin_val(arrayA=["python",2,3,4,20],arrayB=["c++","200",3,4])
+	    print(resultB)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+10. Whats the output of the following statement
+
+	resultA = list(map(lambda arg:arg%2==0 and arg%5==0 and arg%10==0,range(100,150)))
+	print(resultA.count(True))
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+11. Whats the output of the following statement
+
+	resultB = list(filter(lambda arg:arg%2==0 and arg%5==0 and arg%10==0,range(100,200)))
+	from functools import reduce
+	resultC = reduce(lambda x,y:x+y,range(10,20))
+	fin_mapper = sorted(resultB + [resultC])
+	print(fin_mapper)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+12. Whats the output of the following statement
+
+
+	def process(mapper_final={0:True,1:False,2:False,3:True}):
+
+	    resultA = [_key**2 for _key in mapper_final.keys() if mapper_final[_key]==True]
+	    resultB = [_key**2 for _key in mapper_final.keys() if mapper_final[_key]==False]
+	    fin_result = sorted(resultA+resultB)
+	    return fin_result
+
+	if __name__ == "__main__":
+
+	    result = process({1:False,10:False,2:True,3:True,5:True,7:True,8:False,11:True,20:True,55:False})
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+13. Whats the output of the following statement
+
+	class Alpha:
+
+	        def __init__(self,a,b,c,d,e,f,g,h):
+	            self.__dict__.update({_key:_val for _key,_val in locals().items() if _key!="self" and _val.__class__ == int})
+
+	        def print(self):
+	            return sorted(self.__dict__.values())
+
+	if __name__ == "__main__":
+	        alpha_obj = Alpha(100,10,"Alpha",20,25,"40",85,50)
+	        print(alpha_obj.print())
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+14. Whats the output of the following statement
+
+	def loops_tests():
+
+	        x,y,z=10,11,12
+	        counter=1
+
+	        while True:
+	            x,y,z=x+10,y+10,z+10
+	            if x+y+z > 200:
+	                return counter
+	            counter+=(x*1+y*2+z*3)
+
+	if __name__ == "__main__":
+		
+	    # Run Code :
+	    print(loops_tests())
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+15. Whats the output of the following statement
+
+	def loops():
+
+	        x=y=z=1000
+	        counter=0
+
+	        while True:
+	            x,y,z=x+10,y+10,z+10
+	            sum_vals = x+y+z
+	            if sum_vals > 4000:
+	                return counter
+	            counter+=10
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    print(loops())
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		

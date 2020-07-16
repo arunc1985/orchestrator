@@ -1,0 +1,232 @@
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+1. Whats the output of the following statement
+
+	a = [3,4]
+
+	try:
+		print a[4]
+	except KeyError:
+		print 'key error'
+
+	except Exception:
+		print 'Exception'
+
+	except IndexError:
+		print 'index error'
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+2. Whats the output of the following statement
+
+	D = {1 : {'A' : {1 : "A"}, 2 : "B"}, 3 :"C", 'B' : "D", "D": 'E'} 
+	print(D[D[D[1][2]]])
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+3. Whats the output of the following statement
+
+	A0 = dict(zip(('a','b','c','d','e'),(1,2,3,4,5)))
+
+	A1 = range(10)
+
+	A2 = sorted([A0[s] for s in A0])
+
+	A3 = [i for i in A1 if i in A2]
+
+	print(A3)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+4. Whats the output of the following statement
+
+	
+	class A(object):
+
+	    def foo():
+	        print("A")
+
+	class B(object):
+
+	    def foo():
+	        print("B")
+
+	class C(A, B):
+	    def foo1():
+	        print("c")
+
+	if __name__ == '__main__':
+	    C.foo()
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+5. Whats the output of the following statement
+
+	squares=[]
+	for x in range(5):
+		squares.append(lambda: x**3)
+	print(squares[2]())
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+6. Whats the output of the following statement
+
+	def func(n):
+		a, b = 0, 1
+		while(a < n):
+			yield a
+			a, b = b, a + b
+
+	print(list(func(10)))
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+7. Whats the output of the following statement
+
+	s = "hcl technologies ltd"
+	print(' '.join(map(lambda s: s[:-1]+s[-1].upper(),s.title().split())))
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+8. Whats the output of the following statement
+
+	names1 = ['Amir', 'Bear', 'Charlton', 'Daman']
+
+	names2 = names1
+
+	names3 = names1[:]
+
+	names2[0] = 'Alice'
+
+	names3[1] = 'Bob'
+
+	_sum = 0
+
+	for ls in (names1, names2, names3):
+		if ls[0] == 'Alice':
+			_sum += 1
+
+		if ls[1] == 'Bob':
+			_sum += 10
+
+	print (_sum)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+9. Whats the output of the following statement
+
+	def compute_string(s):
+
+		if not s:
+			return "Empty String"
+
+		for i in range(0, len(s)):
+			if i < len(s) - 1:
+				if s[i] == s[i + 1]:
+					return compute_string(s[:i] + s[i + 2:])
+		return s
+
+	print(compute_string('a*aabc*cddd'))
+
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+10. Whats the output of the following statement
+
+	def compute(items):
+	    myset = set()
+	    for item in items:
+	        if item not in myset:
+	            yield item
+	            myset.add(item)
+	a = [1, 5, 2, 1, 9, 1, 5, 10]
+	print(list(compute(a)))
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+11. Whats the output of the following statement
+
+	sub_nws = ["ONRM_ROOT_MO", "WI_NEWB", "XYZ"]
+	SUBNETWORK_TEMPLATE = 'SubNetwork={}'
+
+	if sub_nws:
+		sub_nws = ','.join([SUBNETWORK_TEMPLATE.format(subnet) for subnet in sub_nws])
+
+	print(sub_nws)
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+12. Whats the output of the following statement
+
+	n='pop-app-lop' 
+	def sorting(n): 
+	    l=n.split('-') 
+	    for i in l: 
+	        l.sort() 
+	    print('-'.join(l))
+	sorting(n)
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+13. Whats the output of the following statement
+
+	class A(object):
+	    value = 10
+
+	class B(A):
+	    pass
+
+	class C(A):
+	    pass
+
+	B.value = 22
+
+	a = A()
+	b = B()
+	c = C()
+
+	A.value = 33
+
+	print([a.value, b.value, c.value])
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+14. Whats the output of the following statement
+
+	list_1 = ['PQR','ABC','XYZ','IJK']
+
+	list_2 = [6,3,4,1]
+
+	myDict = dict(zip(list_2, list_1))
+
+	result = sorted(myDict.items(), key=lambda k: k[1])
+
+	print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			
+
+15. Whats the output of the following statement
+
+	def func(some_list):
+
+		list2 = []
+
+		if some_list:
+			for val in some_list:
+				if val not in list2:
+					list2.append(val)	
+		else:
+			return some_list
+		return list2
+
+	my_list = [3,1,4,5,1,3,2,4,3]
+
+	print(func(my_list))
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *			

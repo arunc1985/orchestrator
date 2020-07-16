@@ -1,0 +1,392 @@
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+1. Whats the output of the following statement
+
+	class Alpha :
+
+	        def __init__(self,*args):
+
+	            self.__class__.values = [_arg*10 for _arg in args]
+
+	        def process(self):
+	            for _arg in self.values:
+	                yield _arg*10
+
+	        @classmethod
+	        def process(self):
+	            for _arg in self.values:
+	                yield _arg*2
+
+	        @staticmethod
+	        def process():
+	            for _arg in Alpha.values:
+	                yield _arg*20
+
+	if __name__ == "__main__":
+	    # Run Code :
+	    print(list(Alpha(10,20,30,40,50).process()))
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+
+2. Whats the output of the following statement
+
+
+	from functools import reduce
+
+	def execute(func):
+	    def run(*args,**kwargs):
+	        try:
+	            return func(*args,**kwargs)
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+	@execute
+	def tests(args):
+	    return reduce(lambda a,b:a*b,args)
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    resA=tests()
+	    resB=tests([1,2,3,4,5])
+	    resC=tests((1,2,3,4,5,))
+	    resD=tests(1,2)
+	    resE=tests([10,20,30,40,50])
+
+	    print(resA=="NULL" and resD=="NULL" and resB==resC and resE is "NULL")
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+3. Whats the output of the following statement
+
+from functools import reduce
+
+	def execute(func):
+	    def run(*args,**kwargs):
+	        try:
+	            return func(*args,**kwargs) ** 2
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+	@execute
+	def tests(args):
+	    return reduce(lambda a,b:a*b,args)
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result=tests((1,2,3,4,5,))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+4. Whats the output of the following statement
+
+	from functools import reduce
+
+	def runner(func):
+	    def run(*args,**kwargs):
+	        try:
+	            return func(*args,**kwargs) ** 2
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+
+	def execute(func):
+	    def run(*args,**kwargs):
+	        try:
+	            return func(*args,**kwargs)
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+	@runner
+	@execute
+	def tests(args):
+	    return reduce(lambda a,b:a*b,args)
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result=tests((1,2,3,4,5,))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+5. Whats the output of the following statement
+
+	def runner(func):
+	    def run(*args,**kwargs):
+	        try:
+	            result = func(*args,**kwargs)
+	            return result.__contains__(True)
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+
+	def execute(func):
+	    def run(*args,**kwargs):
+	        try:
+	            result = list(func(*args,**kwargs))
+	            return result
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+	@runner
+	@execute
+	def tests(args):
+	    return map(lambda arg:arg%10==0,args)
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result= tests((1,2,3,200,4,5,))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+6. Whats the output of the following statement
+
+
+	def madeco(func):
+	    def run(*args,**kwargs):
+	        try:
+	            result = list(func(*args,**kwargs))*5
+	            return result
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+	@madeco
+	def tests(args):
+	    return filter(lambda arg:arg%10==0,args)
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result= tests((1,2,3,2000,4,5,))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+7. Whats the output of the following statement
+
+
+	def madeco(func):
+	    def run(*args,**kwargs):
+	        try:
+	            result = sum(list(func(*args,**kwargs)))*5
+	            return result
+	        except Exception as error:
+	            return "NULL"
+	    return run
+
+
+	@madeco
+	def tests(args):
+
+	    return map(lambda arg:arg*2,args)
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result= tests((10,20,30,40,50,))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+8. Whats the output of the following statement
+
+	def tests(args):
+
+	    mapper = {1000:True,2000:False}
+
+	    for _arg in args:
+	        mapper[_arg]=True if _arg%10==0 and _arg%5==0 and len(str(_arg))==4 else False
+	    return sum(sorted(list(filter(lambda x:x%1000==0, mapper.keys()))))
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result= tests((10,2000,30,1000,4000,50,))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+9. Whats the output of the following statement
+
+
+	def tests(ranges):
+
+	    mapper = {_key:_key*2 for _key in ranges}
+	    return sorted(mapper.keys())
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result = tests(ranges=list(range(1000,3001,250)))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+10. Whats the output of the following statement
+
+	# Sort the array by the last names of each individual
+	def sort_names(names):
+
+	    return sorted(names,key=lambda name:name.split(" ")[-1])
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result = sort_names(names=["Alan Brooke","Bill Patterson","Glen Maxwell", "George Peterson",
+	                              "Alan Thomas","Frank Jack Fletcher", "Conrad Helfrich", "Albert Einstien",
+	                              "George Swan","Joe Root","Jimmy Anderson"])
+	    print(result)
+
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *		
+
+11. Whats the output of the following statement
+
+	# Find the value of the counter variable
+
+	def loops(ranges):
+
+	    _ranges = ranges[::]
+	    counter = 0
+	    for i in ranges:
+	    	for j in _ranges:
+	    		counter +=1
+	    return counter
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result = loops(ranges=list(range(100,200)))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+12. Whats the output of the following statement
+
+	# Find the value of the counter variable
+	def loops(ranges):
+
+	    _ranges,_ranges_x = ranges[::] , ranges[:]
+	    counter = 0
+	    for i in ranges:
+	    	for j in _ranges:
+	    		for k in _ranges_x:    			
+	    			continue
+	    		counter +=1
+	    return counter
+
+	if __name__ == "__main__":
+
+	    # Run Code :
+	    result = loops(ranges=list(range(100,200)))
+	    print(result)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+13. Whats the output of the following statement
+
+	class A(object):
+	        
+	    vara=100
+	    varb=200
+	    varc=300
+	    vard=400
+
+	class B(A):
+	    
+	    vara=200
+	    varb=200
+	    varc=300
+	    varz="Hello World"
+
+	class D(B,list):
+
+	    vara=2000
+	    varb1=2000
+	    varc=3000
+	    varz="Hello"
+
+	class C(D):
+	    varc=300
+
+	if __name__ == "__main__":
+	    print(C.vara,C.varb,C.varc,C.varz,C.vard,C.append is not None)
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *	    
+
+14. Whats the output of the following statement
+
+	class A(object):
+	        
+	    vara=100
+	    varb=200
+	    varc=300
+	    vard=400
+
+	class B(A):
+	    
+	    vara=200
+	    varb=200
+	    varc=300
+	    varz="Hello World"
+
+	class D(B,list):
+
+	    vara=2000
+	    varb1=2000
+	    varc=3000
+	    varz="Hello"
+
+	class C(D):
+	    varc=300
+
+	    def append(self):
+	        return None
+
+	if __name__ == "__main__":
+	    print([C.vara,C.varb,C.varc,C.varz,C.vard,C.append is not None])
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *	    	    
+
+15. Whats the output of the following statement
+
+	# Find the value of the attrs
+	class Props:
+
+	    def __init__(self,a,b,c,d):
+	        self.a = a
+	        self.b = b
+	        self.c = c
+	        self.d = d
+
+	    def __call__(self):
+
+	        self.a,self.d = self.b*10,self.c*100
+	        self.b,self.c = self.a*5,self.c*2
+	        return self.a,self.b,self.c,self.d
+
+	    @property
+	    def return_val(self):
+	        return [self.a+self.b+self.c+self.d]
+	    
+	if __name__ == "__main__":
+
+	    ins_props = Props(1,2,3,4)
+	    ins_props()
+	    print(ins_props.return_val)
+	    
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *	    	    
