@@ -1,0 +1,11 @@
+# Base OS is Centos
+FROM centos:8
+# All the commands below will be executed on the base os ..i.e. in this case centos
+# Install Python3
+RUN yum install -y python3
+# Create a directory named final
+RUN mkdir final
+# Copy the application directory from the host machine to directory tests inside of the container
+COPY ./application ./final
+# This CMD command will not get triggered during image build, but while running the container it will execute and run the python program
+CMD python3 final/app.py
