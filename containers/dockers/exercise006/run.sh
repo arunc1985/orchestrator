@@ -1,4 +1,6 @@
 
+echo "git pull origin dockers"
+git pull origin dockers
 
 echo "\n"
 echo "Delete Processes and Images .."

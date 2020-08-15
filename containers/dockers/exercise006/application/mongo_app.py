@@ -72,11 +72,11 @@ def driver():
     mongo_client = MongoDBRunner.get_mongo_client()
     mongo_database = MongoDBRunner.get_mongo_database(mongo_client=mongo_client,mongo_database_name='tests-mongo')
     mongo_database_collection = MongoDBRunner.get_mongo_database_collection(mongo_database_name=mongo_database,
-                                mongo_collection_name='tests-mongo-colls')
+                                mongo_collection_name='tests-mongo-coll')
     
     # Sample test document to be inserted
     members = {
-                "data":{
+                "fin-map":{
 
                         "user_id":"007",
                         "user_name":"arunkuch",
@@ -88,7 +88,10 @@ def driver():
     MongoDBRunner.set_collection_records(collection_object=mongo_database_collection,records=members)
     result = MongoDBRunner.get_collection_records(collection_object=mongo_database_collection)
 
+    print("Finally drop the collection")
+    mongo_database_collection.drop()
     print("All Tasks Completed...")
+
     return {'fin-data':str(result)}
 
 
