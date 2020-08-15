@@ -11,5 +11,8 @@ docker run -d -v /root/orchestrator/containers/dockers/exercise007/application/:
 curl -XGET http://localhost:5500/welcome/Arun/Chandramouli
 
 
-docker tag volumes-tests-flask:v1 jupiter19/jupiter19:volumes-tests-flask:v1
+#docker tag <<image-name>>:<<tag-name>> <<user-name>>/<<repo-name>>:<<some-tag-name-for-repo>>
+#docker push <<user-name>>/<<repo-name>>
+
+docker tag volumes-tests-flask:v1 jupiter19/jupiter19:volumes-tests-flask
 docker push jupiter19/jupiter19

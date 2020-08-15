@@ -1,3 +1,4 @@
+# Use base image py-centos:bases
 FROM py-centos:bases
 RUN mkdir tests
 COPY ./application /tests
