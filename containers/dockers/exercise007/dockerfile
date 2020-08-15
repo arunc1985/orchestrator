@@ -1,6 +1,8 @@
-FROM py-centos:bases
+FROM centos:8
+RUN yum -y install python3
+RUN python3 --version
 RUN mkdir tests
-ADD /application /tests
-RUN ls tests
+COPY /application /tests
 RUN pip3 install -r tests/requirements
-CMD python3 tests/app.py
+RUN ls /tests && cat tests/tests.py && cat tests/flaskapp.py
+CMD python3 tests/flaskapp.py ${firstname} ${lastname}
