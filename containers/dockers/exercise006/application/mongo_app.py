@@ -78,8 +78,8 @@ def driver():
     members = {
                 "data":{
 
-                        "user_id":"001",
-                        "user_name":"Arun",
+                        "user_id":"007",
+                        "user_name":"arunkuch",
                         "profession":"Programmer",
                         "location":"Chennai"
                 }
@@ -88,7 +88,7 @@ def driver():
     result = MongoDBRunner.get_collection_records(collection_object=mongo_database_collection)
 
     print("All Tasks Completed...")
-    return str(result)
+    return {'fin-data':str(result)}
 
 
 if __name__ == "__main__":
