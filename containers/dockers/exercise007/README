@@ -3,6 +3,12 @@ docker rmi -f volumes-tests-flask:v1
 
 docker build -t volumes-tests-flask:v1 -f dockerfile .
 
+docker login --username=jupiter19
+
+docker tag 9f5f95d29265 jupiter19/jupiter19:volumes-tests-flask:v1
+docker push jupiter19/jupiter19
+
+
 docker rm -f flaskpy3
 
 docker run -d -v /root/orchestrator/containers/dockers/exercise007/application/:/tests --name flaskpy3 -e FLASKHOSTNAME='0.0.0.0' -e FLASKPORT=5500 -e CODER='By Arun!' -p 5500:5500 volumes-tests-flask:v1
