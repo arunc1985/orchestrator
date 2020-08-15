@@ -34,7 +34,7 @@ docker images
 echo "\n\n"
 echo "Run the Python App"
 
-docker run -d --name flaskpy3-mongo -v /c/Users/arunkuch/Documents/Programs/dockers/exercise006/application:/tests -e FLASKHOSTNAME='0.0.0.0' -e FLASKPORT=4500 -p 4500:4500 py-app-mongo:release-v1
+docker run -d --name flaskpy3-mongo -v /root/orchestrator/containers/dockers/exercise006/application:/tests -e FLASKHOSTNAME='0.0.0.0' -e FLASKPORT=4500 -p 4500:4500 py-app-mongo:release-v1
 
 echo "logs flaskpy3-mongo"
 docker logs flaskpy3-mongo
