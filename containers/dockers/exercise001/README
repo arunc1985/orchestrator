@@ -1,0 +1,6 @@
+# From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
+
+docker build -t python-app:exercise001 -f dockerfile .
+docker run --name container-exercise001 python-app:exercise001
+
+docker run --rm --name container-exercise001 python-app:exercise001

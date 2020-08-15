@@ -1,0 +1,25 @@
+# From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
+
+# Build the Image
+docker build -t python-app:exerciseC --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final -f dockerfile .
+
+# docker build -t python-app:exerciseC # -t is for adding a TAG.
+# --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final
+#  -f dockerfile .
+
+# Run the Image as a Container
+docker run --name python-app-exerciseC -e firstname=Arun -e lastname=Chandramouli -e profession=Programming python-app:exerciseC
+
+docker run --name Vivek-Rishav-Ajay-Guru -e firstname=Arun -e lastname=Chandramouli -e profession=Programming python-app:exerciseC
+
+# Remove Container once exec done..
+docker run --rm --name Vivek-Rishav-Ajay-Guru -e firstname=Arun -e lastname=Chandramouli -e profession=Programming python-app:exerciseC
+
+
+docker run --name python-app-exerciseC
+# --name python-app-exerciseC -> Name of the Container
+# python-app:exerciseC -> <<Image name >> : <<Tag>>
+# Passing Environment Variables...
+-e firstname=Arun 
+-e lastname=Chandramouli 
+-e profession=Programming

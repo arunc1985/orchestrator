@@ -1,0 +1,6 @@
+FROM py-centos:bases
+RUN mkdir tests
+ADD /application /tests
+RUN ls tests
+RUN pip3 install -r tests/requirements
+CMD python3 tests/app.py

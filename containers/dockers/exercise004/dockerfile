@@ -1,0 +1,8 @@
+FROM centos:8
+RUN yum -y install python3
+RUN python3 --version
+RUN mkdir tests
+ADD /application /tests
+RUN ls tests
+RUN pip3 install -r tests/requirements
+CMD python3 tests/flask_app.py ${firstname} ${lastname}

@@ -1,0 +1,69 @@
+
+STEP 1 :: Download Mongo DB
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/dockers/exercise005
+
+$ docker pull mongo
+Using default tag: latest
+latest: Pulling from library/mongo
+7595c8c21622: Pull complete
+d13af8ca898f: Pull complete
+70799171ddba: Pull complete
+b6c12202c5ef: Pull complete
+f8718c532d71: Pull complete
+9035443a91bc: Pull complete
+93ca553166d9: Pull complete
+bc866a5c284c: Pull complete
+6faca936e7b3: Pull complete
+1dc2a767b81f: Pull complete
+56dee77e3145: Pull complete
+b967fd908de0: Pull complete
+7cd9ac470a46: Pull complete
+Digest: sha256:fe8d42050f2bab7100b729fc658c570e165e7fe6367e5af6836c4850ac35616c
+Status: Downloaded newer image for mongo:latest
+docker.io/library/mongo:latest
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/dockers/exercise005
+
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+mongo               latest              aa22d67221a0        2 weeks ago         493MB
+
+
+STEP 2 :: Run Mongo Container
+
+Create a directory /data and map to /data/db folder inside the container
+
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/dockers/exercise006
+$ pwd
+/c/Users/arunkuch/Documents/Programs/dockers/exercise006
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/dockers/exercise006
+
+Syntax :
+
+docker run -it -v <<dir-in-host>>:<<dir-in-container>> --name <<container-name>> -d <<image-name:tag-name>>
+# Giving -d while running , while run the container as a back-end process...
+# Giving -v while running will do the mounting between the host directory and the container directory
+
+$ docker run -it -v /c/Users/arunkuch/Documents/Programs/dockers/exercise006/data/:/data/db -p 27017:27017 --name mongodb -d mongo
+a638797d75a5ed0d9a69798071580e11e038c16731c440c1b6325bd6ea170ed0
+
+docker run -d -p 27017:27017 --name mongodb mongo
+
+Step 3 :: Check docker Logs
+docker logs mongodb
+
+Step 4 :: Create a base-image for Python Centos (Refer file dockerfile-bases) and build the image
+
+Syntax :: docker build -t <<image-name>>:<<tag-name>> -f <<docker-file-full-path>> .
+
+docker build -t py-centos:bases -f dockerfile-bases .
+
+Step 5 :: Create a image for python image which will use base image as py-centos:bases built in previous step
+
+Syntax :: docker build -t <<image-name>>:<<tag-name>> -f <<docker-file-full-path>> .
+
+docker build -t py-app-mongo:release-v1 -f dockerfile .
+
