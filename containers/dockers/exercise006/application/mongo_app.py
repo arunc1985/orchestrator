@@ -81,7 +81,8 @@ def driver():
                         "user_id":"007",
                         "user_name":"arunkuch",
                         "profession":"Programmer",
-                        "location":"Chennai"
+                        "location":"Chennai",
+                        "passion":"Coding"
                 }
               }
     MongoDBRunner.set_collection_records(collection_object=mongo_database_collection,records=members)
