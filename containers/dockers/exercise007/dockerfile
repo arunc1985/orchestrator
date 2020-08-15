@@ -4,5 +4,4 @@ RUN python3 --version
 RUN mkdir tests
 COPY /application /tests
 RUN pip3 install -r tests/requirements
-RUN ls /tests && cat tests/tests.py && cat tests/flaskapp.py
 CMD python3 tests/flaskapp.py ${firstname} ${lastname}
