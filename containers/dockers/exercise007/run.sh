@@ -11,5 +11,6 @@ docker run -d -v /root/orchestrator/containers/dockers/exercise007/application/:
 
 echo "Do a Curl and test data"
 curl -XGET http://localhost:5500/welcome/Arun/Chandramouli
+curl -XGET http://localhost:5500/welcome/Arun/Chandramouli
 
 
