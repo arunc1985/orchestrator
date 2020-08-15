@@ -1,4 +1,5 @@
 
+
 docker rmi -f volumes-tests-flask:v1
 
 docker build -t volumes-tests-flask:v1 -f dockerfile .
@@ -9,4 +10,5 @@ docker run -d -v /root/orchestrator/containers/dockers/exercise007/application/:
 
 
 curl -XGET http://localhost:5500/welcome/Arun/Chandramouli
+
 

@@ -44,18 +44,19 @@ docker logs flaskpy3-mongo
 docker ps 
 
 
-
+echo "Create a network named python-app-mongo "
 docker network disconnect python-app-mongo mongodb
 docker network disconnect python-app-mongo flaskpy3-mongo
 
 docker network rm python-app-mongo
 
+echo "Connect mongo and python app containers to network named python-app-mongo "
 
 docker network create python-app-mongo
 docker network connect python-app-mongo mongodb
 docker network connect python-app-mongo flaskpy3-mongo
 docker network ls
 
-
+echo "Do a Curl and test data"
 curl -XGET http://localhost:4500/hello_mongo/
 
