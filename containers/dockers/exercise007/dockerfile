@@ -4,4 +4,4 @@ RUN python3 --version
 RUN mkdir tests
 COPY /application /tests
 RUN pip3 install -r tests/requirements
-CMD python3 tests/flaskapp.py ${firstname} ${lastname}
+CMD python3 tests/app.py ${firstname} ${lastname}
