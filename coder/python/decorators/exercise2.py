@@ -72,78 +72,68 @@ def decorator_function_arguments(*deco_args,**deco_kwargs):
 
 '''
 
-# Type 1 : Decorator without arguments. This will take function and it's args as input, execute and return output
 
-def decorator_exec(function): # Wrapped Function
+'''
+    Write Decorators and apply to source-code
+    Apply multiple decorators to the same function and return final output
+    When a function has multiple decorators, it gets executed an in order.
+    For example let's say function funcA has 2 decorators
+    @deco1
+    @deco2
+    def funcA():
+        pass
+    -> deco2 gets called and executes first, followed by deco1.
+'''
+
+# Decorator to execute a function and return the result...
+def decorator_exec_final(function): # Wrapped Function
     def function_args(*args,**kwargs): # Args of the wrapped function
-        
-        if hasattr(function,"__name__"):
-            print("Function name {} ".format(function.__name__))
-        print("Args of the function are {} and {} ".format(args,kwargs))
-        
+
         # Before executing function - you can do any pre-steps
-        try:        
-            # Execute the function
-            #It's executed as self.function(*args,**kwargs)
-            #It means the function will get executed with all of its arguments.
-            result = function(*args,**kwargs)
-            # After executing function - you can do any post-steps
-            # Prepare final result
-            return result
-            print("Result of function {} is {} ".format(function.__name__,result))
-        except Exception as error:
-            raise error
+        # Execute the function
+        #It's executed as self.function(*args,**kwargs)
+        #It means the function will get executed with all of its arguments.
+
+        result = function(*args,**kwargs)       
+        # After executing function - you can do any post-steps
+        return result*50 # Multiply final result by 10 and return.
     return function_args
 
+# Decorator to execute a function and return the result...
+def decorator_exec_main(function): # Wrapped Function
+    def function_args(*args,**kwargs): # Args of the wrapped function
+
+        # Before executing function - you can do any pre-steps
+        # Execute the function
+        #It's executed as self.function(*args,**kwargs)
+        #It means the function will get executed with all of its arguments.
+
+        result = function(*args,**kwargs)       
+        # After executing function - you can do any post-steps
+
+        return result*10 # Multiply final result by 10 and return.
+    return function_args
+
+# A function to do simple multiplication - Apply multiple decorators to this function
 '''
-# Type 2 : Decorator with arguments. 
-This will take function and it's args as input, it will also take arguments to the decorator
-Then execute and return output
+    When this function is executed,
+        1. It first gets executed by decorator decorator_exec_main and result is taken.
+        2. The result from Step-1 is passed to decorator_exec_final, multiplied and returned.
+
+            -> So in this case function apply_tests is first executed by decorator_exec_main
+            -> Let's say you execute the function apply_tests , like this apply_tests(10,20)
+            -> When it first gets executed by decorator_exec_main, result becomes (10*20)*10 = 2000
+            -> This result 2000 is passed to the next decorator in order - decorator_exec_final
+               and the result becomes as , 2000 * 50 = 100000
+            -> So Final result is 100000
 '''
-def decorator_exec_with_args(*deco_args,**deco_kwargs): # Args of decorator
-    def decorator_wrapped_func(function): # Wrapped Function
-        def function_args(*func_args,**func_kwargs): # Args of the wrapped function
-
-            print("Args of the decorator are {} and {} ".format(deco_args,deco_kwargs))
-
-            if hasattr(function,"__name__"):
-                print("Function name {} ".format(function.__name__))
-            print("Args of the function are {} and {} ".format(func_args,func_kwargs))
-    
-            # Before executing function - you can do any pre-steps
-            # Execute the function
-            #It's executed as self.function(*func_args,**func_kwargs)
-            #It means the function will get executed with all of its arguments.
-
-            result = function(*func_args,**func_kwargs)
-            # After executing function - you can do any post-steps
-            # Prepare final result
-            return result
-
-        return function_args
-    return decorator_wrapped_func
-
-'''
-    Test the above decorators with examples. Apply decorator and get results.
-'''
-
-# Test Type 1 decorator
-@decorator_exec # This decorator is not having arguments
-def test_decorator_exec(x,y,*args,**kwargs):
-    maparray = []
-    for i in args:
-        maparray.append(i)
-    maparray.extend([x,y])
-    return maparray
-
-# Test Type 2 decorator
-@decorator_exec_with_args(5000,70000,range(-1,-10),mapper_range=range(1000,2000)) # This decorator is having arguments
-def test_decorator_exec_with_args(x,y,*args,**kwargs):
-    maparray = []
-    for i in args:
-        maparray.append(i)
-    maparray.extend([x,y])
-    return maparray
+@decorator_exec_final # Called 2nd
+@decorator_exec_main # Called 1st
+def apply_tests(x,y):
+    return x*y
 
 if __name__ == "__main__":
-    test_decorator_exec_with_args(100,200,10,20,30,40,50,60,70,80,90,300,name='Arun',profession='Programmer')
+
+    # Execute
+    final_result = apply_tests(10,20)
+    print("Final Result is - {} ".format(final_result))
