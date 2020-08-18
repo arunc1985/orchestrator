@@ -93,8 +93,7 @@ def decorator_exec_final(function): # Wrapped Function
         # Execute the function
         #It's executed as self.function(*args,**kwargs)
         #It means the function will get executed with all of its arguments.
-
-        result = function(*args,**kwargs)       
+        result = function(*args,**kwargs)   
         # After executing function - you can do any post-steps
         return result*50 # Multiply final result by 10 and return.
     return function_args
@@ -110,7 +109,6 @@ def decorator_exec_main(function): # Wrapped Function
 
         result = function(*args,**kwargs)       
         # After executing function - you can do any post-steps
-
         return result*10 # Multiply final result by 10 and return.
     return function_args
 
@@ -128,8 +126,13 @@ def decorator_exec_main(function): # Wrapped Function
             -> So Final result is 100000
 '''
 @decorator_exec_final # Called 2nd
-@decorator_exec_main # Called 1st
+@decorator_exec_main # Called 1st - Output as 2000
 def apply_tests(x,y):
+    '''
+        Order of Execution:
+            1. Function apply_tests will be executed by deco decorator_exec_main
+            2. Deco Function decorator_exec_main will be exec by deco decorator_exec_final
+    '''
     return x*y
 
 if __name__ == "__main__":
