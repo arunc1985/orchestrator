@@ -1,6 +1,14 @@
 # From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
 
+# Build a Docker Image with name as python-app and tag as exercise001
 docker build -t python-app:exercise001 -f dockerfile .
+
+# Run the Docker-Image
+docker run --name <<container-name>> <<image-name:tag-name>>
+  OR
+docker run --name <<container-name>> <<image-id>>
+
 docker run --name container-exercise001 python-app:exercise001
 
+# Run the Docker-Image and delete once job done
 docker run --rm --name container-exercise001 python-app:exercise001
