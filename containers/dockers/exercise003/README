@@ -3,23 +3,22 @@
 # Build the Image
 docker build -t python-app:exerciseC --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final -f dockerfile .
 
-# docker build -t python-app:exerciseC # -t is for adding a TAG.
-# --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final
-#  -f dockerfile .
 
 # Run the Image as a Container
-docker run --name python-app-exerciseC -e firstname=Arun -e lastname=Chandramouli -e profession=Programming python-app:exerciseC
 
-docker run --name Vivek-Rishav-Ajay-Guru -e firstname=Arun -e lastname=Chandramouli -e profession=Programming python-app:exerciseC
+# Remove Container once execution done..
 
-# Remove Container once exec done..
-docker run --rm --name Vivek-Rishav-Ajay-Guru -e firstname=Arun -e lastname=Chandramouli -e profession=Programming python-app:exerciseC
+# -e denotes the environment variables
+docker run --rm --name arun-tests \
+	-e firstname=Arun \
+	-e lastname=Chandramouli \
+	-e profession=Programmer \
+	python-app:exerciseC
 
 
-docker run --name python-app-exerciseC
-# --name python-app-exerciseC -> Name of the Container
-# python-app:exerciseC -> <<Image name >> : <<Tag>>
-# Passing Environment Variables...
--e firstname=Arun 
--e lastname=Chandramouli 
--e profession=Programming
+docker run --rm --name arun-tests \
+	-e firstname=Ayush \
+	-e lastname=Shah \
+	-e profession=Programmer \
+	python-app:exerciseC
+
