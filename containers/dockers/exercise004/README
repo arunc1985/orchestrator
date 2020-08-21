@@ -5,10 +5,22 @@
 docker build -t python-flask-app:hello-world-12AUG2020 -f dockerfile .
 
 # Run the image as Container
-docker run --name flaskpy3 -e FLASKHOSTNAME='0.0.0.0' -e FLASKPORT=4500 -e CODER='By Arun!' -p 4500:4500 python-flask-app:hello-world-12AUG2020
+docker run --name flaskpy3 \
+	-e FLASKHOSTNAME='0.0.0.0' \
+	-e FLASKPORT=4500 \
+	-e CODER='By Arun!' \
+	-p 4500:4500 \
+	python-flask-app:hello-world-12AUG2020
 
 # Run the image as Container as Daemon Process using -d ...
-docker run -d --name flaskpy3 -e FLASKHOSTNAME='0.0.0.0' -e FLASKPORT=4500 -e CODER='By Arun!' -p 4500:4500 python-flask-app:hello-world-12AUG2020
+
+docker run -d \
+	--name flaskpy3 \
+	-e FLASKHOSTNAME='0.0.0.0' \
+	-e FLASKPORT=4500 \
+	-e CODER='By Arun!' \
+	-p 4500:4500 \
+	python-flask-app:hello-world-12AUG2020
 
 
 # Run CURL and get output
