@@ -19,6 +19,8 @@ RUN mkdir ${FINAL_DIR_NAME}
 # Copy from the host machine to the final dir
 COPY ./application ./${FINAL_DIR_NAME}
 
+RUN pwd && ls
+
 # Install all the required packages
 RUN python3 -m pip install -r ${REQ_PIP_FILE}
 
