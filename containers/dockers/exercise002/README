@@ -1,7 +1,12 @@
 # From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
 
 # Build the Image
-docker build -t python-app:exerciseB --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final -f dockerfile .
+
+docker build -t python-app:exerciseB \
+	--build-arg REQ_PIP_FILE=./finally/requirements \
+	--build-arg FINAL_DIR_NAME=finally \
+	--build-arg BUILT_BY=ayush-niteesh-selva \
+	-f dockerfile .
 
 # Run the Image as a Container
 docker run --name python-app-exerciseB python-app:exerciseB

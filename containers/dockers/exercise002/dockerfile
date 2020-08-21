@@ -7,6 +7,10 @@ FROM centos:8
 ARG REQ_PIP_FILE
 # Final Dir name 
 ARG FINAL_DIR_NAME
+# Image built by ?
+ARG BUILT_BY
+
+RUN echo "Image is built by ${BUILT_BY}"
 
 # All the commands below will be executed on the base os ..i.e. in this case centos
 
@@ -21,7 +25,7 @@ COPY ./application ./${FINAL_DIR_NAME}
 
 RUN pwd && ls
 
-# Install all the required packages
+# Install all the required packages using python pip
 RUN python3 -m pip install -r ${REQ_PIP_FILE}
 
 # This CMD command will not get triggered during image build,while running the container it will run the python program
