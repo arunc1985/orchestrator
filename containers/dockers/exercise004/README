@@ -2,7 +2,7 @@
 
 
 # Build the Image
-docker build -t python-flask-app:hello-world-12AUG2020 -f dockerfile .
+docker build -t python-flask-app:hello-world -f dockerfile .
 
 # Run the image as Container
 docker run --name flaskpy3 \
@@ -10,18 +10,24 @@ docker run --name flaskpy3 \
 	-e FLASKPORT=4500 \
 	-e CODER='By Arun!' \
 	-p 4500:4500 \
-	python-flask-app:hello-world-12AUG2020
+	python-flask-app:hello-world
 
 # Run the image as Container as Daemon Process using -d ...
 
-docker run -d \
+docker run -d --rm \
 	--name flaskpy3 \
 	-e FLASKHOSTNAME='0.0.0.0' \
 	-e FLASKPORT=4500 \
 	-e CODER='By Arun!' \
 	-p 4500:4500 \
-	python-flask-app:hello-world-12AUG2020
+	python-flask-app:hello-world
 
 
 # Run CURL and get output
 curl -XGET http://localhost:4500/welcome/Arun/Chandramouli
+
+# Execute command on a running container
+Example the below command checks for python version on a container by id 3585ec0ea68c
+
+docker exec -it 3585ec0ea68c python3 -V
+
