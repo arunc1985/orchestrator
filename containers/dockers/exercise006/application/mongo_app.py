@@ -21,6 +21,12 @@ class MongoDBRunner:
             Create an instance of MongoClient and return
             :param mongo_host: Hostname where mongo service runs
             :param mongo_port : Port for mongo service
+            Instead of mongodb://localhost:27017/ , I give
+            mongodb://mongodb:27017/ -> Where mongodb is
+            the name of the running mongo container.
+            When given this way, the running python container
+            will be able to establish a connection with the
+            running mongo container and do all mongo operations..
         '''
         print("Create an instance of MongoClient and return")
         return pymongo.MongoClient(mongo_collection_string)

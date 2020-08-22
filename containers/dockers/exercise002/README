@@ -9,4 +9,4 @@ docker build -t python-app:exerciseB \
 	-f dockerfile .
 
 # Run the Image as a Container
-docker run --name python-app-exerciseB python-app:exerciseB
+docker run --rm --name python-app-exerciseB python-app:exerciseB

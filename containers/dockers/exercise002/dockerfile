@@ -29,4 +29,4 @@ RUN pwd && ls
 RUN python3 -m pip install -r ${REQ_PIP_FILE}
 
 # This CMD command will not get triggered during image build,while running the container it will run the python program
-CMD python3 final/app.py
+CMD python3 finally/app.py

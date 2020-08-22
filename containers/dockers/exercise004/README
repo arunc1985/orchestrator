@@ -29,5 +29,5 @@ curl -XGET http://localhost:4500/welcome/Arun/Chandramouli
 # Execute command on a running container
 Example the below command checks for python version on a container by id 3585ec0ea68c
 
-docker exec -it 3585ec0ea68c python3 -V
+docker exec -it flaskpy3 python3 -V
 

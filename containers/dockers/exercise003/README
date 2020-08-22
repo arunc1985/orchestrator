@@ -4,9 +4,22 @@
 docker build -t python-app:exerciseC --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final -f dockerfile .
 
 
+# Tag name will be latest by default ~ Not Recommended...
+docker build -t python-app --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final -f dockerfile .
+
+
 # Run the Image as a Container
 
 # Remove Container once execution done..
+
+
+docker run --name arun-tests \
+	-e firstname=Arun \
+	-e lastname=Chandramouli \
+	-e profession=Programmer \
+	python-app:exerciseC
+
+
 
 # -e denotes the environment variables
 docker run --rm --name arun-tests \
