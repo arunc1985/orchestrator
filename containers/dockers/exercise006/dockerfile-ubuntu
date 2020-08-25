@@ -1,0 +1,9 @@
+FROM ubuntu
+RUN apt-get update -y && apt-get install -y python3 && apt-get install -y python3-pip
+RUN mkdir final
+COPY ./application ./final
+RUN pip3 install -r final/requirements
+RUN cat final/flask_app.py
+# This CMD command will not get triggered during image build,while running the container it will run the python program
+CMD python3 final/flask_app.py
+ 

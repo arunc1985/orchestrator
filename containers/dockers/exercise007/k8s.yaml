@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-python-service
+spec:
+  selector:
+    app: hello-python
+  ports:
+  - protocol: "TCP"
+    port: 6000
+    targetPort: 5000
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-python
+spec:
+  selector:
+    matchLabels:
+      app: hello-python
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hello-python
+    spec:
+      containers:
+      - name: hello-python
+        image: docker.io/jupiter19/jupiter19:testing-py2
+        imagePullPolicy: Always
+        env:
+        - name: CODER
+          value: "Kubernetes"
+        - name: FLASKHOSTNAME
+          value: "0.0.0.0"
+        - name: FLASKPORT
+          value: "5000"
+        ports:
+        - containerPort: 5000

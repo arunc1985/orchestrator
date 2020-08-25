@@ -16,7 +16,7 @@ class MongoDBRunner:
     '''
 
     @staticmethod
-    def get_mongo_client(mongo_collection_string="mongodb://mongodb:27017/"):
+    def get_mongo_client(mongo_collection_string="mongodb://localhost:27017/"):
         '''
             Create an instance of MongoClient and return
             :param mongo_host: Hostname where mongo service runs

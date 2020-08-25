@@ -16,3 +16,18 @@ docker run -d -v /root/orchestrator/containers/dockers/exercise007/application/:
 
 curl -XGET http://localhost:5500/welcome/Arun/Chandramouli
 
+
+
+
+kubectl delete deployment hello-python && kubectl delete services hello-python-service
+docker rmi -f hello-python:testing
+
+docker build -t hello-python:testing -f dockerfile .
+docker tag hello-python:testing jupiter19/jupiter19:testing-py2
+docker push jupiter19/jupiter19:testing-py2
+
+kubectl apply -f k8s.yaml
+kubectl get pods
+
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli

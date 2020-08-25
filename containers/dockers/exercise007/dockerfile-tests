@@ -5,4 +5,4 @@ RUN mkdir tests
 COPY /application /tests
 RUN pip3 install -r tests/requirements
 EXPOSE 5000
-CMD python3 tests/app.py ${firstname} ${lastname}
+CMD python3 tests/tests-app.py
