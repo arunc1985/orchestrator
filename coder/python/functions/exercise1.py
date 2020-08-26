@@ -73,6 +73,26 @@ def func_tests(x,y):
     '''
     return x*y
 
+#Function with any n.o. Arguments
+def func_tests_args(*args):
+    '''
+        Example: Execute as func_tests_args(10,20,25,30)
+    '''
+    x=0
+    for i in args:
+        x+=i
+    return x
+
+
+#Function with Keyword Arguments
+def func_tests_kwargs(**kwargs):
+    '''
+        Example: Execute as func_tests_kwargs(x=10,y=20,z=30)
+    '''
+    for key,value in kwargs.items():
+        print("Key = {} and Value = {} ".format(key,value))
+
+
 # Nested function
 def func_tests_nested(x,y):
     '''
