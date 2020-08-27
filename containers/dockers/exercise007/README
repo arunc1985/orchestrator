@@ -25,6 +25,7 @@ docker rmi -f python-mongo:testing
 # Build the python flask app image, tag it and push the image to docker hub registry
 
 docker build -t python-mongo:testing -f dockerfile-ubuntu .
+
 docker tag python-mongo:testing jupiter19/jupiter19:testing-pymongo
 docker push jupiter19/jupiter19:testing-pymongo
 
