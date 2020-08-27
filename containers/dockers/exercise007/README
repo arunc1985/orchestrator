@@ -11,7 +11,7 @@ Pre-Requisite:
 	1. Docker installed and running
 	2. K8s installed and running
 	3. kubectl enabled to run
-	
+
 Note : In this example we will run 1 Container inside of the POD.
 
 # Delete the deployment if in case if already exists
@@ -34,13 +34,52 @@ kubectl apply -f k8s.yaml
 
 # Check the status of the PODs
 kubectl describe pods
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+# It must return some output as follows
+
+$ kubectl get deployments
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+python-mongo   2/2     2            2           142m
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
 kubectl get pods
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+# It must return some output as follows
+$ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+python-mongo-d9f48d897-djvqz   1/1     Running   0          141m
+python-mongo-d9f48d897-wsvzl   1/1     Running   0          141m
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 
 # Run CURL Command to test the application running inside of K8s
 curl -XGET http://localhost:6000/
 curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
 
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+# The above CURL commands must return some output as follows
+
+$ curl -XGET http://localhost:6000/
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+$ curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 
 # Execute the container inside K8s POD in an interactive mode..
-kubectl exec -it python-mongo-c5687b876-4zbnd -c python-mongo-app bash
+# To run command on a container inside a POD.
+
+Syntax :
+	kubectl exec -it <<POD-NAME>> -c <<CONTAINER-NAME>> <<COMMAND>>
+
+Example :
+	kubectl exec -it python-mongo-c5687b876-4zbnd -c python-mongo-app bash
