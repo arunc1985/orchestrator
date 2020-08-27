@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-python-service
+  name: python-mongo-service
 spec:
   selector:
-    app: hello-python
+    app: python-mongo-pod
   ports:
   - protocol: "TCP"
     port: 6000
@@ -15,20 +15,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-python
+  name: python-mongo
+  labels:
+    app: python-mongo-pod
 spec:
   selector:
     matchLabels:
-      app: hello-python
+      app: python-mongo-pod
   replicas: 2
   template:
     metadata:
       labels:
-        app: hello-python
+        app: python-mongo-pod
     spec:
       containers:
-      - name: hello-python
-        image: docker.io/jupiter19/jupiter19:testing-py2
+      - name: python-mongo-app
+        image: docker.io/jupiter19/jupiter19:testing-pymongo
         imagePullPolicy: Always
         env:
         - name: CODER

@@ -1,8 +1,0 @@
-FROM centos:8
-RUN yum -y install python3
-RUN python3 --version
-RUN mkdir tests
-COPY /application /tests
-RUN pip3 install -r tests/requirements
-EXPOSE 5000
-CMD python3 tests/app.py ${firstname} ${lastname}

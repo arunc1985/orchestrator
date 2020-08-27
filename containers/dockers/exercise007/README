@@ -1,33 +1,46 @@
 
-docker rmi -f volumes-tests-flask:v1
+Aim of the exercise: Host a simple flask app via K8s. 
 
-docker build -t volumes-tests-flask:v1 -f dockerfile .
+1. Create a simple flask app
+2. Build a Docker image
+3. Tag & Push the image to docker hub
+4. Create K8s deployment yaml file for pulling and running the flask app image
+5. Access the application via K8s
 
-docker login --username=jupiter19
+Pre-Requisite:
+	1. Docker installed and running
+	2. K8s installed and running
+	3. kubectl enabled to run
+	
+Note : In this example we will run 1 Container inside of the POD.
 
-docker tag 9f5f95d29265 jupiter19/jupiter19:volumes-tests-flask:v1
-docker push jupiter19/jupiter19
+# Delete the deployment if in case if already exists
+
+kubectl delete deployment python-mongo && kubectl delete services python-mongo-service
+
+# Delete the image if it already exists
+docker rmi -f python-mongo:testing
 
 
-docker rm -f flaskpy3
+# Build the python flask app image, tag it and push the image to docker hub registry
 
-docker run -d -v /root/orchestrator/containers/dockers/exercise007/application/:/tests --name flaskpy3 -e FLASKHOSTNAME='0.0.0.0' -e FLASKPORT=5500 -e CODER='By Arun!' -p 5500:5500 volumes-tests-flask:v1
-
-
-curl -XGET http://localhost:5500/welcome/Arun/Chandramouli
-
+docker build -t python-mongo:testing -f dockerfile-ubuntu .
+docker tag python-mongo:testing jupiter19/jupiter19:testing-pymongo
+docker push jupiter19/jupiter19:testing-pymongo
 
 
-
-kubectl delete deployment hello-python && kubectl delete services hello-python-service
-docker rmi -f hello-python:testing
-
-docker build -t hello-python:testing -f dockerfile .
-docker tag hello-python:testing jupiter19/jupiter19:testing-py2
-docker push jupiter19/jupiter19:testing-py2
-
+# Create a deployment in K8s
 kubectl apply -f k8s.yaml
+
+# Check the status of the PODs
+kubectl describe pods
 kubectl get pods
 
+
+# Run CURL Command to test the application running inside of K8s
 curl -XGET http://localhost:6000/
 curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+
+# Execute the container inside K8s POD in an interactive mode..
+kubectl exec -it python-mongo-c5687b876-4zbnd -c python-mongo-app bash
