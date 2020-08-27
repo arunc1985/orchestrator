@@ -32,8 +32,8 @@ docker push jupiter19/jupiter19:testing-pymongo
 # Create a deployment in K8s
 kubectl apply -f k8s.yaml
 
-# Check the status of the PODs
-kubectl describe pods
+# Check the status of the PODs and Deployments
+$ kubectl get deployments
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 # It must return some output as follows
@@ -55,6 +55,9 @@ python-mongo-d9f48d897-wsvzl   1/1     Running   0          141m
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+
+To describe and list all pods run command : kubectl describe pods
+To describe all data about a single pod run command : kubectl describe pod <<POD-NAME>>
 
 # Run CURL Command to test the application running inside of K8s
 curl -XGET http://localhost:6000/
