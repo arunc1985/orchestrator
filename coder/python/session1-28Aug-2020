@@ -1,0 +1,89 @@
+
+# Difference between Lists functions append and insert
+x = [1,2,3,4,5]
+x.append(100)
+x.extend([200,500])
+print(x)
+
+# Define a Tuple as (..... )
+x1 = (1,2,3,4,5,) # x is an iterable
+# Iterable means i can iterate on that object
+# Iterate means i can run a for loop
+
+y = [1,2,3,4,5]
+# Iterate on an iterable
+for i in x1:
+  print(i)
+print(type(x1))
+
+# Iterate on an iterable
+for i in y :
+  print(i)
+
+# Mutable and Immutable data-types
+# Mutable - Can be modified after its compile
+# Immutable - Cannot be modified once its created..
+
+'''
+  For mutable objects the mem location remains
+  the same after its modified..
+  Refer example as below where i print the id of an object 
+  before and after its modification ...
+'''
+# Define a list 
+x_list = [100,200,"Arun",True,500]
+print(id(x_list))# id gives memory location of an object in heap mem
+# Since list is mutable - we can modify it
+x_list.append(1000)
+print(id(x_list))
+
+# Define a tuple - its an immutable object
+x_tuple = (10,20,30,40,50,)
+#print(dir(x_tuple))
+
+# Define a Dict which is a mutable object
+# Dict can be modified once its created...
+x_dict = {1:10,2:20,3:30,4:40,5:50}
+#print(dir(x_dict)) # Do this after class
+print("Keys are {} ".format(x_dict.keys()))
+print("Values are {} ".format(x_dict.values()))
+print("Items are {} ".format(x_dict.items()))
+# Dict is an iterable - So i can iterate on it
+for key,value in x_dict.items():
+  print("Key is = {} and Value is = {} ".format(key,value))
+
+# Print the id of x_dict before modification
+print("id of x_dict before modification - {} ".format(id(x_dict)))
+#Since dict is mutable - lets update it
+#Add a new value to the existing dict
+x_dict[6]=60
+x_dict[7]=70
+# Print after modification
+print(x_dict)
+print("id of x_dict after modification - {} ".format(id(x_dict)))
+# Update method of dict
+x_dict.update({8:80})
+# If a key is already existing it wont make new entry
+# It will overwrite the value 
+
+x_dict.update({2:80})
+print(x_dict)
+# Print after modification
+print("id of x_dict after modification - {} ".format(id(x_dict)))
+
+# Zip function to iterate on 2 iterables at the same time
+# Lets say i have 2 lists and i want to iterate and print
+x_list = [1,2,3,4,5] # Index of list starts with 0
+y_list = [10,20,30,40,50]
+for i,j in zip(x_list,y_list):
+  print("i = {} , j = {} and i+j = {} ".format(i,j,i+j))
+
+# Lets say 2 lists have diff count of elements
+# x_list has 4 elements, y_list has 5 elements
+'''
+When i do a zip of x_list and y_list it will iterate only to the least number...which means 4...
+'''
+x_list = [1,2,3,4] # Index of list starts with 0
+y_list = [10,20,30,40,50]
+for i,j in zip(x_list,y_list):
+  print("i = {} , j = {} and i+j = {} ".format(i,j,i+j))
