@@ -1,5 +1,5 @@
-FROM centos:8
-RUN yum -y install python3
+FROM ubuntu
+RUN apt-get update -y && apt-get install -y python3 && apt-get install -y python3-pip
 RUN mkdir final
 COPY ./application ./final
 RUN pip3 install -r final/requirements

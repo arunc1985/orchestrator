@@ -41,3 +41,9 @@ spec:
           value: "5000"
         ports:
         - containerPort: 5000
+
+      - name: mongodb
+        image: docker.io/jupiter19/jupiter19:db-pymongo
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 27017        
