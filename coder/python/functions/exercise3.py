@@ -4,7 +4,9 @@
         they dont have def keyword.
     
     As you see in the statement below;
-        x = lambda arga:arga**2
+        
+        x = lambda arga:arga*2
+
         Here x is a variable.
         lambda is the built-in keyword to create functions at run-time
         arga is the parameter to the function
@@ -12,15 +14,16 @@
             It takes an argument calculates multiplies by 2
             and returns the result. 
 
-        In this statement x = lambda arga:arga**2
+        In this statement x = lambda arga:arga*2
         Please note the symbol ":" , 
             -> To the left of ":" is the function definition
             -> To the right of ":" is the body of the function
+
         The above statement is as good as writing a full blown function with def keyword
             
             * * * * * * * * * * 
             def funcA(arga):
-                return arg*2
+                return arga*2
             * * * * * * * * * * 
             
         So in lambda - the functions are written as a one-liner, but it does the same job as a
@@ -120,7 +123,7 @@ print(result(arrayA=[1,2,3,4,5],element_search=1)) # Returns True
 # Define a lambda with condition as element divisible by 10
 lambda_stmt = lambda array_element:array_element%10==0
 # Filter only the elements that satisfy the above condition
-result = filter(lambda_stmt,range(100,200))
+result = filter(lambda_stmt,range(100,200))# range(100,200) -> 100,101,102...199
 
 '''
 # For the given range of values range(100,200), the filter function calls lambda and applies condition
@@ -193,6 +196,8 @@ print(list(result))
             if elementA > 0 and element>0:
                 result.append(elementA*elementB)
     return result
+    
+    [elementA*elementB for elementA in arrayA for elementB in arrayB if elementA > 0 and element>0]
 
     This can be converted using list comprehension as follows
     result = [elementA*elementB for elementA in arrayA for elementB in arrayB if elementA > 0 and element>0]
@@ -256,10 +261,10 @@ print(result(arrayA=[10,15,20,25,30,35,40,45,50,100,200,500],element_divide_by=1
 # Write lambda statement to acheive above mentioned function..
 
 result = lambda arrayA,arrayB,element_check:\
-         [elementA*elementB for elementA in arrayA \
-         for elementB in arrayB\
+         [elementA*elementB \
+         for elementA in arrayA \
+         for elementB in arrayB \
          if elementA>element_check and elementB>element_check]
-
 
 print("\n")
 print("Example 10 Output :: ")

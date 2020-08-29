@@ -1,13 +1,14 @@
 '''
     Define all the Abstract classes as part of this module.
-    An Abstract class contains the skeleton alone and not the real implementation.
-    An Abstract class contains the sigantures inside the abstract methods.
-    It gives clarity to develop and write source-code.
-    An Abstract class can contain many abstract methods.
-    When a sub-class inherits the Abstract class all the methods that are maked as abstractmethod
-    must be implemented in the sub-class.
-    If a Sub-Class fails to implement any of the abstract method, then it's not possible
-    to create an instance of the sub-class.
+
+    -> An Abstract class contains the skeleton alone and not the real implementation.
+    -> An Abstract class contains the sigantures inside the abstract methods.
+    -> It gives clarity to develop and write source-code.
+    -> An Abstract class can contain many abstract methods.
+    -> When a sub-class inherits the Abstract class all the methods that are maked as abstractmethod
+        must be implemented in the sub-class.
+    -> If a Sub-Class fails to implement any of the abstract method, then it's not possible
+        to create an instance of the sub-class.
 '''
 
 # import the abc module

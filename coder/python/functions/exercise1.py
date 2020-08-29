@@ -77,6 +77,7 @@ def func_tests(x,y):
 def func_tests_args(*args):
     '''
         Example: Execute as func_tests_args(10,20,25,30)
+        func_tests_args()
     '''
     x=0
     for i in args:
@@ -104,6 +105,23 @@ def func_tests_nested(x,y):
      # Inner function is returned, it will be called and executed by outer function func_tests_nested ...
     return func_tests_level1()*2 # Result is further multiplied by 2 and returned...
 
+
+
+# Write a function and pass many arguments
+def print_name(*names):
+  '''
+    Print the name and location
+    *names is known as tuple arguments in python
+    What are tuple args?
+    It means args that are seperated by a "," .
+    You can pass any n.o. arguments to the function
+    Tuple args are diff from positional args.
+    If you dont pass any vals to these args, it will not
+    raise any error...  
+  '''
+  for each_name in names:
+    print("My name is {} ".format(each_name))
+
+
 if __name__ == "__main__":
-    result = func_tests_nested(10,20)
-    print(result)
+  print_name("Arun","Ajay","Kumar","Suganya","Chandramouli")
