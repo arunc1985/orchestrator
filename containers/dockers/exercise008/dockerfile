@@ -1,5 +1,5 @@
-# Use base image py-centos:bases
-FROM py-centos:bases
+FROM centos:8
+RUN yum -y install python3
 RUN mkdir tests
 COPY ./application /tests
 RUN ls tests
