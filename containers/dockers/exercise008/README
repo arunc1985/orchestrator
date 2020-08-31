@@ -29,6 +29,10 @@ docker build -t python-mongo:testing -f dockerfile .
 docker tag python-mongo:testing jupiter19/jupiter19:testing-pymongo
 docker push jupiter19/jupiter19:testing-pymongo
 
+# Pull the mongo:latest image
+docker pull mongo:latest
+
+
 # Deploy the image using declarative method - Refer file k8s.yaml
 kubectl apply -f k8s.yaml
 
@@ -39,9 +43,10 @@ kubectl get deployments
 kubectl describe pods
 kubectl get pods
 
-
+# Run these CURL commands..
 
 curl -XGET http://localhost:6000/
+
 curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
 curl -XGET http://localhost:6000/hello_mongo/
 
