@@ -14,6 +14,14 @@ Pre-Requisite:
 
 Note : In this example we will run 1 Container inside of the POD.
 
+
+# Clone the Code..
+
+git clone https://github.com/arunc1985/orchestrator.git
+git checkout dockers
+cd containers/dockers/exercise007/
+
+
 # Delete the deployment if in case if already exists
 
 kubectl delete deployment python-mongo && kubectl delete services python-mongo-service
