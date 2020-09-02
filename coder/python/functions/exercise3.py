@@ -270,3 +270,77 @@ print("Example 10 Output :: ")
 print(result(arrayA=[10,20,30,40,50],arrayB=[60,70,80,90,100],element_check=0))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 11
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Example 11 ::  Simple lambda to take an iterable sort and return the sorted new array
+
+# Lambda function that taken an argument and return the same argument - no other action.
+lambda_function = lambda item_in_list:item_in_list
+print("\n")
+print("Example 11 Output :: ")
+# Array to be sorted
+array_to_sort = [10,1,20,30,3,4,5,6,9,11,-1,-10,20]
+sorted_array = sorted(array_to_sort)
+print(sorted_array)
+# Sort array using key as lambda function
+sorted_array = sorted(array_to_sort,key=lambda_function)
+print(sorted_array)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 12
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Example 12 ::  Simple lambda to take an iterable sort and return the sorted new array
+
+# Lambda function that taken an argument and multiply by 2 and return the result.
+lambda_function = lambda item_in_list:item_in_list*2
+print("\n")
+print("Example 12 Output :: ")
+# Array to be sorted
+array_to_sort = [10,1,20,-30,3,4,5,6,9,11,-1,-10,20]
+sorted_array = sorted(array_to_sort)
+print(sorted_array)
+# Sort array using key as lambda function
+sorted_array = sorted(array_to_sort,key=lambda_function)
+print(sorted_array)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 13
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Example 13 ::  Simple lambda to take an iterable sort and return the sorted new array
+
+# Lambda function that taken an argument and form the square of an argument and return the result.
+lambda_function = lambda item_in_list:item_in_list ** 2
+print("\n")
+print("Example 13 Output :: ")
+# Array to be sorted
+array_to_sort = [10,1,20,-30,3,4,5,6,9,11,-1,-10,20]
+sorted_array = sorted(array_to_sort)
+print(sorted_array)
+
+'''
+    Sort array using key as lambda function. In the below example even though we have -ve values such as -30, -1, -10 
+    in the array [10,1,20,-30,3,4,5,6,9,11,-1,-10,20] , the final output would look as follows;
+    [1, -1, 3, 4, 5, 6, 9, 10, -10, 11, 20, 20, -30]
+    
+    This is because in the lambda function  lambda item_in_list:item_in_list ** 2,
+    We had taken the square of each number as item_in_list ** 2.
+    Hence negative numbers like -10,-1,-30 becomes positive.
+    Hence if we can see the array as below ;
+    [1, -1, 3, 4, 5, 6, 9, 10, -10, 11, 20, 20, -30]
+    It's computed as good as [1, 1, 9, 16, 25, 36, 81, 100, 100, 121, 400, 400, 900]
+
+    * But the final result will be the original entries based on computation.
+    Final Output :: [1, -1, 3, 4, 5, 6, 9, 10, -10, 11, 20, 20, -30]
+
+'''
+sorted_array = sorted(array_to_sort,key=lambda_function)
+print(sorted_array)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
