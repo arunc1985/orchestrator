@@ -280,7 +280,7 @@ print(result(arrayA=[10,20,30,40,50],arrayB=[60,70,80,90,100],element_check=0))
 
 # Example 11 ::  Simple lambda to take an iterable sort and return the sorted new array
 
-# Lambda function that taken an argument and return the same argument - no other action.
+# Lambda function that takes an argument and return the same argument - no other action.
 lambda_function = lambda item_in_list:item_in_list
 print("\n")
 print("Example 11 Output :: ")
@@ -319,6 +319,8 @@ print(sorted_array)
 # Example 13 ::  Simple lambda to take an iterable sort and return the sorted new array
 
 # Lambda function that taken an argument and form the square of an argument and return the result.
+# The original array would get sorted based on the squared values.
+
 lambda_function = lambda item_in_list:item_in_list ** 2
 print("\n")
 print("Example 13 Output :: ")
@@ -377,24 +379,33 @@ print("Sort dictionary by keys - {} ".format(result))
 # Example 15 ::  Simple lambda along with reduce to take a array, find sum of elements in the array
 
 # Define an Iterable
-iterable = range(10,20)
+iterable = range(10,20) #[10,11,12,...19]
 
 '''
     How reduce works for finding the sum of iterables... iterable = range(10,20)
     reduce takes 2 arguments, 1. Function and 2. Iterable.
     In this case the iterable is range(10,20) expanded as follows;
     [10,11,12,13,14,15,16,17,18,19]
+    [21] [12,13,14,15,16,17,18,19]
+    [33] [13,14,15,16,17,18,19]
+    ......
+
     As you see below the reduce function is defined as below;
     functools.reduce(lambda x,y:x+y, iterable)
 
-    It takes 1st arg as lambda function - lambda x,y:x+y and 2nd arg as iterable - range(10,20)
-    reduce works on the principle of folding, it takes 2 numbers at a time, calculates the result and
-    accumulates result with the 3rd..and so on so-forth untill all the numbers are exhausted.
+    It takes 1st arg as lambda function - lambda x,y:x+y and 
+             2nd arg as iterable - range(10,20)
+
+    reduce works on the principle of folding, it takes 2 numbers at a time, 
+    calculates the result and
+    accumulates result with the 3rd..
+    and so on so-forth untill all the numbers are exhausted.
 
     When the following command is run - functools.reduce(lambda x,y:x+y, iterable)
     What happens is as follows;
 
-        1. reduce function at first takes 10,11 and finds the result as 21. -> 10,11 are the first 2 elements.
+        1. reduce function at first takes 10,11 
+           and finds the result as 21. -> 10,11 are the first 2 elements.
         2. 21 + 12 = 33 -> Next element is 12
         3. 33 + 13 = 46 -> Next element is 13
         4. 46 + 14 = 60 -> Next element is 14
@@ -453,4 +464,104 @@ print("\n")
 print("Example 16 Output :: ")
 print(result)
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+                                        # Example 17
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Using lambda functions with dictionary comprehension for filtering elements in an array
+# Dictionary comprehension are short-hand expressions for full blown dictionary...
+
+'''
+    Lets say we have below for loop for iterating on a dictionary
+    result = {}
+    for key,val in dictionary.items():
+        if key>10 and val>10:
+            result[key]=value
+    return result
+
+    The for loop can be replaced as follows;
+    result = {key:val for key,val in dictionary.items() if key>10 and val>10}
+    
+'''
+# Simple lambda with dictionary comprehension to filter the values based on if condition...
+result = lambda dictionary,val_check:{key:val for key,val in dictionary.items() if val>val_check and key>val_check}
+
+print("\n")
+print("Example 17 Output :: ")
+
+# Define a dictionary
+dictionary = {3:9,5:25,8:64,10:100,15:150,20:200,25:200}
+print(result(dictionary=dictionary,val_check=5))
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 18
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Using lambda functions with generator expressions.
+
+'''
+    Lets say we have below for loop for iterating on a dictionary
+    result = {}
+    for key,val in dictionary.items():
+        if key>10 and val>10:
+            result[key]=value
+    return result
+
+    The for loop can be replaced into generator expression as follows;
+    result = (key for key,val in dictionary.items() if val>val_check and key>val_check)
+    
+    A Generator is an object which has to be expanded and there are 2 ways to expand.
+
+    1. Using lists
+    2. Using StopIteration
+
+    Let's say I have a simple generator object gen_x.
+
+    To know the values inside gen_x :
+
+        1. Using Lists
+
+            for each_val in gen_x:
+                print(each_val)
+
+        2. Using StopIteration
+
+            try:
+                while True:
+                    print(gen_x.__next__())
+            except StopIteration:
+                print("All values exhausted from Generator...")
+
+        Note:: Once a generator value is obtained it will be exhausted from memory. It will not be available.
+
+'''
+
+# Define a function to handle generator expression.
+
+def generate_data(generator_expression):
+    '''
+        :param generator_expression : A Generator object to be iterated.
+    '''
+    try:
+        while True:
+            print(generator_expression.__next__())
+    except StopIteration:
+        print("All values exhausted from Generator...")
+        return True
+
+# Simple lambda with generator expression to filter the values based on if condition 
+result = lambda dictionary,val_check:(key for key,val in dictionary.items() \
+                                      if val>val_check and key>val_check)
+
+print("\n")
+print("Example 18 Output :: ")
+
+# Define a dictionary
+dictionary = {3:9,5:25,8:64,10:100,15:150,20:200,25:200}
+# Generate values from the generator expression . This call results in generator object..result(dictionary=dictionary,val_check=10)
+generate_data(result(dictionary=dictionary,val_check=10))
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
