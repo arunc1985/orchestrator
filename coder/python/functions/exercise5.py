@@ -58,13 +58,16 @@ iterable = [10,15,20,25,30,35,40,45,50]
 
 '''
     The below map function takes 2 args, 1st argument is a function and 2nd argument is the array.
-    What happens when the following is executed: result_map = map(return_squares,[10,15,20,25,30,35,40,45,50]) is as follows;
-    1. A map object is created with function as variable and argument as iterable.
-    2. For each and every item in the iterable, the function return_squares is called to find the square of the item.
+    What happens when the following is executed: 
+    result_map = map(return_squares,[10,15,20,25,30,35,40,45,50]) is as follows;
+
+    1. A map object is created with function as return_squares and argument as iterable.
+    2. For each and every item in the iterable:
+        the function return_squares is called to find the square of the item.
     3. The result gets stored in memory as a list.
-    4. It can be expanded as list(map_result)
+    4. It can be expanded as list(result_map)
     5. It can also be expanded as ;
-       for item in map_result:
+       for item in result_map:
            print(item)
 '''
 # Execute the function and iterable using built-in maps.

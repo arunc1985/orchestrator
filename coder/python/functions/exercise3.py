@@ -565,3 +565,185 @@ dictionary = {3:9,5:25,8:64,10:100,15:150,20:200,25:200}
 # Generate values from the generator expression . This call results in generator object..result(dictionary=dictionary,val_check=10)
 generate_data(result(dictionary=dictionary,val_check=10))
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 19
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Use lambda with reduce and dictionary.
+
+'''
+    In the example below we are calculating the sum of all key,value pairs of a dictionary
+    using reduce.
+    Example :
+        {3:9,5:25,8:64,10:100,15:150,20:200,25:200}
+
+   The following lambda will result in output as 834 ...
+
+        3+9+5+25+8+64+10+100+15+150+20+200+25+200 = 834
+
+    func_reduce_lambda = lambda x,y:sum(x) \
+       if x.__class__ == ().__class__ else x+sum(y)
+
+    result = functools.reduce(func_reduce, dictionary.items())
+    print(result)
+
+
+'''
+def func_reduce(x,y):
+  '''
+    This function takes 2 args namely x,y
+    It denotes the key:value pair of the dictionary.
+    When reduce function is applied, key:value pairs are
+    processed in an order...
+    Example:
+      dictionary = {3:9,5:25,8:64,10:100,15:150,20:200,25:200}
+      reduce function takes 2 args at once..
+      In the first iteration we will get..
+      (3,9),(5,25) which becomes as 3+9+5+25 = 42
+      In the first iteration both x,y are in tuple format..
+
+      In the second iteration on-wards x will be an int..
+
+      That's why we have this condition to check if x is tuple or int..
+
+       * sum(x) if x.__class__ == ().__class__ else x
+
+      42, (8,64) -> 42 is the result from Step 1 above..
+      Here 42 is an int... and in this step the result will be
+      42 + 8 + 64 = 114
+      Likewise all records are processed..
+
+  '''
+  x_add = sum(x) if x.__class__ == ().__class__ else x
+  return x_add+sum(y)
+
+# Define an iterable..
+dictionary = {3:9,5:25,8:64,10:100,15:150,20:200,25:200}
+
+# Without Lambda 
+result = functools.reduce(func_reduce, dictionary.items())
+print("\n")
+print("Example 19 Output :: ")
+print(result)
+
+# With Lambda 
+func_reduce_lambda = lambda x,y:sum(x) \
+   if x.__class__ == ().__class__ else x+sum(y)
+
+result = functools.reduce(func_reduce, dictionary.items())
+print("\n")
+print(result)
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 20
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Use lambda with reduce and strings.
+
+# Define a string..
+test_string = "Hello World!1985!"
+
+print("\n")
+print("Example 20 Output :: ")
+
+# Lambda to check if a variable of type string..
+print((lambda x:x.__class__==str)(test_string))
+# Output will be True since test_string is a string...
+
+'''
+lambda with reduce -
+ Check for str types in a var,concat and return...
+ The below lambda iterates on string Hello World!1985! and checks if each char is of type str..
+ if x.__class__==str else "NULL" All the chars are of type str..
+ Hence the final output is : Hello World!1985!
+'''
+print(functools.reduce(lambda x,y:x+y \
+if x.__class__==str else "NULL",test_string))
+
+'''
+  Check if there are no spaces in the string.
+  If any space found , change it as NULL. Output of below statement will be : NULLWorld!1985!
+  Since the string is "Hello World!1985!" After Hello we have a " " space...
+
+  In the lambda we have a condition as ;
+    if not y.strip() == '' else "NULL"
+  So while iterating the string since it finds an empty space... if changes the string as "NULL"
+  Then it iterates the remaining part of the string World!1985! and adds NULL to World!1985!
+
+  Hence the final answer is NULLWorld!1985!
+'''
+print(functools.reduce(lambda x,y:x+y \
+if not y.strip() == '' else "NULL",test_string))
+
+print("\n")
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 21
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Use lambda with list comprehension and files.
+'''
+    Read a file and check for occurrence of patterns in files.
+    Read line by line and filter the records that has the pattern.
+'''
+
+# Write a python function to read the file using ContextManager.
+
+def file_read(file_path):
+    '''
+        Read file and return contents as a list.
+        :param file_path: Full Path of the file.
+        :return : File Contents
+    '''
+    with open(file_path,'r') as reader:
+        return reader.readlines()
+
+
+# Define the path of the file to be read.
+file_path = '../classes/README.txt'
+# Get file contents
+file_contents = file_read(file_path)
+# Define a Pattern to Search
+pattern_to_search = "__init__"
+
+
+print("\n")
+print("Example 21 Output :: ")
+
+# Filter and print all lines in the file that has __init__ using list comprehension
+print([data.lstrip().rstrip() for data in file_contents if data.__contains__(pattern_to_search)])
+
+print("\n")
+
+# Filter and print all lines in the file that has __init__ using dict comprehension
+print({index:data.lstrip().rstrip() for index,data in enumerate(file_contents) \
+      if data.__contains__(pattern_to_search)})
+print("\n")
+
+# Do above tasks using lambda
+# lambda with dict comprehension for filtering records in file.
+
+func_lambda = lambda records,pattern:\
+             {index:data.lstrip().rstrip() \
+                for index,data in enumerate(file_contents) \
+                if data.__contains__(pattern)}
+
+print(func_lambda(records=file_contents, pattern=pattern_to_search))     
+
+print("\n")
+
+# lambda with list comprehension for filtering records in file.           
+
+func_lambda = lambda records,pattern:\
+             [data.lstrip().rstrip() \
+                for index,data in enumerate(file_contents) \
+                if data.__contains__(pattern)]
+
+print(func_lambda(records=file_contents, pattern=pattern_to_search))     
+
+print("\n")
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
