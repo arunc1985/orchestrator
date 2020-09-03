@@ -128,3 +128,101 @@ print(list(map_result))
 '''
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 3
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+'''
+    Using lambda functions with map to filter elements based on a condition.
+    In this example we will use maps with tuples.
+    The map takes function as a first argument and iterable(s) as 2nd argument.
+    An iterable is a type that can be iterated upon for getting the values.
+    For example : Following can be iterated... lists, dicts, tuples, set, strings...
+'''
+# Define a lambda function to check variable type and return value...
+check_var_type = lambda variable: variable if variable.__class__ == str else "NULL"
+
+# An iterable to be passed - A Tuple of Args
+iterable = (100,200.50,-300,True,False,"Hello World!",[1000,2000],(1000,2000),{1:1,2:2})
+
+print("\n")
+print("Example 3 Output :: ")
+
+'''
+    The below map function takes 2 args, 1st argument is a function and 2nd argument is the array.
+    What happens when the following is executed: map_result =  map(check_var_type,iterable) is as follows;
+    1. A map object is created with function as variable and argument as iterable.
+    2. For each and every item in the iterable, the function check_var_type is called to check
+       the type of the item.
+    3. The result gets stored in memory as a list.
+    4. It can be expanded as list(map_result)
+    5. It can also be expanded as ;
+       for item in map_result:
+           print(item)
+'''
+# Execute the function and iterable using built-in maps.
+map_result =  map(check_var_type,iterable)
+print(list(map_result))
+
+
+'''
+    Output ::
+
+        Example 3 Output ::
+        ['NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'Hello World!', 'NULL', 'NULL', 'NULL']
+'''
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+                                        # Example 4
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+'''
+    Using lambda functions with map to filter elements based on a condition.
+    In this example we will use maps with dictionary.
+    The map takes function as a first argument and iterable(s) as 2nd argument.
+    An iterable is a type that can be iterated upon for getting the values.
+    For example : Following can be iterated... lists, dicts, tuples, set, strings...
+'''
+# Define a lambda function to check variable type and return value...
+check_var_type = lambda variable: variable if (variable.__class__ == int and variable>100) else "NULL"
+
+# An iterable to be passed - A dictionary
+iterable = {10:100,11:110,20:200,30:300,40:400,100:1000,200:2000}
+
+print("\n")
+print("Example 4 Output :: ")
+
+'''
+    The below map function takes 2 args, 1st argument is a function and 2nd argument is the array.
+    What happens when the following is executed: map_result =  map(check_var_type,iterable) is as follows;
+    1. A map object is created with function as variable and argument as iterable.
+    2. For each and every item in the iterable, the function check_var_type is called to check
+       the type of the item.
+    3. The result gets stored in memory as a list.
+    4. It can be expanded as list(map_result)
+    5. It can also be expanded as ;
+       for item in map_result:
+           print(item)
+'''
+# Execute the function and iterable using built-in maps.
+# Check for all the Keys
+map_result =  map(check_var_type,iterable.keys())
+print(list(map_result))
+
+# Check for all the values
+map_result =  map(check_var_type,iterable.values())
+print(list(map_result))
+
+
+'''
+    Output ::
+
+        Example 4 Output ::
+        ['NULL', 'NULL', 'NULL', 'NULL', 'NULL', 'NULL', 200]
+        ['NULL', 110, 200, 300, 400, 1000, 2000]
+
+'''
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

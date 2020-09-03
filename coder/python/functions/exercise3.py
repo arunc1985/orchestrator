@@ -30,6 +30,9 @@
         function written full blown with def keyword.
 '''
 
+# Import functools module fore reduce operations...
+import functools
+
                                         # Example 1 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -342,5 +345,112 @@ print(sorted_array)
 '''
 sorted_array = sorted(array_to_sort,key=lambda_function)
 print(sorted_array)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 14
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Example 14 ::  Simple lambda to take a dictionary, sort based on keys and values.
+
+# Lambda function to sort a dictionary based on keys
+maps = {1:1,2:1,3:2,4:40,10:9,7:6,10:30,5:300}
+
+print("\n")
+print("Example 14 Output :: ")
+
+# Lambda function to sort a dictionary based on values
+result =  sorted(maps.items(),key=lambda x:x[1])
+print("Sort dictionary by values - {} ".format(result))
+
+# Lambda function to sort a dictionary based on keys
+result =  sorted(maps.items(),key=lambda x:x[0])
+print("Sort dictionary by keys - {} ".format(result))
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+                                        # Example 15
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Example 15 ::  Simple lambda along with reduce to take a array, find sum of elements in the array
+
+# Define an Iterable
+iterable = range(10,20)
+
+'''
+    How reduce works for finding the sum of iterables... iterable = range(10,20)
+    reduce takes 2 arguments, 1. Function and 2. Iterable.
+    In this case the iterable is range(10,20) expanded as follows;
+    [10,11,12,13,14,15,16,17,18,19]
+    As you see below the reduce function is defined as below;
+    functools.reduce(lambda x,y:x+y, iterable)
+
+    It takes 1st arg as lambda function - lambda x,y:x+y and 2nd arg as iterable - range(10,20)
+    reduce works on the principle of folding, it takes 2 numbers at a time, calculates the result and
+    accumulates result with the 3rd..and so on so-forth untill all the numbers are exhausted.
+
+    When the following command is run - functools.reduce(lambda x,y:x+y, iterable)
+    What happens is as follows;
+
+        1. reduce function at first takes 10,11 and finds the result as 21. -> 10,11 are the first 2 elements.
+        2. 21 + 12 = 33 -> Next element is 12
+        3. 33 + 13 = 46 -> Next element is 13
+        4. 46 + 14 = 60 -> Next element is 14
+        5. 60 + 15 = 75 -> Next element is 15
+        6. 75 + 16 = 91 -> Next element is 16
+        7. 91 + 17 = 108 -> Next element is 17
+        8. 108 + 18 = 126 -> Next element is 18
+        9. 126 + 19 = 145 -> Next element is 19
+
+        Final Result is :: 145
+'''
+# Define a reduce function with lambda to find the sum
+result = functools.reduce(lambda x,y:x+y, iterable)
+print("\n")
+print("Example 15 Output :: ")
+print(result)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+
+                                        # Example 16
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Example 16 ::  Simple lambda along with reduce to take a array, find product of elements in the array
+
+# Define an Iterable
+iterable = range(5,10)
+
+'''
+    How reduce works for finding the product of iterables... iterable = range(10,20)
+    reduce takes 2 arguments, 1. Function and 2. Iterable.
+    In this case the iterable is range(10,20) expanded as follows;
+    [5,6,7,8,9]
+    As you see below the reduce function is defined as below;
+    functools.reduce(lambda x,y:x*y, iterable)
+
+    It takes 1st arg as lambda function - lambda x,y:x+y and 2nd arg as iterable - range(10,20)
+    reduce works on the principle of folding, it takes 2 numbers at a time, calculates the result and
+    accumulates result with the 3rd..and so on so-forth untill all the numbers are exhausted.
+
+    When the following command is run - functools.reduce(lambda x,y:x*y, iterable)
+    What happens is as follows;
+
+        1. reduce function at first takes 5,6 and finds the result as 30. -> 5,6 are the first 2 elements.
+        2. 30 * 7 = 210 -> Next element is 7
+        3. 210 * 8 = 1680 -> Next element is 8
+        4. 1680 * 9 = 15120 -> Next element is 9
+
+        Final Result is :: 15120
+'''
+# Define a reduce function with lambda to find the sum
+result = functools.reduce(lambda x,y:x*y, iterable)
+print("\n")
+print("Example 16 Output :: ")
+print(result)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

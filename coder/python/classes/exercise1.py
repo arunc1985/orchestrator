@@ -384,7 +384,7 @@ class Person(abstraction.AbstractPerson):
 
 # Execute
 if __name__ == "__main__":
-    instance_person = Person("Tom",20,"London","Programmer") # Returns an instance of the person class.
+    instance_person = Person("Sherlock",20,"London","Programmer") # Returns an instance of the person class.
     # Print the instance
     print(instance_person)
     # Display details
