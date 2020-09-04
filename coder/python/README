@@ -1,1 +1,41 @@
 Python Programming Examples
+
+# Dockerfile is available in the same directory here by name ~ dockerfile.
+
+----------------------------------------------------------------------------------------------------------------
+Explaning the dockerfile.
+-------------------------
+
+FROM centos:8 # Base image is centos with tag as 8
+RUN mkdir final # Create a new directory inside container as final
+COPY ./python final # Copy contents of the python directory here to final dir inside of container
+RUN ls final # Check the contents of the final dir
+RUN yum -y install python3 # Install python
+
+----------------------------------------------------------------------------------------------------------------
+
+# To Create a docker image of all the exercise folder.
+
+Run Command.
+
+docker build -t py-centos-exercises:practice -f dockerfile .
+
+----------------------------------------------------------------------------------------------------------------
+
+# To see the container, run command.
+
+Syntax :
+	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:practice python3 <<FULL_PATH_PY_FILE>>
+
+Example :
+	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:practice python3 final/classes/exercise1.py
+
+	Note ::
+	
+		 The above command launches the image py-centos-exercises:practice as a container 
+		 by name py-centos-exercises-c in an interactive mode to execute the python file.
+		 It would run in an interactive mode since it has "-it" flag.
+
+		 Once the python file is executed, the container is removed from memory since it has "--rm" flag.
+
+----------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,7 @@
+
+FROM centos:8
+RUN mkdir final
+COPY ./python final
+RUN ls final
+RUN yum -y install python3
+
