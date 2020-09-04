@@ -46,6 +46,7 @@ print(id(e)) # Returns Memory location
 '''
 	The below definition means that var_x is a variable and it points/references a memory location
 	that has value as 500 ~
+
 	In python when we assign a variable like var_x = 500, Whatever is there to the left side of the
 	" = " symbol represents the stack memory and that to the right represents the heap memory.
 
@@ -91,16 +92,17 @@ print(type(var_x)) # Returns type of object
                                         # Example 3
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-# Example 3 :: Using Variables in Python
+# Example 3 :: Using Variables in Python - We try to delete the variable and access it.
 
 print("\n")
 print("Example 3 Output :: ")
 print("\n")
 
-some_var = 100.50
+some_var = 100.50 # Float variable.
 print(some_var)
-del some_var
+del some_var # Reference is deleted.
 #print(some_var) # Will result in an exception since the variable is deleted.
+#NameError: name 'some_var' is not defined -> NameError is a type of exception in Python *
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
                                         # Example 4
@@ -109,6 +111,25 @@ del some_var
 # Example 4 :: Using simple functions in python for getting variable details.
 
 # Write a simple function to find memory location and type of given variable.
+
+'''
+	# Simple function without any arguments
+	def function_hello():
+	  return "Hello World!"
+	# Get function object
+	print(function_hello)
+	# We call function using () as function_hello()
+	print(function_hello())
+
+	# Simple function with 1 argument...
+	def function_hello(name):
+	  return "Hello World! {} ".format(name)
+	  
+	# Get function object
+	print(function_hello)
+	# We call function using () as function_hello()
+	print(function_hello(name="Python"))
+'''
 
 def print_mem_location_type_of_variable(variable):
 	'''
@@ -138,8 +159,19 @@ print("Example 4 Output :: ")
 print("\n")
 
 # Test the function with various objects.
-print_mem_location_type_of_variable(1000)
-print(return_mem_location_type_of_variable("Arun"))
+print_mem_location_type_of_variable("Arun")
+print("\n")
+print_mem_location_type_of_variable("Chandramouli")
+print("\n")
+print_mem_location_type_of_variable(100)
+print("\n")
+print_mem_location_type_of_variable(100.100)
+print("\n")
+print_mem_location_type_of_variable(True)
+print("\n")
+print_mem_location_type_of_variable([100,200,300,400,500])
+print("\n")
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 

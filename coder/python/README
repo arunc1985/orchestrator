@@ -1,5 +1,8 @@
 Python Programming Examples
 
+# Download from github
+git clone https://github.com/arunc1985/orchestrator.git && cd orchestrator && git checkout programmer && cd coder/python
+
 # Dockerfile is available in the same directory here by name ~ dockerfile.
 
 ----------------------------------------------------------------------------------------------------------------
