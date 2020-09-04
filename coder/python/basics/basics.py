@@ -44,26 +44,26 @@ print(id(e)) # Returns Memory location
 # Example 2 :: Using Variables in Python
 
 '''
-	The below definition means that var_x is a variable and it points/references a memory location
-	that has value as 500 ~
+    The below definition means that var_x is a variable and it points/references a memory location
+    that has value as 500 ~
 
-	In python when we assign a variable like var_x = 500, Whatever is there to the left side of the
-	" = " symbol represents the stack memory and that to the right represents the heap memory.
+    In python when we assign a variable like var_x = 500, Whatever is there to the left side of the
+    " = " symbol represents the stack memory and that to the right represents the heap memory.
 
-	Which means , when var_x = 500
-	var_x - > Stack Memory
-	500 -> Heap Memory
+    Which means , when var_x = 500
+    var_x - > Stack Memory
+    500 -> Heap Memory
 
-	* Python Stores all the objects in the heap memory only.
+    * Python Stores all the objects in the heap memory only.
 
-	What's stack memory and heap memory ?
+    What's stack memory and heap memory ?
 
-	https://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html
+    https://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html
 
-	# Note: In Python its not needed to pre-define a variable type before assigning values.
-	We can dynamically assign values to any variables.
+    # Note: In Python its not needed to pre-define a variable type before assigning values.
+    We can dynamically assign values to any variables.
 
-	In python we find the family/type of object using __class__ or type() built-in function.
+    In python we find the family/type of object using __class__ or type() built-in function.
 
 '''
 
@@ -113,46 +113,46 @@ del some_var # Reference is deleted.
 # Write a simple function to find memory location and type of given variable.
 
 '''
-	# Simple function without any arguments
-	def function_hello():
-	  return "Hello World!"
-	# Get function object
-	print(function_hello)
-	# We call function using () as function_hello()
-	print(function_hello())
+    # Simple function without any arguments
+    def function_hello():
+      return "Hello World!"
+    # Get function object
+    print(function_hello)
+    # We call function using () as function_hello()
+    print(function_hello())
 
-	# Simple function with 1 argument...
-	def function_hello(name):
-	  return "Hello World! {} ".format(name)
-	  
-	# Get function object
-	print(function_hello)
-	# We call function using () as function_hello()
-	print(function_hello(name="Python"))
+    # Simple function with 1 argument...
+    def function_hello(name):
+      return "Hello World! {} ".format(name)
+      
+    # Get function object
+    print(function_hello)
+    # We call function using () as function_hello()
+    print(function_hello(name="Python"))
 '''
 
 def print_mem_location_type_of_variable(variable):
-	'''
-		Find memory location and type of variable
-		:param variable: Variable to be explained.	
-		The class of the variable can be found in 2 ways:
-			print(variable.__class__)	
-			print(type(variable))
-	'''
-	print("Memory location of variable {} is {} ".format(variable,id(variable)))
-	print("Variable {} belongs to class {} ".format(variable,type(variable)))
+    '''
+        Find memory location and type of variable
+        :param variable: Variable to be explained.  
+        The class of the variable can be found in 2 ways:
+            print(variable.__class__)   
+            print(type(variable))
+    '''
+    print("Memory location of variable {} is {} ".format(variable,id(variable)))
+    print("Variable {} belongs to class {} ".format(variable,type(variable)))
 
 def return_mem_location_type_of_variable(variable):
-	'''
-		Find memory location and type of variable
-		:param variable: Variable to be explained.	
-		The class of the variable can be found in 2 ways:
-			print(variable.__class__)	
-			print(type(variable))
-	'''
-	print("Memory location of variable {} is {} ".format(variable,id(variable)))
-	print("Variable {} belongs to class {} ".format(variable,type(variable)))
-	return id(variable),variable.__class__
+    '''
+        Find memory location and type of variable
+        :param variable: Variable to be explained.  
+        The class of the variable can be found in 2 ways:
+            print(variable.__class__)   
+            print(type(variable))
+        Return the memory location of the variable & the class
+        of the variable.
+    '''
+    return id(variable),variable.__class__
 
 print("\n")
 print("Example 4 Output :: ")
@@ -172,8 +172,12 @@ print("\n")
 print_mem_location_type_of_variable([100,200,300,400,500])
 print("\n")
 
+# Execute the function return_mem_location_type_of_variable
+print(return_mem_location_type_of_variable(variable=100000))
+print(return_mem_location_type_of_variable(variable=100.100))
+final_result = return_mem_location_type_of_variable("Arun Chandramouli")
+print(final_result)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
 
 
                                         # Example 5
@@ -184,16 +188,14 @@ print("\n")
 
 # Write a simple function to find memory location and type of given variable.
 def return_mem_location_type_of_variable(variable):
-	'''
-		Find memory location and type of variable
-		:param variable: Variable to be explained.	
-		The class of the variable can be found in 2 ways:
-			print(variable.__class__)	
-			print(type(variable))
-	'''
-	print("Memory location of variable {} is {} ".format(variable,id(variable)))
-	print("Variable {} belongs to class {} ".format(variable,type(variable)))
-	return id(variable),variable.__class__
+    '''
+        Find memory location and type of variable
+        :param variable: Variable to be explained.  
+        The class of the variable can be found in 2 ways:
+            print(variable.__class__)   
+            print(type(variable))
+    '''
+    return id(variable),variable.__class__
 
 print("\n")
 print("Example 5 Output :: ")
@@ -223,24 +225,24 @@ print(result)
 
 # Write a simple function to find memory location and type of given variable.
 def hello_world(name):
-	'''
-		Find memory location and type of variable
-		:param name: Name to the printed.	
-		The class of the variable can be found in 2 ways:
-			print(variable.__class__)	
-			print(type(variable))
-	'''
-	return "Hello World ! {} ".format(name)
-
-print("\n")
-print("Example 6 Output :: ")
-print("\n")
+    '''
+        :param name: Name to the printed.   
+        return Hello World with name..
+    '''
+    return "Hello World ! {} ".format(name)
 
 # Test the function with various objects.
 result = hello_world("Arun Chandramouli")
 print(result) # Print "Arun Chandramouli"
-del hello_world # Function objects gets deleted
-print(result) # It will still print the value as "Arun Chandramouli"
+# Function object and  result are stored in diff memory location.
+print(id(hello_world))
+print(id(result))
+
+# Delete the function object - hello_world and the result will still print as Arun Chandramouli *
+# It prints even after deletion of function object.
+# Bcoz...Function object and result are stored in diff memory location.
+del hello_world
+print(result) # Print "Arun Chandramouli"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -253,14 +255,14 @@ print(result) # It will still print the value as "Arun Chandramouli"
 
 # Write a simple function to find memory location and type of given variable.
 def hello_world(name):
-	'''
-		Find memory location and type of variable
-		:param name: Name to the printed.	
-		The class of the variable can be found in 2 ways:
-			print(variable.__class__)	
-			print(type(variable))
-	'''
-	return "Hello World ! {} ".format(name)
+    '''
+        Find memory location and type of variable
+        :param name: Name to the printed.   
+        The class of the variable can be found in 2 ways:
+            print(variable.__class__)   
+            print(type(variable))
+    '''
+    return "Hello World ! {} ".format(name)
 
 print("\n")
 print("Example 7 Output :: ")
