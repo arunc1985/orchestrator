@@ -5,6 +5,13 @@ git clone https://github.com/arunc1985/orchestrator.git && cd orchestrator && gi
 
 # Dockerfile is available in the same directory here by name ~ dockerfile.
 
+# STEP 1 :: Docker Image : Create an Image of my application contents and dependencies.
+	<<APP-IMAGE>>
+
+# STEP 2 :: Docker Container : Run the image created in the previous step and check the output.
+	Run Image <<APP-IMAGE>> and see output.. It means run the application using dockers.
+	When I say dockers it literally means a Software that runs on the docker engine which is installed on the OS.
+
 ----------------------------------------------------------------------------------------------------------------
 Explaning the dockerfile.
 -------------------------

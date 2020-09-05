@@ -141,6 +141,7 @@ def print_mem_location_type_of_variable(variable):
     '''
     print("Memory location of variable {} is {} ".format(variable,id(variable)))
     print("Variable {} belongs to class {} ".format(variable,type(variable)))
+    print("\n\n")
 
 def return_mem_location_type_of_variable(variable):
     '''
@@ -152,6 +153,7 @@ def return_mem_location_type_of_variable(variable):
         Return the memory location of the variable & the class
         of the variable.
     '''
+    # Return the memory location and type of the object.
     return id(variable),variable.__class__
 
 print("\n")
@@ -219,9 +221,10 @@ print(result)
                                         # Example 6
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-# Example 6 :: Using simple functions in python for getting variable details.
+# Example 6 :: Using simple functions in python for printing hello world
 # In Python we can store the function is a variable. 
 # Even if the function is deleted, the variable will still work and produce results.
+
 
 # Write a simple function to find memory location and type of given variable.
 def hello_world(name):
@@ -231,18 +234,78 @@ def hello_world(name):
     '''
     return "Hello World ! {} ".format(name)
 
-# Test the function with various objects.
-result = hello_world("Arun Chandramouli")
-print(result) # Print "Arun Chandramouli"
-# Function object and  result are stored in diff memory location.
-print(id(hello_world))
-print(id(result))
+'''
+  Points :
+    
+    Q: What's the name of the function ?
+    A: hello_world
+    
+    Q: How many arguments does the function hello_world have?
+    A: 1
+    
+    Q: Q: How many arguments can we pass to the function hello_world?
+    A: 1
+    
+    Q: What does function hello_world return ?
+    A: It returns a String. 
+    
+    Q: What String it returns?
+    A: "Hello World ! {} ".format(name).Where name is the argument that I pass.
+    
+    Q: What is the function object here?
+    A: Function object is <hello_world at some mem_location>. It is an object
+    that is created by python at run time, when i run the module the name hello_world gets transformed as an object and that object is
+    safely stored at some memory location.
+    
+    Q: Do I execute the function name or function object ?
+    A: I execute the function object by passing all the required arguments.
+       Python transforms the function name into object and I am executing the
+       object in the heap memory *  
+
+    Q: What happens internally when this file is run ?
+    A: Python runs the module line by line. 
+       At first it sees the function definition : def hello_world(name)
+       It sees the def keyword and identifies the function.
+       It sees the function name as hello_world that has an argument. 
+       It creates a function object hello_world that takes 1 argument
+       It thus creates an object and stores in the heap memory. 
+       The object once stored in the heap memory is available for execution. 
+       So the function name gets transformed as function object at run-time.
+'''
+
+# Print the function object
+print("Function object is {} ".format(hello_world))
+# Store the execution result of function in a variable..
+result = hello_world("Karthik!")
+# Print the result of the function 
+print("Execution result is - {} ".format(result))
+# Print the memory location of the execution result 
+print("Memory location of the execution result is - {}".format(id(result)))
+# Print the memory location of the function object
+print("Memory location of the function object is - {}".format(id(hello_world)))
+# Note: The memory location of function object is diff from that of execution result
+
 
 # Delete the function object - hello_world and the result will still print as Arun Chandramouli *
 # It prints even after deletion of function object.
 # Bcoz...Function object and result are stored in diff memory location.
+
+
+'''
+Note: The memory location of function object is diff from that of execution result
+Ex: 
+  Function object hello_world is at memory location: 10000XTY
+  Result of execution is at memory location: 50000XAB
+  If I delete the function object hello_world at memory location: 10000XTY
+  It will not affect the result of execution which is stored at: 50000XAB
+  That is because they are in different memory location .
+'''
+# Delete the function object
 del hello_world
-print(result) # Print "Arun Chandramouli"
+print("\n Result after deletion of function object ... ")
+# It will still print the result...
+print(result)# ?????
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
