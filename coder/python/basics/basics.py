@@ -660,33 +660,131 @@ print(test_result("Arun!!"))
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 '''
-    Mutables and Immutable Object
+    Mutables and Immutable Objects
+    
+    At a higher level we can classify the objects as mutable & im-mutable.
+
     Mutables: 
-        - Can be modified after creation.
-        - Memory address of the object remains the same after modification.
-        - Examples:
-            ~ Lists
-            ~ Dictionary
-            ~ Set
+        - Once a mutable object is created:
+
+            - Can be modified after creation.
+            - Memory address of the object remains the same after modification.
+            - Examples:
+                ~ Lists
+                ~ Dictionary
+                ~ Set
+        - We can modify/customize a mutable object.
     ImMutables: 
-        - Cannot be modified after creation.
-        - Only a new object at a different memory location can be created.
-        - Memory address of the object is modified.
-        - Examples:
-            ~ Tuples
-            ~ String
+        - Once an im-mutable object is created:
+
+            - Cannot be modified after creation.
+            - Only a new object at a different memory location can be created.
+            - Memory address of the object is modified.
+            - Examples:
+                ~ Tuples
+                ~ String
+        - We cannot modify/customize a mutable object.
 '''
 
 # Define a mutable object
 test_array = [100,200,300,400,500]
-# Print the memory location of test_array
-print("Memory location of test_array is - {} ".format(id(test_array)))
+print("Original Array is - {} ".format(test_array))
+print("Memory location of original array is - {} ".format(id(test_array)))
+print("\n")
+
+"""
+  ~ I want to modify the contents inside test_array
+  1. Add one more element 
+  2. Change the value of an element in a given index
+  3. Delete an element
+"""
+
+# Add 1 or more elements using append function
+test_array.append(1000)
+print("Add 1 or more elements using append function")
+print("New Array is - {} ".format(test_array))
+print("Memory location after append is - {} ".format(id(test_array)))
+
+"""
+  Q: Memory location of the object test_array after using append/extend/remove or any operation on the list to
+  add a new value/remove a value is same as the original memory location. Why?
+
+  A: Python internally stores the list test_array as a mutable object and lists have methods to modify it. 
+  To find all the methods applicable for lists...run ... dir(test_array)
+
+  So when the test_array is modified python refers to the same memory location and adds a 
+  new value to the existing array.
+  This is something similar to pass by reference programming paradigm...
+"""
+print("\n")
+# Add 1 or more elements using extend function
+test_array.extend([1500,2000,2500,3000])
+print("Add 1 or more elements using extend function")
+print("New Array is - {} ".format(test_array))
+print("Memory location after extend is - {} ".format(id(test_array)))
+print("\n")
+
+# Delete an element from a list
+test_array.remove(100)
+print("Remove an item using remove function")
+print("New Array is - {} ".format(test_array))
+print("Memory location after remove is - {} ".format(id(test_array)))
+print("\n")
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
                                         # Example 10
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+# Simple function for arrays
+def func_array(original_array):
+  """
+    Take an array as an input and multiply each number by 2.
+    Define an empty array - result_array
+    Add the multipled number to the new array result_array.
+    Return the new array - result_array
+
+    In this program there are 2 different arrays
+      1. original_array -> Passed by the User
+      2. result_array -> Contains final result
+    
+    The memory location of the original_array will be different from
+    that the new array result_array since they are 2 different lists
+    entirely.
+  """
+  # New Array to store the result...
+  result_array = []
+  # Iterate the original_array and multiply each number by 2...
+  for each_val in original_array:
+    # multiply by 2 and append to new array
+    result_array.append(each_val*2)
+  # Return the new modified array
+  return result_array
+
+
+"""
+ Execution :
+  1. Define an input array
+      input_array = [1,2,3,4,5,6]
+  2. Execute the function and store the result in a variable      
+     final_result_array .
+      
+      final_result_array = func_mutables(input_array)
+  3. The contents of original input_array will be different
+     from the new array final_result_array
+"""
+
+# Define an input array
+input_array = [1,2,3,4,5,6]
+# Execute the function
+final_result_array = func_mutables(input_array)
+print("Original Array is - {} ".format(input_array))
+print("Final Result is - {} ".format(final_result_array))
+print("Memory loc of input array - {} ".format(id(input_array)))
+print("Memory loc of new array - {} ".format(id(final_result_array)))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
