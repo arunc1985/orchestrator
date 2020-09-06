@@ -385,43 +385,52 @@ def hello_world(name):
         - print(hello_world() # 0 Args
     A: It will result in an exception - TypeError
         TypeError: hello_world() missing 1 required positional argument: 'name'
+
+    Q: Can I access the result of the function once I delete the function object?
+    A: Yes
+
+      Explanation
+      ------------
+
+      Python creates the function object hello_world and places it in some location X in memory ....
+
+      This function hello_world can take 1 argument .
+      This function hello_world will return a string ..
+      
+      Python allocates memory for various objects based on their type...which means allocation differs 
+      between string, int, float, boolean, function etc...
+      Now as we see the output of function hello_world is of
+      String type....
+
+      This statement:
+        result = hello_world(name="Maria")
+        ------------------------------------
+
+       means result will point to a memory location that has the 
+       execution result of the function .
+       Which means it will hold the result of hello_world(name="Maria")
+
+       So the function object hello_world is at some memory location X. . it is an object...
+
+       The result obtained by execution of the function hello_world(name="Maria") is a String ...
+
+       Hence the result will be stored in a nearby memory location...such as Y , Z etc...
+
+       The result will not be stored in the same place.
+       If we would store in the same place, the original function object would not exist..
+
+       Is simple terms we need to remember whenever we execute the function - 
+       it will never get stored in the memory location of the function object...
+
+       So when I run result = hello_world(name="Maria") it stores result in some memory location .
+
+       If I delete function object hello_world :
+        - del hello_world
+
+       The result was stored in a different memory location hence it will be still accessible ..
+       print(result) # Will print the output ...
+
 '''
-
-
-
-"""
-  Python creates the function object hello_world and places it in some location X in memory ....
-
-  This function hello_world can take 1 argument .
-  This function hello_world will return a string ..
-  
-  Python allocates memory for various objects based on their type...which means allocation differs 
-  between string, int, float, boolean, function etc...
-  Now as we see the output of function hello_world is of
-  String type....
-
-  This statement:
-    result = hello_world(name="Maria")
-    ------------------------------------
-
-   means result will point to a memory location that has the 
-   execution result of the function .
-   Which means it will hold the result of hello_world(name="Maria")
-
-   So the function object hello_world is at some memory location X. . it is an object...
-
-   The result obtained by execution of the function hello_world(name="Maria") is a String ...
-
-   Hence the result will be stored in a nearby memory location...such as Y , Z etc...
-
-   The result will not be stored in the same place.
-   If we would store in the same place, the original function object would not exist..
-
-   Is simple terms we need to remember whenever we execute the function - 
-   it will never get stored in the memory location of the function object...
-
-"""
-
 
 # Print the function object
 print("Function object is {} ".format(hello_world))
@@ -454,7 +463,7 @@ Ex:
 del hello_world
 print("\n Result after deletion of function object ... ")
 # It will still print the result...
-print(result)# ?????
+print(result)
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
