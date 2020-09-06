@@ -86,6 +86,18 @@ print(var_x.__class__) # Returns type of object
 print(type(var_x)) # Returns type of object
 
 
+
+var_x = True
+print(var_x) # Arun Chandramouli
+print(var_x.__class__) # Returns type of object
+print(type(var_x)) # Returns type of object
+
+
+var_x = 100.150
+print(var_x) # Arun Chandramouli
+print(var_x.__class__) # Returns type of object
+print(type(var_x)) # Returns type of object
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
@@ -93,6 +105,43 @@ print(type(var_x)) # Returns type of object
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Example 3 :: Using Variables in Python - We try to delete the variable and access it.
+
+
+"""
+    # All vars in stack memory will point to the objects in the heap.
+    #When we assign a variable such as x=100,this var x is from stack and value 100 is from heap memory .
+    # Now when i delete the variable x ... it gets dereferenced.
+    # Once its deleted- it cant be accessed..all
+
+    # variable some_var is pointing to a memory location that has value as 100.50 ~ As simple as that.
+    # This creates a reference to an object in a memory location.
+
+    What happens when we set: 
+     some_var = 100.50
+      - A Variable named some_var is created in stack memory *
+      - A Reference is made from stack memory variable some_var
+        to a memory location on the heap that has value as 100.50
+      - It looks like this ;
+          Stack    -> HEAP
+          -----       -----
+          some_var -> 100.50
+
+    What happens when the variable is deleted ?
+
+      Before Deletion :
+        - It looks like this ;
+          Stack    -> HEAP
+          -----       -----
+          some_var -> 100.50
+
+      After deletion, the reference is removed.
+      The variable is removed from the stack memory .
+
+      So, when we do del some_var  :
+        - The variable some_var is deleted.
+        - The reference it had to that heap memory location is removed.
+        - But the original object 100.50 is still heap memory ***
+"""
 
 print("\n")
 print("Example 3 Output :: ")
@@ -143,21 +192,8 @@ def print_mem_location_type_of_variable(variable):
     print("Variable {} belongs to class {} ".format(variable,type(variable)))
     print("\n\n")
 
-def return_mem_location_type_of_variable(variable):
-    '''
-        Find memory location and type of variable
-        :param variable: Variable to be explained.  
-        The class of the variable can be found in 2 ways:
-            print(variable.__class__)   
-            print(type(variable))
-        Return the memory location of the variable & the class
-        of the variable.
-    '''
-    # Return the memory location and type of the object.
-    return id(variable),variable.__class__
-
 print("\n")
-print("Example 4 Output :: ")
+print("Example 4 Output Part - 1 :: ")
 print("\n")
 
 # Test the function with various objects.
@@ -174,11 +210,62 @@ print("\n")
 print_mem_location_type_of_variable([100,200,300,400,500])
 print("\n")
 
-# Execute the function return_mem_location_type_of_variable
-print(return_mem_location_type_of_variable(variable=100000))
-print(return_mem_location_type_of_variable(variable=100.100))
-final_result = return_mem_location_type_of_variable("Arun Chandramouli")
-print(final_result)
+print_mem_location_type_of_variable("Binita")
+print_mem_location_type_of_variable(True)
+print_mem_location_type_of_variable(100.135)
+print_mem_location_type_of_variable([10,20,30])
+print_mem_location_type_of_variable((1,2,3))
+print_mem_location_type_of_variable({1:1,2:2,3:3})
+print_mem_location_type_of_variable({1,2,3,4,5})
+
+
+def return_mem_location_type_of_variable(variable):
+    '''
+        Find memory location and type of variable
+        :param variable: Variable to be explained.  
+
+        The class of the variable can be found in 2 ways:
+            print(variable.__class__)   
+            print(type(variable))
+            variable.__class__ is same as type(variable)
+        
+        *** 
+            NOTE::
+                id(object) -> Gives the location of an object in memory.
+                type(object) or object.__class__ -> Gives the family/class of object
+        ***
+
+        This function is used to return the memory location of the variable & the class
+        of the variable.
+      
+      Execute the function as:
+        result = return_mem_location_type_of_variable(variable=100)
+      # Unpack the tuple and get the specific values..
+      memory_location, class_variable = result
+
+    '''
+    # Returns the memory location and type of the object as a tuple.
+    return id(variable),variable.__class__
+
+"""
+ The result of execution is stored in a variable result.
+ The function return_mem_location_type_of_variable returns a tuple.
+"""
+print("\n")
+print("Example 4 Output Part - 2 :: ")
+print("\n")
+
+
+result = return_mem_location_type_of_variable(variable=100)
+print("Result of execution is - {} ".format(result))
+print("Type of result is - {} ".format(result.__class__))
+
+# Unpack the tuple and get the specific values..
+memory_location, class_variable = result
+print("Memory location is - {} ".format(memory_location))
+print("Class of the variable is - {} ".format(class_variable))
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
@@ -239,15 +326,32 @@ def hello_world(name):
     
     Q: What's the name of the function ?
     A: hello_world
+
+    Q: What is the name argument?
+    A: Argument name is a positional argument. There are various types of arguments in python.
+       - For positional arguments if we dont pass any value it will result in an exception.
+       - We must values to exact number of positional args, passing lesser or more will still result
+         in an exception.
+       - For Example:
+          - To run function hello_world, I call as : hello_world("Arun")# It will take only 1 Argument.
+          - Giving lesser or more arguments will raise an exception.
+          - hello_world() # No args - hence error.
+          - hello_world("Arun","Kumar")# 2 args - hence error.
     
     Q: How many arguments does the function hello_world have?
     A: 1
     
-    Q: Q: How many arguments can we pass to the function hello_world?
+    Q: How many arguments can we pass to the function hello_world?
     A: 1
+
+    Q: How to execute the function hello_world ?
+    A: In python functions are executed by calling them using braces... ()
+        - Function hello_world must be called using ()
+        - Inside the () we must pass all the required arguments.
+        - Ex: hello_world("Arun")
     
     Q: What does function hello_world return ?
-    A: It returns a String. 
+    A: It returns a String Hello World ! Arun... Ex: If name is Arun.
     
     Q: What String it returns?
     A: "Hello World ! {} ".format(name).Where name is the argument that I pass.
@@ -271,6 +375,16 @@ def hello_world(name):
        It thus creates an object and stores in the heap memory. 
        The object once stored in the heap memory is available for execution. 
        So the function name gets transformed as function object at run-time.
+
+    Q: What happens if I execute function hello_world with more than 1 argument ?
+        - print(hello_world("Arun","Binita")) # 2 Args
+    A: It will result in an exception - TypeError
+        TypeError: hello_world() takes 1 positional argument but 2 were given
+
+    Q: What happens if I execute function hello_world with no argument ?
+        - print(hello_world() # 0 Args
+    A: It will result in an exception - TypeError
+        TypeError: hello_world() missing 1 required positional argument: 'name'
 '''
 
 # Print the function object
