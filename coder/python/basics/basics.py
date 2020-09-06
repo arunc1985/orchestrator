@@ -387,10 +387,46 @@ def hello_world(name):
         TypeError: hello_world() missing 1 required positional argument: 'name'
 '''
 
+
+
+"""
+  Python creates the function object hello_world and places it in some location X in memory ....
+
+  This function hello_world can take 1 argument .
+  This function hello_world will return a string ..
+  
+  Python allocates memory for various objects based on their type...which means allocation differs 
+  between string, int, float, boolean, function etc...
+  Now as we see the output of function hello_world is of
+  String type....
+
+  This statement:
+    result = hello_world(name="Maria")
+    ------------------------------------
+
+   means result will point to a memory location that has the 
+   execution result of the function .
+   Which means it will hold the result of hello_world(name="Maria")
+
+   So the function object hello_world is at some memory location X. . it is an object...
+
+   The result obtained by execution of the function hello_world(name="Maria") is a String ...
+
+   Hence the result will be stored in a nearby memory location...such as Y , Z etc...
+
+   The result will not be stored in the same place.
+   If we would store in the same place, the original function object would not exist..
+
+   Is simple terms we need to remember whenever we execute the function - 
+   it will never get stored in the memory location of the function object...
+
+"""
+
+
 # Print the function object
 print("Function object is {} ".format(hello_world))
 # Store the execution result of function in a variable..
-result = hello_world("Karthik!")
+result = hello_world("Maria!")
 # Print the result of the function 
 print("Execution result is - {} ".format(result))
 # Print the memory location of the execution result 
@@ -561,6 +597,7 @@ print(sys.getrefcount(100.125))
             - Until it's collected it would be hanging around in memory.
 
 '''
+
 # Write a simple function to print hello world.
 def hello_world(name):
     '''
@@ -579,10 +616,34 @@ print("\n")
 # Store the function object in a variable and delete the original function object.
 # The variable can still give results...
 
-test_result = hello_world # Store the function object hello_world in variable test_result.
-print(test_result("Arun"))
-del hello_world #  Delete the function object.
-print(test_result("Arun !!"))
+"""
+ Assigning the function object hello_world to a variable .
+ The variable test_result is from the stack memory .
+ The function object hello_world is from the heap memory .
+ Once we assing like this:
+  test_result = hello_world 
+ The variable test_result would now point to a memory location that
+ has the object hello_world .
+ It is just referencing the function hello_world  
+
+ So now test_result is also a function object and it can be
+ executed the same way as hello_world
+
+ Example:
+ --------
+  print(hello_world("Arun"))
+  print(test_result("Arun!!"))
+  
+"""
+test_result = hello_world 
+
+# Now test_result also became a function object...
+print(hello_world)
+print(test_result)
+# Execute the function
+print(hello_world("Arun"))
+print(test_result("Arun!!"))
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
