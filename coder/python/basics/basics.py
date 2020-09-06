@@ -475,6 +475,28 @@ print(test_result("Arun !!"))
                                         # Example 9
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+'''
+    Mutables and Immutable Object
+    Mutables: 
+        - Can be modified after creation.
+        - Memory address of the object remains the same after modification.
+        - Examples:
+            ~ Lists
+            ~ Dictionary
+            ~ Set
+    ImMutables: 
+        - Cannot be modified after creation.
+        - Only a new object at a different memory location can be created.
+        - Memory address of the object is modified.
+        - Examples:
+            ~ Tuples
+            ~ String
+'''
+
+# Define a mutable object
+test_array = [100,200,300,400,500]
+# Print the memory location of test_array
+print("Memory location of test_array is - {} ".format(id(test_array)))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
