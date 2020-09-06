@@ -226,7 +226,7 @@ print(result)
 # Even if the function is deleted, the variable will still work and produce results.
 
 
-# Write a simple function to find memory location and type of given variable.
+# Write a simple function to print hello world with a name.
 def hello_world(name):
     '''
         :param name: Name to the printed.   
@@ -308,15 +308,146 @@ print(result)# ?????
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
+                                      
                                         # Example 7
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-# Example 7 :: Using simple functions in python for getting variable details.
+# Example 7 :: Define variables with values, find the reference count of the variables.
+
+'''
+    Q: What is reference count ?
+    A: The Reference Count denotes the n.o. variables pointing at a given object.
+
+    Q: How do I get the reference count of an object?
+    A: Reference count of an object can be found out by using sys module.
+        - import sys
+        - sys.getrefcount(<object>)
+        - Example : 
+            - x = 1
+            - y = 1
+
+        print(sys.getrefcount(1))
+        
+        - The variable names are x and y.
+        - x has a value of 1 i.e. it refers to a memory location that has value as 1
+        - y has a value of 1 i.e. it refers to a memory location that has value as 1
+        - Here there are 2 variables pointing to a memory location that has value as 1.
+        - So the result with be 3.
+
+    Q: In previous step there are only 2 variables pointing to a memory location that has value as 1.
+       Why the reference count of 1 is 3 ?
+    A: By default python adds a reference count to an object in memory.
+
+    Open python shell and try this.
+
+        arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/orchestrator/coder/python (programmer)
+        $ python
+        Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> import sys
+        >>> x = 100000
+        >>> x1 = 100000
+        >>> print(sys.getrefcount(100000))
+        3
+
+    Q: Will the reference count decrease if I delete a variable?
+    A: Yes
+
+       Refer to the example below,
+       Open python shell and try this.
+
+       x = 100
+       y = 100
+       import sys
+       print("Reference Count of int object 100 before deleting variables x & y is {} ".format(sys.getrefcount(100)))
+       del x
+       del y
+       print("Reference Count of int object 100 after deleting variables x & y is {} ".format(sys.getrefcount(100)))
+        -- After deleting the variables x & y , the reference count of int object has thus reduced by 2.
+       
+       Output from Python Shell ::
+       -------------------------
+
+        arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/orchestrator/coder/python/basics (programmer)
+        $ python
+        Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+        Type "help", "copyright", "credits" or "license" for more information.
+        >>> x = 10000.250
+        >>> y = 10000.250
+        >>> import sys
+        >>> print("Reference Count of int object 100 before deleting variables x & y is {} ".format(sys.getrefcount(10000.250)))
+        Reference Count of int object 100 before deleting variables x & y is 6
+        >>> del x
+        >>> del y
+        >>> print("Reference Count of int object 100 after deleting variables x & y is {} ".format(sys.getrefcount(10000.250)))
+        Reference Count of int object 100 after deleting variables x & y is 4
+        -- After deleting the variables x & y , the reference count of int object has thus reduced by 2.
+
+'''
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Import the module sys
+import sys
+x = 100.125
+y = 100.125
+
+print("\n")
+print("Example 7 Output :: ")
+print("\n")
+# Print the reference count of an object before deleting references.
+print(sys.getrefcount(100.125))
+del x,y
+# Print the reference count of an object after deleting references.
+# After deleting the variables x & y , the reference count of int object has thus reduced by 2.
+print(sys.getrefcount(100.125))
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 8
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Example 8 :: Using simple functions in python to explain del keyword and reference count .
 # In Python we can store the function is a variable. 
 # Even if the function is deleted, the variable will still work and produce results.
 
-# Write a simple function to find memory location and type of given variable.
+'''
+    1. Define a function as def hello_world(name) -> A function that takes 1 Argument .
+
+        def hello_world(name):
+            return "Hello World ! {} ".format(name)
+
+    2. Assign the function object to a variable
+        - Ex: execution_func_var = hello_world
+        - The variable execution_func_var is a reference to object hello_world
+        - As stated previously, the variable execution_func_var is at the stack memory
+          and the object hello_world is at heap memory
+        - So, variable execution_func_var now references function object hello_world
+        - Find out the count of refrences for object hello_world using sys module.
+            - import sys
+            - print(sys.getrefcount(hello_world))
+    3. Execute the function using the variable execution_func_var :
+        - execution_func_var("Arun") # Output is Hello World ! Arun
+    4. Delete the function object
+        - del hello_world
+    5. Now again execute the function using the variable execution_func_var :
+        - execution_func_var("Arun") # Output is Hello World ! Arun
+    6. Eventhough the function object hello_world is deleted ,
+        - The variable execution_func_var can be still invoked and results obtained.
+        - This is because once we run statement del hello_world
+            - The object would thus show as deleted.
+            - But it wont be immediately garbage collected.
+            - Python does garbage collection based on reference count.
+            - As seen in previous step, we obtained reference count of object hello_world as,
+                - import sys
+                - print(sys.getrefcount(hello_world))
+            - The object will be garbage collected and deleted from memory only if the
+              reference count will be 0.
+            - Until it's collected it would be hanging around in memory.
+
+'''
+# Write a simple function to print hello world.
 def hello_world(name):
     '''
         Find memory location and type of variable
@@ -328,14 +459,79 @@ def hello_world(name):
     return "Hello World ! {} ".format(name)
 
 print("\n")
-print("Example 7 Output :: ")
+print("Example 8 Output :: ")
 print("\n")
 
-# Store the function object in a variable and delete the original function.
+# Store the function object in a variable and delete the original function object.
 # The variable can still give results...
 
-test_result = hello_world
+test_result = hello_world # Store the function object hello_world in variable test_result.
 print(test_result("Arun"))
-del hello_world
+del hello_world #  Delete the function object.
 print(test_result("Arun !!"))
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 9
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 10
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 11
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 12
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 13
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 14
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 15
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                        # Example 16
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 17
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 18
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 19
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 20
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
