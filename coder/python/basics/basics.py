@@ -772,7 +772,7 @@ def func_array(original_array):
   2. Execute the function and store the result in a variable      
      final_result_array .
       
-      final_result_array = func_mutables(input_array)
+      final_result_array = func_array(input_array)
   3. The contents of original input_array will be different
      from the new array final_result_array
 """
@@ -780,7 +780,7 @@ def func_array(original_array):
 # Define an input array
 input_array = [1,2,3,4,5,6]
 # Execute the function
-final_result_array = func_mutables(input_array)
+final_result_array = func_array(input_array)
 print("Original Array is - {} ".format(input_array))
 print("Final Result is - {} ".format(final_result_array))
 print("Memory loc of input array - {} ".format(id(input_array)))
