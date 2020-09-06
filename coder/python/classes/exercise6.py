@@ -26,7 +26,38 @@
 
     In the following example we shall use 2 special methods __getattr__ and __getattribute__
 
+
+    Method :: __call__
+    -------------------
+
+        In this example , we will a special magic method __call__ for invoking an instance of the class.                    
+        After creating an instance of the class, when the instance is called the __call__ method is invoked.
+
+            def __call__(self,*arguments):
+                """
+                    This method is invoked when an instance of the class is called.
+
+                    Example:
+                        instance_person = Person("Sherlock",20,"London","Programmer")
+                         # Returns an instance of the person class.
+                        Calling the instance as instance_person() -> Will invoke this __call__ method.
+                """
+
+        Example : Lets say we have a simple class.
+
+            class Person:
+                pass
+
+            Create an instance of the Class:
+                
+                # Instance creation..
+                instance_class = Person() # Instance gets created.
+
+                # Call the instance.
+                instance_class() # The __call__ special method will get invoked.
+
     Method :: __getattribute__
+    ----------------------------
 
     	In this example , we will see a special magic method __getattribute__ 
         This method gets invoked whenever any attribute of the class would get called.

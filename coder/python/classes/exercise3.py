@@ -24,23 +24,35 @@
 
     ** Refer to README file for detailed documentation on the Classes.
 
+
     Method :: __call__
+    -------------------
 
-    	In this example , we will see a special magic method __call__ for invoking an instance of the class.                    
-    	After creating an instance of the class, when the instance is called the __call__ method is invoked.
+        In this example , we will a special magic method __call__ for invoking an instance of the class.                    
+        After creating an instance of the class, when the instance is called the __call__ method is invoked.
 
-    	Example : Lets say we have a simple class.
+            def __call__(self,*arguments):
+                """
+                    This method is invoked when an instance of the class is called.
 
-    		class Person:
-    			pass
+                    Example:
+                        instance_person = Person("Sherlock",20,"London","Programmer")
+                         # Returns an instance of the person class.
+                        Calling the instance as instance_person() -> Will invoke this __call__ method.
+                """
 
-    		Create an instance of the Class:
-				
-				# Instance creation..
-    			instance_class = Person() # Instance gets created.
+        Example : Lets say we have a simple class.
 
-    			# Call the instance.
-    			instance_class() # The __call__ special method will get invoked.
+            class Person:
+                pass
+
+            Create an instance of the Class:
+                
+                # Instance creation..
+                instance_class = Person() # Instance gets created.
+
+                # Call the instance.
+                instance_class() # The __call__ special method will get invoked.
     
     Note :: This example is same as exercise2.py the only difference is the method check_qualification is rewritten;
 
