@@ -268,6 +268,80 @@ print("Class of the variable is - {} ".format(class_variable))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+                                        # Example 4 - PART 2
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+'''
+  Define a function to find the memory location and type of object.
+  Return the values as Tuple.
+  Execute the function and store the result in a variable.
+  Unpack the tuple and print all the values.
+
+  Note :
+    Q: What is a tuple?
+    A: Comma Seperated values..Ex: (1,2,3,4,5,)
+
+    Q: How do you unpack the tuple?
+    A: Based on the number of values we need to unpack.
+      Ex: def hello():
+            return 1,2,3,4,5
+      result = hello()
+      # Unpack
+      a,b,c,d,e = result # The value of result is (1,2,3,4,5)
+
+    Q: While i do unpacking, Can i do with lesser or greater values?
+    A : NO
+        Invalid:
+        ---------
+        Ex: def hello():
+              return 1,2,3,4,5
+        result = hello()
+        # Unpack - ERROR . Since the result has 5 values and we unpack as 4.
+        a,b,c,d = result # The value of result is (1,2,3,4,5)
+
+        Invalid:
+        ---------
+        Ex: def hello():
+              return 1,2,3,4,5
+        result = hello()
+        # Unpack - ERROR . Since the result has 5 values and we unpack as 6.
+        a,b,c,d,e,f, = result # The value of result is (1,2,3,4,5)
+
+'''
+# Write a simple function to find memory location and type of given variable.
+def return_mem_location_type_of_variable(variable):
+    '''
+        Find memory location and type of variable. This param variable is a position argument .
+        In python its mandate to pass value for all the positional arguments, 
+        if we dont pass for any of the argument: 
+        Then it would result in an Exception
+        
+        :param variable: Variable to be explained.  
+        The class of the variable can be found in 2 ways:
+            print(variable.__class__)   
+            print(type(variable))
+    '''
+    # Return the memory location and type of object as a tuple..
+    return id(variable),variable.__class__,True
+
+# Execute the function and store the result in a variable...
+result = return_mem_location_type_of_variable(variable=100)
+print("Original Result : {} ".format(result))
+
+
+# Tuple unpack to know memory location and type of object...
+memory_id,class_of_object,status = result
+print("\n")
+print("Result after tuple unpack...")
+print("\n")
+print("Memory Location is - {} ".format(memory_id))
+print("Type of Object is - {} ".format(class_of_object))
+print("Status is = {} ".format(status))
+print("\n")
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 
                                         # Example 5
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -431,6 +505,16 @@ def hello_world(name):
        print(result) # Will print the output ...
 
 '''
+
+
+'''
+  Lets say func object hello_world is at loc: 100
+  the result of function execution is at loc: 200
+  When we delete the func object, the result will not get affected.
+  The result will be safe still in the same heap memory ...
+  and the variable result is pointing that location in heap..
+'''
+
 
 # Print the function object
 print("Function object is {} ".format(hello_world))
@@ -694,9 +778,9 @@ print("\n")
 
 """
   ~ I want to modify the contents inside test_array
-  1. Add one more element 
-  2. Change the value of an element in a given index
-  3. Delete an element
+      1. Add one more element 
+      2. Change the value of an element in a given index
+      3. Delete an element
 """
 
 # Add 1 or more elements using append function
