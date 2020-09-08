@@ -875,6 +875,122 @@ print("Memory loc of new array - {} ".format(id(final_result_array)))
                                         # Example 11
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+'''
+  Define a simple function for manipulating the Arrays.
+  Pass an empty list as a default argument and manipulate the empty list in the array.
+  Example:
+    def func_array(original_array,result_array = [])
+
+  # Define an input array
+  input_array = [1,2,3,4,5,6]
+  
+  # Execute the function
+  final_result_array = func_array(input_array)
+
+'''
+
+
+# Simple function for arrays
+def func_array(original_array,result_array = []):
+  """
+    
+    Aim:
+      Take an array as an input and multiply each number by 2,
+      add to new array and return the new array.
+    
+    Steps:
+
+      Iterate the original_array, multiply each number by 2. 
+
+      Add each of the multipled number to the new array result_array.
+      Return the new array - result_array
+
+    In this program there are 2 different arrays
+      1. original_array -> Passed by the User
+      2. result_array -> Contains final result
+    
+    Explanation of Arguments ::
+
+     1. original_array: Positional Argument and value must be passed. 
+          --  If the value is not passed it will raise an error.
+
+     2. result_array: It is a default argument. This takes a default value at function
+        creation time. In this case the default value will be an empty list - []
+        
+        If we pass any value to the default argument it will still take the new value.
+
+        For ex:
+          The above function can be executed either with existing default value or passing new value.
+          Let's say original_array = [1,2,3,4,5]
+
+          Case 1 :: Default argument is not altered, it remains as []
+
+            result = func_array(original_array,result_array = [])
+            
+            When its not altered, the final array - result_array will contain the product of numbers
+            added to the result_array
+
+            i.e. result_array.append(each_val*2)
+
+            If i would pass the original_array as [1,2,3,4,5,6]
+            The output would be [2,4,6,8,10,12]
+          
+          Case 2 :: Default argument is altered, it is passed as [100,200]
+
+            result = func_array(original_array,result_array = [100,200])
+
+            When it is altered, the final array - result_array will contain the product of numbers
+            added to the result_array. And it will also take the values that I passed while execution.
+
+            i.e. result_array.append(each_val*2)
+
+            While executing I modified the default argument and passed with values [100,200]
+
+            Like this : func_array(original_array,result_array = [100,200])
+
+            So which means that the final array - result_array will contain the product of the numbers +
+            the values i Pass - [100,200]
+
+            If i would pass the original_array as [1,2,3,4,5,6]
+            The output would be [100,200,2,4,6,8,10,12]
+            IT contains two more values 100,200 since while executing the function i had passed
+            the result_array as result_array=[100,200]
+    
+    Memory Location ::
+      
+      The memory location of the original_array will be different from that the new array result_array 
+      since they are 2 different lists entirely.
+  """
+
+  # Iterate the original_array and multiply each number by 2...
+  for each_val in original_array:
+    # multiply by 2 and append to new array
+    result_array.append(each_val*2)
+  # Return the new modified array
+  return result_array
+
+
+# Define an input array
+input_array = [1,2,3,4,5,6]
+# Execute the function
+final_result_array = func_array(input_array)
+print("Original Array is - {} ".format(input_array))
+# The new array will now have values as [2, 4, 6, 8, 10, 12]
+print("Final Result is - {} ".format(final_result_array))
+
+
+# Define an input array
+input_array = [1,2,3,4,5,6]
+
+
+# Run the function with new values for result_array
+# Execute the function
+# The new array will now have values as [100, 200, 2, 4, 6, 8, 10, 12]
+final_result_array = func_array(input_array,result_array=[100,200])
+print("Original Array is - {} ".format(input_array))
+print("Final Result is - {} ".format(final_result_array))
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
