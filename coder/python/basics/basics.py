@@ -1,4 +1,14 @@
 # Introduction to Python language with multiple examples
+'''
+  Git Clone Details:
+
+    git clone https://github.com/arunc1985/orchestrator.git
+    git checkout programmer
+    cd orchestrator/coder/python/basics
+
+    Run as python basics.py
+
+'''
 
                                         # Example 1 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
