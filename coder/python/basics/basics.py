@@ -747,6 +747,7 @@ print(test_result("Arun!!"))
     Mutables and Immutable Objects
     
     At a higher level we can classify the objects as mutable & im-mutable.
+    "Arun", 100, False,{},[],()
 
     Mutables: 
         - Once a mutable object is created:
@@ -754,10 +755,12 @@ print(test_result("Arun!!"))
             - Can be modified after creation.
             - Memory address of the object remains the same after modification.
             - Examples:
-                ~ Lists
-                ~ Dictionary
-                ~ Set
+                ~ Lists - append, insert, extend etc..
+                ~ Dictionary - update, set...
+                ~ Set - add...
         - We can modify/customize a mutable object.
+        - After modification the memory location will remain the same.
+        
     ImMutables: 
         - Once an im-mutable object is created:
 
@@ -778,9 +781,9 @@ print("\n")
 
 """
   ~ I want to modify the contents inside test_array
-      1. Add one more element 
-      2. Change the value of an element in a given index
-      3. Delete an element
+      1. Add one more element - append or extend
+      2. Change the value of an element in a given index - insert
+      3. Delete an element - remove or pop
 """
 
 # Add 1 or more elements using append function
@@ -997,20 +1000,193 @@ print("Final Result is - {} ".format(final_result_array))
                                         # Example 12
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+# Define a dictionary and iterate it to print the values.
+
+'''
+ Q: Is dict mutable or im-mutable?
+ A: Its mutable, do dir({}) to know available options to modify a dict after creation.
+'''
+
+# Define a simple dictionary..
+empty_dict = {} # This an empty dictionary.
+# Define dict with value.
+simple_dict = {1:1,2:4,3:9,4:16} # Dict with values.
+# Iterate on the dict and get all the values. To iterate use the .items() method for the dict.
+
+'''
+ Q: What is {}.items() mean ?
+ A: Its a method to get the data from the dict.
+
+ Q: How does dict store the data?
+ A: It stores in key:value pair. Ex: simple_dict = {1:1,2:4,3:9,4:16} # Dict with values.
+
+ Q: Can there be multiple keys with same name?
+ A: No - keys cannot be repeated. If you define multiple keys then values will get updated.
+  Ex:
+    simple_dict = {1:1,2:4,3:9,4:16,2:20} # Dict with values.
+    Now Python will not take 2:4, but it will take 2:20 since key 2 is getting repeated.
+    It will take the latest occurrence of the key.
+'''
+print("\n Example 12 output  :: \n")
+
+# Iterate on the dict.
+for _key,_value in simple_dict.items():
+  print("Key is - {} and Value is - {}".format(_key,_value))
+
+# ReDefine dict with value.
+# The Keys cannot be repeated. If you define multiple keys the latest values will get updated.
+new_simple_dict = {1:1,2:4,3:9,4:16,2:20} # Dict with values.
+
+print("\n Print new dictionary \n ")
+# Iterate on the dict.
+for _key,_value in new_simple_dict.items():
+  print("Key is - {} and Value is - {}".format(_key,_value))
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
                                         # Example 13
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Define a function to handle the dictionary operations.
+# Use simple if-else condition...
+
+print("\n Example 13 output  :: \n")
+
+def dict_print_values(int_var,dictionary):
+  '''
+    :param int_var: An integer
+    :param dictionary is a positional arg of type {}
+    Print the key-value pairs
+  '''
+  # Iterate on the dict & print. Apply an if-condition and filter the data.
+  # Filter and print only values that are divisible by int_var
+  for _key,_value in dictionary.items():
+    # Check if the Value - _value is divisible by int_var
+    # if _value%int_var == 0 : Print.. Ex: 10//5==0 has 0 as Reminder..
+    if _value%int_var == 0 :
+      print("Key is - {} and Value is - {} - *Success* ".format(_key,_value))
+    else :
+      print("Key is - {} and Value is - {} - not divisible by {}".format(_key,_value,int_var))
+
+# Call the function and print the data
+dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50})
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
                                         # Example 14
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+
+# Define a function to handle the dictionary operations.
+# Use simple if-else condition...if the condition satisfies - add data to new dictionary.
+
+print("\n Example 14 output  :: \n")
+
+def dict_print_values(int_var,dictionary):
+  '''
+    :param int_var: An integer
+    :param dictionary is a positional arg of type {}
+    Print the key-value pairs
+  '''
+  # Define an Empty dictionary inside the function. Add key:value if the condition satisfies...
+  result_dict = {}
+  # Iterate on the dict & print. Apply an if-condition and filter the data.
+  # Filter and print only values that are divisible by int_var
+  for _key,_value in dictionary.items():
+    # Check if the Value - _value is divisible by int_var
+    # if _value%int_var == 0 : Print.. Ex: 10//5==0 has 0 as Reminder..
+    if _value%int_var == 0 :
+      # Add Value to the dictionary only if the condition is satisfied...
+      '''
+        Adding key:value pair :
+          result_dict[_key] = _value
+          result_dict is the dictionary
+          _key is the current key in the iteration.
+          _value is the current value in the iteration.
+          When we write result_dict[_key] = _value
+            - The key _key gets mapped to value _value
+          For example if dictionary is {1:1,2:20,3:9,4:16,5:50}
+          When we iterate we get key:value pair as follows;
+            1:1
+            2:20
+            3:9
+            4:16
+            5:50
+          Which means :
+            result_dict[1] = 1
+            result_dict[2] = 20
+            result_dict[3] = 9
+            result_dict[4] = 16
+            result_dict[5] = 50
+
+      Finally return the new dictionary result_dict
+      '''
+      result_dict[_key]=_value
+  # Return the new dict using return keyword
+  return result_dict
+
+# Call the function and print the data
+result = dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50})
+print("New & modified dictionary = {} ".format(result))
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
                                         # Example 15
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Define a function to handle the dictionary operations.
+# Use simple if-else condition with AND...if the condition satisfies - add data to new dictionary.
+
+print("\n Example 15 output  :: \n")
+
+def dict_print_values(int_var,dictionary):
+  '''
+    :param int_var: An integer
+    :param dictionary is a positional arg of type {}
+    Print the key-value pairs
+  '''
+  # Define an Empty dictionary inside the function. Add key:value if the condition satisfies...
+  result_dict = {}
+  # Iterate on the dict & print. Apply an if-condition and filter the data.
+  # Filter and print only values that are divisible by int_var
+  for _key,_value in dictionary.items():
+    # Check if the Value - _value is divisible by int_var
+    # If both _key and _value are divisible by int_var - add to result_dict.
+    if _value%int_var == 0 and _key%int_var == 0:
+      # Add Value to the dictionary only if the condition is satisfied...
+      '''
+        Adding key:value pair :
+          result_dict[_key] = _value
+          result_dict is the dictionary
+          _key is the current key in the iteration.
+          _value is the current value in the iteration.
+          When we write result_dict[_key] = _value
+            - The key _key gets mapped to value _value
+          For example if dictionary is {1:1,2:20,3:9,4:16,5:50}
+          When we iterate we get key:value pair as follows;
+            1:1
+            2:20
+            3:9
+            4:16
+            5:50
+          Which means :
+            result_dict[1] = 1
+            result_dict[2] = 20
+            result_dict[3] = 9
+            result_dict[4] = 16
+            result_dict[5] = 50
+
+      Finally return the new dictionary result_dict
+      '''
+      result_dict[_key]=_value
+  # Return the new dict using return keyword
+  return result_dict
+
+# Call the function and print the data
+result = dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50})
+print("New & modified dictionary = {} ".format(result))
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -1018,10 +1194,211 @@ print("Final Result is - {} ".format(final_result_array))
                                         # Example 16
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+# Define a function to handle the dictionary operations.
+# Use simple if-else condition with AND...if the condition satisfies - add data to new dictionary.
+
+print("\n Example 16 output  :: \n")
+
+# During function creation time - the argument result_dict = {} will be stored as empty dict in memory.
+def dict_print_values(int_var,dictionary,result_dict={}):
+  '''
+    :param int_var: An integer
+    :param dictionary is a positional arg of type {}
+    :param result_dict: Its of type {} and it's a default argument.
+
+    Q: What's a default argument?
+    A: In python we have multiple argument types such as ;
+      - Positional Args
+      - Tuple Args
+      - Keyword Args
+      - Default Args
+      
+      So in case of default args:
+        - The value is available by default during function creation time.Ex: result_dict = {} .
+        - Python will not raise an exception - if the value is not passed for default arg during
+          function execution.
+          For ex: This function can be executed as result = dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50})
+          It will not raise even if we dont pass value for result_dict dictionary.
+
+          But if you pass values to default arg during function execution, it will get overwritten.
+          For ex: dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50},result_dict={100:1000})
+          The result of the function will contain also the value you pass.
+            CASE 1 ::
+              - Run as dict_print_values(int_var=10,dictionary={1:1,20:40,3:9,4:16,2:20,5:50})
+                You would get {20:40}
+            CASE 2 ::
+              - Run as dict_print_values(int_var=10,dictionary={1:1,20:40,3:9,4:16,2:20,5:50},result_dict={100:1000})
+                You would get {100:1000,20:40}
+                The result_dict is actually a default argument which got initialized at function creation time.
+                But while executing function as above in CASE 2, we are reinitializing it as {100:1000}
+                So the final result will also contain {100:1000}
+  '''
+  # Iterate on the dict & print. Apply an if-condition and filter the data.
+  # Filter and print only values that are divisible by int_var
+  for _key,_value in dictionary.items():
+    # Check if the Value - _value is divisible by int_var
+    # If both _key and _value are divisible by int_var - add to result_dict.
+    if _value%int_var == 0 and _key%int_var == 0:
+      # Add Value to the dictionary only if the condition is satisfied...
+      '''
+        Adding key:value pair :
+          result_dict[_key] = _value
+          result_dict is the dictionary
+          _key is the current key in the iteration.
+          _value is the current value in the iteration.
+          When we write result_dict[_key] = _value
+            - The key _key gets mapped to value _value
+          For example if dictionary is {1:1,2:20,3:9,4:16,5:50}
+          When we iterate we get key:value pair as follows;
+            1:1
+            2:20
+            3:9
+            4:16
+            5:50
+          Which means :
+            result_dict[1] = 1
+            result_dict[2] = 20
+            result_dict[3] = 9
+            result_dict[4] = 16
+            result_dict[5] = 50
+
+      Finally return the new dictionary result_dict
+      '''
+      result_dict[_key]=_value
+  # Return the new dict using return keyword
+  return result_dict
+
+# CASE 1 :: Dont pass values for result_dict default argument .
+# Call the function and print the data without passing values for result_dict
+print("Call the function and print the data without passing values for result_dict default argument.")
+result = dict_print_values(int_var=10,dictionary={1:1,20:40,3:9,4:16,2:20,5:50})
+print("New & modified dictionary = {} ".format(result))
+
+# CASE 2 :: Pass values for result_dict default argument .
+# Call the function and print the data by passing values for result_dict
+print("Call the function and print the data by passing values for result_dict default argument.")
+# Reinitialize the argument result_dict as {100:1000}
+result = dict_print_values(int_var=10,dictionary={1:1,20:40,3:9,4:16,2:20,5:50},result_dict={100:1000})
+print("New & modified dictionary = {} ".format(result))
+
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
                                         # Example 17
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Define a function to handle the dictionary operations.
+# Use simple if-else condition with AND...if the condition satisfies - add data to new dictionary.
+
+print("\n Example 17 output  :: \n")
+
+# During function creation time - the argument result_dict = {} will be stored as empty dict in memory.
+def dict_print_values(int_var,dictionary,result_dict={}):
+  '''
+    :param int_var: An integer
+    :param dictionary is a positional arg of type {}
+    :param result_dict: Its of type {} and it's a default argument.
+
+    Q: What's a default argument?
+    A: In python we have multiple argument types such as ;
+      - Positional Args
+      - Tuple Args
+      - Keyword Args
+      - Default Args
+      
+      So in case of default args:
+        - The value is available by default during function creation time.Ex: result_dict = {} .
+        - Python will not raise an exception - if the value is not passed for default arg during
+          function execution.
+          For ex: This function can be executed as result = dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50})
+          It will not raise even if we dont pass value for result_dict dictionary.
+
+          But if you pass values to default arg during function execution, it will get overwritten.
+          For ex: dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50},result_dict={100:1000})
+          The result of the function will contain also the value you pass.
+            CASE 1 ::
+              - Run as dict_print_values(int_var=10,dictionary={1:1,20:40,3:9,4:16,2:20,5:50})
+                You would get {20:40}
+            CASE 2 ::
+              - Run as dict_print_values(int_var=10,dictionary={1:1,20:40,3:9,4:16,2:20,5:50},result_dict={100:1000})
+                You would get {100:1000,20:40}
+                The result_dict is actually a default argument which got initialized at function creation time.
+                But while executing function as above in CASE 2, we are reinitializing it as {100:1000}
+                So the final result will also contain {100:1000}
+  '''
+  # Iterate on the dict & print. Apply an if-condition and filter the data.
+  # Filter and print only values that are divisible by int_var
+  for _key,_value in dictionary.items():
+    # Check if the Value - _value is divisible by int_var
+    # If both _key and _value are divisible by int_var - add to result_dict.
+    if _value%int_var == 0 and _key%int_var == 0:
+      # Add Value to the dictionary only if the condition is satisfied...
+      '''
+        Adding key:value pair :
+          result_dict[_key] = _value
+          result_dict is the dictionary
+          _key is the current key in the iteration.
+          _value is the current value in the iteration.
+          When we write result_dict[_key] = _value
+            - The key _key gets mapped to value _value
+          For example if dictionary is {1:1,2:20,3:9,4:16,5:50}
+          When we iterate we get key:value pair as follows;
+            1:1
+            2:20
+            3:9
+            4:16
+            5:50
+          Which means :
+            result_dict[1] = 1
+            result_dict[2] = 20
+            result_dict[3] = 9
+            result_dict[4] = 16
+            result_dict[5] = 50
+
+      Finally return the new dictionary result_dict
+      '''
+      result_dict[_key]=_value
+  # Return the new dict using return keyword
+  return result_dict
+
+# Define the result dict as result_dict = {1000:2000}
+result_dict = {1000:2000}
+
+# STEP 1 ::
+# Call the function and print the data by passing values for result_dict
+print("Call the function and print the data without passing values for result_dict default argument.")
+result = dict_print_values(int_var=10,dictionary={1:1,20:40,30:90,4:16,2:20,5:50},result_dict=result_dict)
+print("New & modified dictionary = {} ".format(result))
+'''
+  # After execution of STEP 1 in above function result_dict is as follows;
+  # {1000: 2000, 20: 40, 30: 90}
+'''
+# STEP 2 ::
+# Call the function and print the data by passing values for result_dict
+print("Call the function and print the data by passing values for result_dict default argument.")
+# Reinitialize the argument result_dict as {100:1000}
+result = dict_print_values(int_var=5,dictionary={1:1,200:400,3:90,4:160,2000:2000,15:500},result_dict=result_dict)
+print("New & modified dictionary = {} ".format(result))
+
+'''
+  # After execution of STEP 2 in above function result_dict is as follows;
+  # {1000: 2000, 20: 40, 30: 90, 200: 400, 2000: 2000, 15: 500}.
+  Q: So as you see clearly the execution result of STEP 2 also contains execution result of STEP 1 ?
+  A: The variable result_dict is a dictionary and a mutable data type.
+      A mutable data-type is ;
+        - It can be modified after creation.
+        - Even after modification, the memory location remains the same.
+      So for result_dict lets say it was in memory location X100 during creation.
+      Now after STEP 1 it got modified and would still remain in memory location X100.
+      So later when we use result_dict in STEP 2, it would still refer to same memory location X100
+      and it gets updated again for 2nd time.
+
+      * Hence we find that the final result of STEP 2 contains the result from STEP 1 also.
+      So the final result of STEP 2 is result of STEP 1 + STEP 2, I mean the dictionary
+      in the same memory location has been officially modified twice * 
+
+'''
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
