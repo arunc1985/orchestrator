@@ -16,6 +16,7 @@ import abc
 
 # Define the abstract class for Person Class
 class AbstractPerson(metaclass=abc.ABCMeta):
+
     '''
         Define all the Abstract methods
     '''
@@ -37,6 +38,12 @@ class AbstractPerson(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
     def process(self):
+        '''
+            This method displays details of the Person and
+            processes the records.
+        '''
+
+    def person_personal(self):
         '''
             This method displays details of the Person and
             processes the records.

@@ -26,21 +26,31 @@
 
     Method :: __call__
 
-    	In this example , we will a special magic method __call__ for invoking an instance of the class.                    
-    	After creating an instance of the class, when the instance is called the __call__ method is invoked.
+        In this example , we will create a special magic method __call__ for invoking an instance of the class.                    
+        After creating an instance of the class, when the instance is called the __call__ method is invoked.
 
-    	Example : Lets say we have a simple class.
+        Example : Lets say we have a simple class.
 
-    		class Person:
-    			pass
+            class Person:
+                pass
 
-    		Create an instance of the Class:
-				
-				# Instance creation..
-    			instance_class = Person() # Instance gets created.
+            Create an instance of the Class:
+                
+            # Instance creation..
+            instance_class = Person() # Instance gets created.
 
-    			# Call the instance.
-    			instance_class() # The __call__ special method will get invoked.
+            # Call the instance.
+            instance_class() # The __call__ special method will get invoked.
+        
+        In case you dont implement __call__ method but still if you would  call the instance.
+
+        Then Python will raise an exception.... object is not callable
+        ---------------------------------------------------------------
+            Traceback (most recent call last):
+              File "exercise1.py", line 399, in <module>
+                instance_person() # Call
+            TypeError: 'Person' object is not callable
+
 
 '''
 
@@ -49,7 +59,7 @@ import abstraction
 
 class Person(abstraction.AbstractPerson):
 
-    def __init__(self,name,age,location,profession):
+    def __init__(self,name,age,location,profession,qualify_age):
         """
             This Constructor takes 4 arguments;
             :param name: Name of the Person
@@ -74,7 +84,7 @@ class Person(abstraction.AbstractPerson):
         self.age=age
         self.location=location
         self.profession=profession
-        self.qualify_age=20 # We can also hard-code instance variables
+        self.qualify_age=qualify_age
 
     """
         The below method is an example of an instance method
@@ -117,22 +127,25 @@ class Person(abstraction.AbstractPerson):
             Processes the records of the person...
         '''
         # Check a condition and process. Print details of the person if they would be qualified.
-        return self.about() if bool(self.check_qualification()) else "Unqualified!!"
+        return self.about() if bool(self.check_qualification()) else "Person {} Unqualified!!".format(self.name)
 
     def __call__(self,*arguments):
-    	'''
-    		This method is invoked when an instance of the class is called.
-    		Example:
-    			instance_person = Person("Sherlock",20,"London","Programmer") # Returns an instance of the person class.
-    			Calling the instance as instance_person() -> Will invoke this __call__ method.
-    	'''
-    	# Execute the process
-    	return self.process()
+        '''
+            This method is invoked when an instance of the class is called.
+            Example:
+                instance_person = Person("Sherlock",20,"London","Programmer") # Returns an instance of the person class.
+                Calling the instance as instance_person() -> Will invoke this __call__ method.
+        '''
+        # Set a new attribute
+        #self.qualify_age=30
+        # Execute the process
+        return self.process()
 
 # Execute
 if __name__ == "__main__":
-    instance_person = Person("Sherlock",15,"London","Programmer") # Returns an instance of the person class.
+    instance_person = Person("Sherlock",25,"London","Programmer",20) # Returns an instance of the person class.
     # Print the instance
     print(instance_person)
     # Display details
-    print(instance_person())
+    # Calling the instance of the class - __call__ method will get invoked.
+    print(instance_person()) 

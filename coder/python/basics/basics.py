@@ -1013,6 +1013,17 @@ print("Final Result is - {} ".format(final_result_array))
 # Define a dictionary and iterate it to print the values.
 
 '''
+  If i want to create a dict of me...
+  name = Arun
+  loc = Chennai
+  job = Programmer
+  food = Briyani
+  hobby = jog
+  fav-lang = Python
+
+  dict_of_me = {"name":"Arun" , "loc":"Chennai","job":"Programmer","food":"Briyani","hobby":"jog","fav-lang":"Python"}
+'''
+'''
  Q: Is dict mutable or im-mutable?
  A: Its mutable, do dir({}) to know available options to modify a dict after creation.
 '''
@@ -1038,6 +1049,10 @@ simple_dict = {1:1,2:4,3:9,4:16} # Dict with values.
     It will take the latest occurrence of the key.
 '''
 print("\n Example 12 output  :: \n")
+
+print("Print all Keys - {} ".format(simple_dict.keys()))
+print("Print all Values - {} ".format(simple_dict.values()))
+
 
 # Iterate on the dict.
 for _key,_value in simple_dict.items():
@@ -1075,7 +1090,7 @@ def dict_print_values(int_var,dictionary):
     # Check if the Value - _value is divisible by int_var
     # if _value%int_var == 0 : Print.. Ex: 10//5==0 has 0 as Reminder..
     if _value%int_var == 0 :
-      print("Key is - {} and Value is - {} - *Success* ".format(_key,_value))
+      print("Key is - {} and Value is - {} - *Success Divisible* by {}  ".format(_key,_value,int_var))
     else :
       print("Key is - {} and Value is - {} - not divisible by {}".format(_key,_value,int_var))
 
@@ -1107,7 +1122,7 @@ def dict_print_values(int_var,dictionary):
     # Check if the Value - _value is divisible by int_var
     # if _value%int_var == 0 : Print.. Ex: 10//5==0 has 0 as Reminder..
     if _value%int_var == 0 :
-      # Add Value to the dictionary only if the condition is satisfied...
+      # Add key:value to the dictionary only if the condition is satisfied...
       '''
         Adding key:value pair :
           result_dict[_key] = _value
@@ -1118,11 +1133,11 @@ def dict_print_values(int_var,dictionary):
             - The key _key gets mapped to value _value
           For example if dictionary is {1:1,2:20,3:9,4:16,5:50}
           When we iterate we get key:value pair as follows;
-            1:1
-            2:20
-            3:9
-            4:16
-            5:50
+            1:1 # 1st Iteration
+            2:20 # 2nd Iteration
+            3:9 # 3rd Iteration
+            4:16 # 4th Iteration
+            5:50 # 5th Iteration
           Which means :
             result_dict[1] = 1
             result_dict[2] = 20
@@ -1132,7 +1147,7 @@ def dict_print_values(int_var,dictionary):
 
       Finally return the new dictionary result_dict
       '''
-      result_dict[_key]=_value
+      result_dict[_key]=_value # Add the key:value to the result_dict
   # Return the new dict using return keyword
   return result_dict
 

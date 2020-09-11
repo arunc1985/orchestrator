@@ -248,7 +248,7 @@
             We can access the class variable QUALIFY_AGE inside the instance method
         """        
 
-        def instance_met_check_qualification(self):
+        def instance_met_check_qualification(self,a,b,c):
             # We can access the class variable QUALIFY_AGE inside the instance method
             # ** An instance is a child of the class hence the class variable is accessible via instance of the class **
             # Check the qualification and return as True or False
@@ -382,11 +382,20 @@ class Person(abstraction.AbstractPerson):
             Processes the records of the person...
         '''
 
+
+    def tests(self):
+        '''
+            Processes the records of the person...
+        '''
+
 # Execute
 if __name__ == "__main__":
+    # Class name is Person ....
+    #object_person = Person() # If __init__ has no args..
     instance_person = Person("Sherlock",20,"London","Programmer") # Returns an instance of the person class.
     # Print the instance
     print(instance_person)
+    
     # Display details
     print(instance_person.about())
     # Check for Qualification
