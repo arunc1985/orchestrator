@@ -167,8 +167,62 @@ class Person:
 
     def __getattr__(self,attribute):
         '''
+            This method will get called for any attribute that is not available in the class/instance.
+            
+            If an User calls an attribute as instance_class.xyz, if xyz is not available either at
+            instance level or class level - then this method will get called.
+
+            Instance level - Refer __init__() method where we create instance variables.
+            Class level - Anything and everything at class level. Methods, Class Variables etc..
+
+            In case you dont define __getatrr__ but if you would call an unavailable attribute,
+            It will result in AttributeError as shown below as an example :
+
+                Traceback (most recent call last):
+                  File "classes/exercise4.py", line 180, in <module>
+                    print(instance_person.process_a) # Attribute process_a doesn't exist in the class..
+                AttributeError: 'Person' object has no attribute 'process_a'
+
             Handle the attribute in case of AttributeError
             :param attribute: The attribute being accessed.
+        
+        Since the Attribute is not part of the class, set the value for the attribute like below;
+        setattr(self.__class__,attribute,value)
+        setattr - A build-in keyword for setting values to attributes.
+
+        Example:
+            instance_person = Person("Sherlock",25,"London","Programmer") 
+            In above case self means instance_person
+            and self.__class__ means Person class
+
+
+        self.__class__ - The Class object itself.
+        self - Instance of the Class.
+        attribute - The attribute that doesnt exist in the class.
+        value - The value to be set to the attribute.
+
+        So - This command : 
+
+            Syntax : setattr(self.__class__,attribute,value)
+        
+            Example :: 
+                setattr(self.__class__,count_people,10000)
+                Set the value as 10000 for the attribute count_people
+
+            Once it's set here - its avaiable at class and instance level.
+            Anything that a class can access can also be accessed by the instance of the class.
+            An instance is like a baby to the parent.
+
+
+        getattr(self.__class__,attribute)
+
+        getattr - Builtin function used for getting the values.
+        self.__class__ - Represents the class Person
+        attribute - The attribute that we want to get from class Person
+        
+        Example :
+            getattr(self.__class__,"count_items")
+            So it would return the attribute by name count_items from the Person Class
         '''
         # Handle the attribute..
 

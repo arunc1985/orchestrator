@@ -87,6 +87,9 @@
 # Define a Person class and perform related operations
 class Person:
 
+    # Class Variables
+    CODE_AUTHOR="SON-TEAM"
+
     def __init__(self,name,age,location,profession):
         """
             This Constructor takes 4 arguments;
@@ -161,11 +164,27 @@ class Person:
 
     def __getattr__(self,attribute):
         '''
+            This method will get called for any attribute that is not available in the class/instance.
+            
+            If an User calls an attribute as instance_class.xyz, if xyz is not available either at
+            instance level or class level - then this method will get called.
+
+            Instance level - Refer __init__() method where we create instance variables.
+            Class level - Anything and everything at class level. Methods, Class Variables etc..
+
+            In case you dont define __getatrr__ but if you would call an unavailable attribute,
+            It will result in AttributeError as shown below as an example :
+
+                Traceback (most recent call last):
+                  File "classes/exercise4.py", line 180, in <module>
+                    print(instance_person.process_a) # Attribute process_a doesn't exist in the class..
+                AttributeError: 'Person' object has no attribute 'process_a'
+
             Handle the attribute in case of AttributeError
             :param attribute: The attribute being accessed.
         '''
         # Handle
-        return "Attribute {} doesn't exist in the class.. ".format(attribute)
+        return "\n\n Calling __getattr__ . Attribute {} doesn't exist in the class.. ".format(attribute)
 
 # Execute
 if __name__ == "__main__":
@@ -176,6 +195,10 @@ if __name__ == "__main__":
     print(instance_person())
     #Select an attribute.
     print(instance_person.process) # Return the method name
+    # Print age,name
+    print(instance_person.name,instance_person.age)
+
+    # Call Attributes that are not available..
     # Method process_a doesn't exist in the class Person and method __getattr__ will get invoked...
     print(instance_person.process_a) # Attribute process_a doesn't exist in the class..
 
