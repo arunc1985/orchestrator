@@ -97,7 +97,7 @@
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-                                        # Example 1
+                                        # Example 0
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Define a function to print the values in the Generator *
@@ -139,11 +139,27 @@ def func_gen_tests(array):
     '''
       Function to iterate an array and yield the records.
       Execute this function as follows:
-        # Define array
-        array = [10,20,30,40,50 ....... 100000]
-         Method 1 : func_gen_print_records(gen_object=func_gen_tests(array))
-         Method 2 : func_gen_print_until_stop_iteration(gen_object=func_gen_tests(array))
-         Output : Prints 10,20....99999
+          # Define array
+          array = range(10,100)
+
+          # STEP 1 ::
+          # Creating the Generator Object - Calling function with args will not execute it.
+          # Calling function with argument will actually create a generator object and keep it in memory.
+          print("STEP 1 :: Creating the Generator Object")
+          gen_object=func_gen_tests(array)
+          print("Generator Object :: {} ".format(gen_object))
+
+          # STEP 2 ::
+          # List all the value inside the generator object ..Expand the Genrator and get all records.
+          print("STEP 2 :: List all the value inside the generator object.")
+          func_gen_print_records(gen_object=gen_object)
+
+          # Q: Is it possible to unpack the same gen object more than once ?  
+          # A: No, Because Python deletes/purges the data inside of gen object once it has been unpacked.
+          # It will not store those data in memory once its unpacked.
+          # A Gen object is optimized - you can iterate only once and unpack, then its deleted.
+          func_gen_print_records(gen_object=gen_object)
+
     '''
     # Iterate and yield using *yield* keyword
     for data in array:
@@ -163,13 +179,59 @@ def func_gen_tests(array):
 # Define a function to use generator and send the values.Use multiple yield statements.
 def func_gen_tests_multiple(array):
     '''
-      Function to iterate an array and yield the records.
+      Function to iterate an array and yield the records multiple times.
+      
+      ** Its possible to have any number of yield statements in a function **
+
       Execute this function as follows:
-        # Define array
-        array = [10,20,30,40,50]
-         Method 1 : func_gen_print_records(gen_object=func_gen_tests(array))
-         Method 2 : func_gen_print_until_stop_iteration(gen_object=func_gen_tests(array))
-         Output : Prints 10,100,20,200,30,300,40,400,50,500
+
+          # Define array
+          array = [1,2,3,4,5]
+
+          # STEP 1 ::
+          # Creating the Generator Object - Calling function with args will not execute it.
+          # Calling function with argument will actually create a generator object and keep it in memory.
+          print("STEP 1 :: Creating the Generator Object")
+          gen_object=func_gen_tests_multiple(array)
+
+          print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+          print("Generator Object :: {} ".format(gen_object))
+
+          # STEP 2 ::
+          # List all the value inside the generator object ..Expand the Genrator and get all records.
+          print("STEP 2 :: List all the value inside the generator object.")
+          print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+          func_gen_print_records(gen_object=gen_object)
+
+          # STEP 3 ::
+          # Repeat STEP 2 and List all the value inside the generator object.
+          print("STEP 3 :: Repeat STEP 2 and List all the value inside the generator object.")
+          print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+          # This STEP will not yield any records since it has been already done in STET 2
+          func_gen_print_records(gen_object=gen_object)
+
+
+          # Q: Is it possible to unpack the same gen object more than once ?  
+          # A: No, Because Python deletes/purges the data inside of gen object once it has been unpacked.
+          # It will not store those data in memory once its unpacked.
+          # A Gen object is optimized - you can iterate only once and unpack, then its deleted.
+          func_gen_print_records(gen_object=gen_object)
+
+      What happens with multiple yield
+      In this case the array [1,2,3,4,5]will get yielded as follows;
+        yield 1
+        yield 1 * 10
+        yield 2
+        yield 2 * 10
+        yield 3
+        yield 3 * 10
+        yield 4
+        yield 4 * 10
+        yield 5
+        yield 5 * 10
+        
+        Which will give output as 1,10,2,20,3,30,4,40,5,50
+
     '''
     # Iterate and yield using *yield* keyword
     # This function will yield each number followed by the number * 10, for all the numbers.
@@ -182,6 +244,8 @@ def func_gen_tests_multiple(array):
       yield data
       # Multiply by 10 and send data
       yield data * 10
+      # Yield the number to the power of 2 
+      yield data ** 2
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -198,19 +262,28 @@ def func_gen_tests_multiple_if_else(int_var,array):
       :param int_var: An Integer
       :param array: List of values
 
-      Execute this function as follows:
-        # Define array
-        array = [10,20,30,40,50,27,89,99,209,500]
-        Method 1 : func_gen_print_records(gen_object=func_gen_tests_multiple_if_else(int_var=5,array=array))
-        Method 2 : func_gen_print_until_stop_iteration(gen_object=func_gen_tests_multiple_if_else(int_var=5,array=array))
-        Output : Prints 10,20,30,40,50,270,890,990,2090,500
+      # Define array
+      array = range(100,200)# Starting with 100 and ending with 199
 
-      A Generator can be executed only once.
-        Example :
-          array = [10,20,30,40,50,27,89,99,209,500]
-          gen_object=func_gen_tests_multiple(array=array)
-          func_gen_print_until_stop_iteration(gen_object) # Value will be yielded.
-          func_gen_print_records(gen_object) # No values will be yielded since it was already done in previous step.
+      # STEP 1 ::
+      # Creating the Generator Object - Calling function with args will not execute it.
+      # Calling function with argument will actually create a generator object and keep it in memory.
+      print("STEP 1 :: Creating the Generator Object")
+      print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+      print("Generator Object :: {} ".format(gen_object))
+
+      # STEP 2 ::
+      # List all the value inside the generator object ..Expand the Genrator and get all records.
+      print("STEP 2 :: List all the value inside the generator object.")
+      print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+      func_gen_print_records(gen_object=gen_object)
+
+      # STEP 3 ::
+      # Repeat STEP 2 and List all the value inside the generator object.
+      print("STEP 3 :: Repeat STEP 2 and List all the value inside the generator object.")
+      print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+      # This STEP will not yield any records since it has been already done in STET 2
+      func_gen_print_records(gen_object=gen_object)
 
     '''
     # Iterate and yield using *yield* keyword
@@ -221,7 +294,7 @@ def func_gen_tests_multiple_if_else(int_var,array):
         Send data one by one.
       '''
       # Send Data if divisible by number int_var else Multiply by 10 and send data
-      yield data if data%int_var==0 else data * 10
+      yield data if data%int_var==0 else "Number - {} is not divisible by - {} ".format(data,int_var)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -236,35 +309,79 @@ def func_gen_tests_multiple_if_else_args(int_var,*args):
       :param int_var: An Integer
       :pararm args: Tuple Arguments..
 
-      Execute this function as follows:
-        # Define array
-        args = 10,20,30,40,50,27,89,99,209,500
-        Method 1 : func_gen_print_records(gen_object=func_gen_tests_multiple_if_else_args(5,10,20,30,40,50,27,89,99,209,500))
-        Method 2 : func_gen_print_until_stop_iteration(gen_object=func_gen_tests_multiple_if_else_args(5,10,20,30,40,50,27,89,99,209,500))
-        Output :: 
-          {10: 100}
-          {20: 200}
-          {30: 300}
-          {40: 400}
-          {50: 500}
-          {27: 27}
-          {89: 89}
-          {99: 99}
-          {209: 209}
-          {500: 5000}
+
+      # STEP 1 ::
+      # Creating the Generator Object - Calling function with args will not execute it.
+      # Calling function with argument will actually create a generator object and keep it in memory.
+
+      print("STEP 1 :: Creating the Generator Object")
+      gen_object=func_gen_tests_multiple_if_else_args(5,10,11,20,30,40,45,25,55,50,60,65)
+      print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+      print("Generator Object :: {} ".format(gen_object))
+
+      # STEP 2 ::
+      # List all the value inside the generator object ..Expand the Genrator and get all records.
+      print("STEP 2 :: List all the value inside the generator object.")
+      print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+      func_gen_print_records(gen_object=gen_object)
+
+      # STEP 3 ::
+      # Repeat STEP 2 and List all the value inside the generator object.
+      print("STEP 3 :: Repeat STEP 2 and List all the value inside the generator object.")
+      print("Generator Object is - {} and stored at location - {} ".format(gen_object,id(gen_object)))
+      # This STEP will not yield any records since it has been already done in STET 2
+      func_gen_print_records(gen_object=gen_object)
+
     '''
     # Iterate and yield using *yield* keyword
     # This function will yield each number followed by the number * 10, for all the numbers.
-    for data in args:
+    for curr_item_in_tuple in args:
       '''
         All Records not loaded in memory.
         Send data one by one.
       '''
       # Send a dictionary - If divisible by int_var multiply by 10 and send else the original number.
-      yield {data:data *10} if data%int_var==0 else {data:data}
+      yield {curr_item_in_tuple:curr_item_in_tuple *10} if curr_item_in_tuple%int_var==0 \
+            else {curr_item_in_tuple:curr_item_in_tuple}
+    return True
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+
+                                        # Example 5
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+# Define a function to use generator and send the values.Use yield from statement
+def func_gen_tests_from(args):
+  """
+  
+    Use yield from to generate the values.
+    Run as :
+      gen_object = func_gen_tests_from(1,2,3,4,5,6,7,8,9,10,11)
+      func_gen_print_until_stop_iteration(gen_object)
+
+    yield from -> Will automatically start For-Loop internally and generate the values.
+
+    Without yield from
+    ------------------
+
+      for each_element in args:
+        yield each_element
+
+    With yield from
+    ------------------
+
+      yield from args
+
+
+  """
+  yield from args
+
+    
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 if __name__ == "__main__":
-  args = tuple((10,20,30,40,50,27,89,99,209,500))
-  func_gen_print_until_stop_iteration(gen_object=func_gen_tests_multiple_if_else_args(5,args))
+
+    gen_object = func_gen_tests_from(range(100,500))
+    func_gen_print_until_stop_iteration(gen_object)
