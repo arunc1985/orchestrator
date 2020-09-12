@@ -68,6 +68,9 @@ docker run --name container-exercise001 python-app:exercise001
   Using --rm flag will delete container from memory once execution over.
   Which means neither docker ps/docker ps -a/docker ps -q would list my container.
 
+# Run the docker container
+# When you run this command - the CMD command in the docker file will get executed.
+
 docker run --rm --name container-exercise001 python-app:exercise001
 
 --------------------------------------------------------------------------------------------------------------
