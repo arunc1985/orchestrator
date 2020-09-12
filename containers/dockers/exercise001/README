@@ -58,18 +58,49 @@ docker run --name <<container-name>> <<image-name:tag-name>>
   OR
 docker run --name <<container-name>> <<image-id>>
 
-docker run --name container-exercise001 python-app:exercise001
-
 Example::
 ----------
 
-# Run the Docker-Image and delete once job done - using --rm flag will delete container from memory once execution over
+# Run the Image as a Container
+docker run --name container-exercise001 python-app:exercise001
+
+# Run the Docker-Image as a Container and delete once job done.
+  Using --rm flag will delete container from memory once execution over.
+  Which means neither docker ps/docker ps -a/docker ps -q would list my container.
+
 docker run --rm --name container-exercise001 python-app:exercise001
 
 --------------------------------------------------------------------------------------------------------------
 
+										# Check the Status of the Running Container
+--------------------------------------------------------------------------------------------------------------
+# Check if Container is running using below command.
 
-										# Run the Image as a Container
+docker ps # This Command will list your container if its up and running. Long Running Processes.
+
+docker ps -a # This Command will list your container if it has run and exited.
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Get the Logs of my Container
+--------------------------------------------------------------------------------------------------------------
+# Check the logs of the Container running using below command. This will tell you all the activities.
+
+Syntax::
+--------
+docker logs <<CONTAINER-NAME>>
+
+Example::
+----------
+docker logs container-exercise001
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Delete the Docker Images
 --------------------------------------------------------------------------------------------------------------
 # Delete the Docker Image
 
@@ -93,9 +124,40 @@ Example ::
 
 Delete a Single Image
 **********************
-docker rmi -f python-app:exercise001 
+docker rmi -f python-app:exercise001 centos:8
 
 Delete Multiple Images
 **********************
 docker rmi -f python-app:exercise001 python-app:exercise002
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Delete the Docker Container
+--------------------------------------------------------------------------------------------------------------
+# Delete the Docker Image
+
+Syntax ::
+----------
+
+docker rm -f <<CONTAINER-NAME>>
+
+
+Description ::
+--------------
+
+docker rm -f - Instruct docker to delete container forcefully
+
+<<CONTAINER-NAME>> - Name of the running container
+
+
+Example ::
+----------
+
+Delete a Single Container
+*************************
+docker rm -f container-exercise001
+
+Delete Multiple Containers
+****************************
+docker rm -f container-exercise001 container-exercise002
 --------------------------------------------------------------------------------------------------------------
