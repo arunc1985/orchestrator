@@ -1,12 +1,80 @@
+
+
+										# Clone Code and files from github
+--------------------------------------------------------------------------------------------------------------
+
+git clone https://github.com/arunc1985/orchestrator.git
+cd orchestrator
+git checkout dockers
+cd containers/dockers/exercise002
+
+--------------------------------------------------------------------------------------------------------------
+
+										# Build a new Image
+--------------------------------------------------------------------------------------------------------------
+
 # From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
 
-# Build the Image
+Syntax ::
+--------
 
-docker build -t python-app:exerciseB \
+docker build -t <<IMAGE-NAME>>:<<TAG-NAME>> --build-arg <<ARGS>> -f <<PATH-TO-DOCKERFILE>>
+
+Description ::
+-------------
+<<IMAGE-NAME>> - Name you would like to give for your Docker Image.
+<<TAG-NAME>> - Version the Image with a proper Tag. An Image can also have multiple tags.
+<<PATH-TO-DOCKERFILE>> - Full Path of the docker file.
+--build-arg <<ARGS>> - Denotes arguments to be passed to docker while building image.
+
+-t - Tag an Image.
+-f - Denotes File Path.
+
+Example ::
+----------
+# Build a Docker Image with name as python-app and tag as exercise002
+
+
+# Build the Image
+--------------------
+
+docker build -t python-app:exercise002 \
 	--build-arg REQ_PIP_FILE=./finally/requirements \
 	--build-arg FINAL_DIR_NAME=finally \
-	--build-arg BUILT_BY=ayush-niteesh-selva \
+	--build-arg BUILT_BY=SON-QA \
 	-f dockerfile .
 
-# Run the Image as a Container
-docker run --rm --name python-app-exerciseB python-app:exerciseB
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Checking the new Image
+--------------------------------------------------------------------------------------------------------------
+# Run this command to check if the images have been created
+
+docker images
+
+# The above command must show the image that we created in the previous step python-app and tag as exercise001
+
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Run the Image as a Container
+--------------------------------------------------------------------------------------------------------------
+# Run the Docker-Image
+
+Syntax::
+--------
+docker run --name <<container-name>> <<image-name:tag-name>>
+  OR
+docker run --name <<container-name>> <<image-id>>
+
+docker run --name container-exercise002 python-app:exercise002
+
+Example::
+----------
+
+# Run the Docker-Image and delete once job done - using --rm flag will delete container from memory once execution over
+docker run --rm --name container-exercise002 python-app:exercise002
+
+--------------------------------------------------------------------------------------------------------------

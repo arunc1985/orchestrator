@@ -1,23 +1,101 @@
 
-# Clone Code
+										# Clone Code and files from github
+--------------------------------------------------------------------------------------------------------------
+
 git clone https://github.com/arunc1985/orchestrator.git
 cd orchestrator
 git checkout dockers
 cd containers/dockers/exercise001
 
+--------------------------------------------------------------------------------------------------------------
+
+										# Build a new Image
+--------------------------------------------------------------------------------------------------------------
+
 # From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
 
+Syntax ::
+--------
+
+docker build -t <<IMAGE-NAME>>:<<TAG-NAME>> -f <<PATH-TO-DOCKERFILE>>
+
+Description ::
+-------------
+<<IMAGE-NAME>> - Name you would like to give for your Docker Image.
+<<TAG-NAME>> - Version the Image with a proper Tag. An Image can also have multiple tags.
+<<PATH-TO-DOCKERFILE>> - Full Path of the docker file.
+
+-t - Tag an Image.
+-f - Denotes File Path.
+
+Example ::
+----------
 # Build a Docker Image with name as python-app and tag as exercise001
 docker build -t python-app:exercise001 -f dockerfile .
 
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Checking the new Image
+--------------------------------------------------------------------------------------------------------------
+# Run this command to check if the images have been created
+
+docker images
+
+# The above command must show the image that we created in the previous step python-app and tag as exercise001
+
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Run the Image as a Container
+--------------------------------------------------------------------------------------------------------------
 # Run the Docker-Image
+
+Syntax::
+--------
 docker run --name <<container-name>> <<image-name:tag-name>>
   OR
 docker run --name <<container-name>> <<image-id>>
 
 docker run --name container-exercise001 python-app:exercise001
 
-# Run the Docker-Image and delete once job done
+Example::
+----------
+
+# Run the Docker-Image and delete once job done - using --rm flag will delete container from memory once execution over
 docker run --rm --name container-exercise001 python-app:exercise001
 
+--------------------------------------------------------------------------------------------------------------
 
+
+										# Run the Image as a Container
+--------------------------------------------------------------------------------------------------------------
+# Delete the Docker Image
+
+Syntax ::
+----------
+
+docker rmi -f <<IMAGE-NAME>>:<<TAG-NAME>>
+docker rmi -f <<IMAGE-ID>>
+
+Description ::
+--------------
+
+docker rmi -f - Instruct docker to delete image forcefully
+
+<<IMAGE-NAME>>:<<TAG-NAME>> - Full image name including Tag
+
+<<IMAGE-ID>> - ID Of the image (Run Command docker images to get image name, ID and other details)
+
+Example ::
+----------
+
+Delete a Single Image
+**********************
+docker rmi -f python-app:exercise001 
+
+Delete Multiple Images
+**********************
+docker rmi -f python-app:exercise001 python-app:exercise002
+--------------------------------------------------------------------------------------------------------------
