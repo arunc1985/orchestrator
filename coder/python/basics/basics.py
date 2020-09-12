@@ -1145,15 +1145,29 @@ def dict_print_values(int_var,dictionary):
             result_dict[4] = 16
             result_dict[5] = 50
 
+          You can also add new key:value pairs to the dict using the update method.
+          Dict update method takes a dict as an argument.
+          Examples:
+            result_dict.update({1:1})
+            result_dict.update({2:20})
+            result_dict.update({3:9})
+            ---------- etc..
+
       Finally return the new dictionary result_dict
       '''
-      result_dict[_key]=_value # Add the key:value to the result_dict
+      # Add the key:value to the result_dict
+      result_dict[_key]=_value
+      #result_dict.update({_key:_value})
   # Return the new dict using return keyword
   return result_dict
 
 # Call the function and print the data
 result = dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50})
 print("New & modified dictionary = {} ".format(result))
+print("Keys are = {} ".format(result.keys()))
+print("Values are = {} ".format(result.values()))
+print("Count of Keys in new dict = {} ".format(len(result.keys())))
+print("Count of Values in new dict = {} ".format(len(result.values())))
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -1203,15 +1217,32 @@ def dict_print_values(int_var,dictionary):
             result_dict[4] = 16
             result_dict[5] = 50
 
+
+          You can also add new key:value pairs to the dict using the update method.
+          Dict update method takes a dict as an argument.
+          Examples:
+            result_dict.update({1:1})
+            result_dict.update({2:20})
+            result_dict.update({3:9})
+            ---------- etc..
+
       Finally return the new dictionary result_dict
-      '''
-      result_dict[_key]=_value
+      '''      
+      # Use the dict update method to add new key:value to the dictionary.
+      # New key:value can also be added as #result_dict[_key]=_value.
+      # Also type dir(result_dict) to know more methods available with dictionary.
+      result_dict.update({_key:_value})
   # Return the new dict using return keyword
   return result_dict
 
 # Call the function and print the data
 result = dict_print_values(int_var=10,dictionary={1:1,2:4,3:9,4:16,2:20,5:50})
 print("New & modified dictionary = {} ".format(result))
+print("Keys are = {} ".format(result.keys()))
+print("Values are = {} ".format(result.values()))
+print("Count of Keys in new dict = {} ".format(len(result.keys())))
+print("Count of Values in new dict = {} ".format(len(result.values())))
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -1227,7 +1258,7 @@ print("\n Example 16 output  :: \n")
 # During function creation time - the argument result_dict = {} will be stored as empty dict in memory.
 def dict_print_values(int_var,dictionary,result_dict={}):
   '''
-    :param int_var: An integer
+    :param int_var: An integer a positional argument
     :param dictionary is a positional arg of type {}
     :param result_dict: Its of type {} and it's a default argument.
 
@@ -1264,7 +1295,7 @@ def dict_print_values(int_var,dictionary,result_dict={}):
     # Check if the Value - _value is divisible by int_var
     # If both _key and _value are divisible by int_var - add to result_dict.
     if _value%int_var == 0 and _key%int_var == 0:
-      # Add Value to the dictionary only if the condition is satisfied...
+      # Add key:value to the dictionary only if the condition is satisfied...
       '''
         Adding key:value pair :
           result_dict[_key] = _value

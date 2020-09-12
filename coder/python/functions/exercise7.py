@@ -201,9 +201,17 @@ def func_gen_tests_multiple_if_else(int_var,array):
       Execute this function as follows:
         # Define array
         array = [10,20,30,40,50,27,89,99,209,500]
-         Method 1 : func_gen_print_records(int_var=5,gen_object=func_gen_tests(array))
-         Method 2 : func_gen_print_until_stop_iteration(int_var=10,gen_object=func_gen_tests(array))
-         Output : Prints 10,20,30,40,50,270,890,990,2090,500
+        Method 1 : func_gen_print_records(gen_object=func_gen_tests_multiple_if_else(int_var=5,array=array))
+        Method 2 : func_gen_print_until_stop_iteration(gen_object=func_gen_tests_multiple_if_else(int_var=5,array=array))
+        Output : Prints 10,20,30,40,50,270,890,990,2090,500
+
+      A Generator can be executed only once.
+        Example :
+          array = [10,20,30,40,50,27,89,99,209,500]
+          gen_object=func_gen_tests_multiple(array=array)
+          func_gen_print_until_stop_iteration(gen_object) # Value will be yielded.
+          func_gen_print_records(gen_object) # No values will be yielded since it was already done in previous step.
+
     '''
     # Iterate and yield using *yield* keyword
     # This function will yield each number followed by the number * 10, for all the numbers.
@@ -217,34 +225,46 @@ def func_gen_tests_multiple_if_else(int_var,array):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-
                                         # Example 4
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-#Function with Arguments
-def func_tests(x,y):
+
+# Define a function to use generator and send the values.Use multiple yield statements, with if-else conditions.
+def func_gen_tests_multiple_if_else_args(int_var,*args):
     '''
-        On execution just return True
-            result = func_tests(10,100)
-            print(result) # Output is 1000
+      Function to iterate an array and yield the records.
+      :param int_var: An Integer
+      :pararm args: Tuple Arguments..
+
+      Execute this function as follows:
+        # Define array
+        args = 10,20,30,40,50,27,89,99,209,500
+        Method 1 : func_gen_print_records(gen_object=func_gen_tests_multiple_if_else_args(5,10,20,30,40,50,27,89,99,209,500))
+        Method 2 : func_gen_print_until_stop_iteration(gen_object=func_gen_tests_multiple_if_else_args(5,10,20,30,40,50,27,89,99,209,500))
+        Output :: 
+          {10: 100}
+          {20: 200}
+          {30: 300}
+          {40: 400}
+          {50: 500}
+          {27: 27}
+          {89: 89}
+          {99: 99}
+          {209: 209}
+          {500: 5000}
     '''
-    return x*y
+    # Iterate and yield using *yield* keyword
+    # This function will yield each number followed by the number * 10, for all the numbers.
+    for data in args:
+      '''
+        All Records not loaded in memory.
+        Send data one by one.
+      '''
+      # Send a dictionary - If divisible by int_var multiply by 10 and send else the original number.
+      yield {data:data *10} if data%int_var==0 else {data:data}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-
-
-                                        # Example 5
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-#Function with Arguments
-def func_tests(x,y):
-    '''
-        On execution just return True
-            result = func_tests(10,100)
-            print(result) # Output is 1000
-    '''
-    return x*y
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
+if __name__ == "__main__":
+  args = tuple((10,20,30,40,50,27,89,99,209,500))
+  func_gen_print_until_stop_iteration(gen_object=func_gen_tests_multiple_if_else_args(5,args))
