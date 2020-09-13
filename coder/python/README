@@ -53,9 +53,39 @@ Example :
 
 # Tag and push image to the docker registry
 
+Syntax ::
 
-docker tag py-centos-exercises:v1 jupiter19/jupiter19:py-centos-exercises-v1
-docker push jupiter19/jupiter19:py-centos-exercises-v1
+	docker tag <<IMAGE-NAME:TAG-NAME>> <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REGISTRY-NAME>>:<<DOCKERHUB-IMAGE-TAG>>
+	docker push <<DOCKERHUB-REGISTRY-NAME>>:<<DOCKERHUB-IMAGE-TAG>>
+
+Command ::
+	
+	docker tag py-centos-exercises:v1 jupiter19/jupiter19:py-centos-exercises-v1
+	docker push jupiter19/jupiter19:py-centos-exercises-v1
 
 
+----------------------------------------------------------------------------------------------------------------
+
+# Build and deploy the container inside of the K8s System
+
+Syntax ::
+	
+	kubectl apply -f <<K8S-YAML-FILE>>
+
+Command ::
+	
+	kubectl apply -f k8s.yaml
+
+----------------------------------------------------------------------------------------------------------------
+
+# Check if the deployment and pods are running.
+
+Command ::
+	
+	Deployment Details : kubectl get deployments 
+	POD Details        : kubectl get pods
+
+	Describe POD       : kubectl describe pod <<POD-NAME>> # Get POD-NAME from command kubectl get pods
+	POD Logs           : kubectl logs  <<POD-NAME>> # Get POD-NAME from command kubectl get pods
+ 
 ----------------------------------------------------------------------------------------------------------------
