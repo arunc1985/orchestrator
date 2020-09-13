@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-package
+  labels:
+    app: python-package-pod
+spec:
+  selector:
+    matchLabels:
+      app: python-package-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: python-package-pod
+    spec:
+      containers:
+      - name: python-package-app
+        image: docker.io/jupiter19/jupiter19:py-centos-exercises-v1
+        imagePullPolicy: Always
+        command: ["python3", "final/classes/exercise2.py"]

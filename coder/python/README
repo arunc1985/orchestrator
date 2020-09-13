@@ -18,7 +18,7 @@ Explaning the dockerfile.
 
 FROM centos:8 # Base image is centos with tag as 8
 RUN mkdir final # Create a new directory inside container as final
-COPY ./python final # Copy contents of the python directory here to final dir inside of container
+COPY . final # Copy contents of the python directory here to final dir inside of container
 RUN ls final # Check the contents of the final dir
 RUN yum -y install python3 # Install python
 
@@ -28,17 +28,18 @@ RUN yum -y install python3 # Install python
 
 Run Command.
 
-docker build -t py-centos-exercises:practice -f dockerfile .
+docker build -t py-centos-exercises:v1 -f dockerfile .
 
 ----------------------------------------------------------------------------------------------------------------
 
 # To see the container, run command.
 
 Syntax :
-	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:practice python3 <<FULL_PATH_PY_FILE>>
+	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:v1 python3 <<FULL_PATH_PY_FILE>>
 
 Example :
-	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:practice python3 final/classes/exercise1.py
+
+	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:v1 python3 final/classes/exercise1.py
 
 	Note ::
 	
@@ -47,5 +48,14 @@ Example :
 		 It would run in an interactive mode since it has "-it" flag.
 
 		 Once the python file is executed, the container is removed from memory since it has "--rm" flag.
+
+----------------------------------------------------------------------------------------------------------------
+
+# Tag and push image to the docker registry
+
+
+docker tag py-centos-exercises:v1 jupiter19/jupiter19:py-centos-exercises-v1
+docker push jupiter19/jupiter19:py-centos-exercises-v1
+
 
 ----------------------------------------------------------------------------------------------------------------
