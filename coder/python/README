@@ -32,14 +32,20 @@ docker build -t py-centos-exercises:v1 -f dockerfile .
 
 ----------------------------------------------------------------------------------------------------------------
 
-# To see the container, run command.
+# To start the container, run command.
 
 Syntax :
 	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:v1 python3 <<FULL_PATH_PY_FILE>>
 
 Example :
-
-	docker run --rm -it --name py-centos-exercises-c py-centos-exercises:v1 python3 final/classes/exercise1.py
+	
+	# Pass the CMD while running the container. Using --rm will delete the container from memory once
+	execution is done .
+	
+	Option 1 ::
+		docker run --rm -it --name py-centos-exercises-c py-centos-exercises:v1 python3 final/classes/exercise1.py
+	Option 2 ::
+		docker run --rm --name py-centos-exercises-c py-centos-exercises:v1 python3 final/classes/exercise1.py
 
 	Note ::
 	
