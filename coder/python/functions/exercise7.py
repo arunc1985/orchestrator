@@ -341,7 +341,7 @@ def func_gen_tests_multiple_if_else_args(int_var,*args):
         Send data one by one.
       '''
       # Send a dictionary - If divisible by int_var multiply by 10 and send else the original number.
-      yield {curr_item_in_tuple:curr_item_in_tuple *10} if curr_item_in_tuple%int_var==0 \
+      yield {curr_item_in_tuple:curr_item_in_tuple * 10} if curr_item_in_tuple%int_var==0 \
             else {curr_item_in_tuple:curr_item_in_tuple}
     return True
 

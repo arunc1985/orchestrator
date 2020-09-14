@@ -110,90 +110,109 @@
                So the function name gets transformed as function object at run-time.
         """
     
-    In this section we will see in-detail about memory consumed by python programs in case
-    of huge and expensive operations.
+    ** Time Profiling **
 
-    If we would try to perform any operations and if our system is not configured to it,
-    We would get MemoryError as below;
-
-        $ python exercise8.py
-        Traceback (most recent call last):
-          File "exercise8.py", line 163, in <module>
-            func_huge_tests(ranges=10)
-          File "exercise8.py", line 143, in func_huge_tests
-            huge_array.extend(list(range(100,100000000)))
-        MemoryError
+        In this section we will see in-detail about time consumed by python programs in case
+        of huge and expensive operations using built-in time module.
 '''
 
 # Import built-in modules
 import time
-import pdb
-import os
-
-# Import module from pypi
-import psutil
-from memory_profiler import profile
-
 
                                         # Example 1 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-# Define functions for memory profiling.
-def print_memory_stats():
-    '''
-        This program uses psutil module for finding the memory consumed by the processes.
-    '''
-    # Check Memory Usage
-    process_id = os.getpid()
-    process_details = psutil.Process(process_id)
-    # Get memory info
-    memory_info = process_details.memory_info()
-    memoryUse = memory_info[0]# Returns in bytes.
-    memory_use_in_mb=memoryUse/1000000
-    print("\n\n\n *** LIVE *** \n\n\n")
-    print('Memory in Megabytes - Used by Python Process ::', memory_use_in_mb)
-    print("\n Describe Python Process... {} \n\n".format(psutil.Process(process_id)))
+# Define a decorator to find the time taken for executing a block of code.
+
+
+# Decorator to execute a function and return the result...
+def time_profiler(function): # Wrapped Function
+    def function_args(*args,**kwargs): # Args of the wrapped function
+
+        # Before executing function - you can do any pre-steps
+        # Execute the function
+        #It's executed as self.function(*args,**kwargs)
+        #It means the function will get executed with all of its arguments.
+        # Set the Start time
+        start_time = time.time()
+        print("\n")
+        print("-"*50)
+        print("Execute Function - {} ".format(function.__name__))
+        result = function(*args,**kwargs)   
+        # Set the End time
+        end_time = time.time()
+        # Find the total time
+        total_time = int(end_time-start_time)
+        # Print the time in Seconds.
+        print("Total time(Seconds) taken to execute function - {} is - {} seconds .".format(function.__name__,total_time))
+        print("Total time(Minutes) taken to execute function - {} is - {} minutes .".format(function.__name__,total_time/60))
+        print("\n")
+        print("-"*50)
+        # After executing function - you can do any post-steps
+        return result
+    return function_args
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
-                                        # Example 2
+                                        # Example 2 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-# Write a simple function and add huge lists to it in a loop.
-@profile
-def func_huge_tests(ranges):
+# Define a simple and time consuming function for expensive operations.
+@time_profiler
+def func_array_parser(*arrays):
     '''
-        Add items to the array as much as ranges specified above.
-        :param ranges: Number of loops to run.
-
-        Execute this function as ::
-
-         Example - func_huge_tests(ranges=10)
-
-        NOTE ::
-            Running this program will result in MemoryError,
-            if we append as huge_array.extend(list(range(10,100000000)))
-            This Program uses a library - psutil for gathering information on
-            memory usage of a Process at OS Level.
+        Parse arrays and filter the records.
+        A Decorator is applied to this function to calculate the time taken.
+        :param arrays: N number of arrays - tuple args
+        * Perform multiple operations inside the function *
+        Execution : Pass multiple arrays
+            result = func_array_parser(range(10,1000),range(10,10000),range(100,5000),range(500,100000))
+            print(result)
     '''
-    # Create an empty array
-    huge_array = []
-    # Iterate and add values
-    while True:
-        # Decrement the ranges
-        ranges -= 1
-        # Extend the huge array with a big list.
-        huge_array.extend(list(range(10,1000000)))
-        # Print the memory details.
-        print_memory_stats()
-        print("Length of huge_array = {} ".format(huge_array.__len__()))
+    for each_array in arrays:
 
-        # Check the memory consumed by running a Sub-Process Command.
-        if ranges == 0:
-            return huge_array
+        # Calculate sum of all numbers        
+        def calc_sum():
+            print("Calculate sum of all numbers")
+            array_sum=0
+            for element in each_array:
+                array_sum+=element
+            return array_sum
+
+        # Calculate the Product of all numbers
+        def calc_prd():
+            print("Calculate the Product of all numbers")
+            array_prd=0
+            for element in each_array:
+                array_prd+= element * 10
+            return array_prd
+
+        # Do multiple Iterations        
+        def iterations():
+            iter_sum = 0
+            print("Do multiple Iterations")
+            for element in each_array:
+                for num in range(1,element):
+                    iter_sum+=num
+            return iter_sum
+
+        # Execute the functions
+        def driver():
+            print("\n\n")
+            print("Main Block :: Execute the functions in an order")
+            # Call the Sum Method
+            calc_sum()
+            # Call the Prd Method
+            calc_prd()
+            # Call the Iterations Method
+            iterations()
+            print("\n\n")
+        driver()# Execute the driver
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # Execute the function
 if __name__ == "__main__":
-    func_huge_tests(ranges=9)
+    func_array_parser(range(10,10000),range(100,20000),range(1000,5000),range(100,4000))
+        
