@@ -44,8 +44,21 @@
 
     Method :: __del__
 
-        In this example , we will a special magic method __del__ for deleting attributes of the class.
+        In this example , we will see a special magic method __del__ for deleting attributes of the class.
         If you define __del__ method, it will get invoked only at the end of all execution of the class.
+
+    Callable & Non-Callable Attributes :
+    -----------------------------------
+
+        Callable Attributes -> 
+            - Attributes of the class that are actually executed using () braces.
+            - Example : Methods of the Class
+
+        Non-Callable Attributes -> 
+
+            - Attributes of the class that are actually not executed using () braces.
+            - If you would execute them it would result in TypeError
+            - Example : Instance Variables, Class Variables, Properties.
 
 '''
 
@@ -142,6 +155,7 @@ class Person:
                 - Huge memory operations
                 ~ Similar tasks...
         '''
+        print("\n From __del__ \n ")
         print("Memory location of self - {} ".format(id(self)))
         print("Delete the object - {} ".format(self))
         del self
@@ -157,4 +171,4 @@ if __name__ == "__main__":
     print(instance_person.name)
     # Print the methods of the class...
     print(Person.check_qualification, Person.about, Person.process)
-    # __del__ will get invoked now, it will wait for all references of class Person to be done.
+    # __del__ will get invoked now automatically , it will wait for all references of class Person to be done.

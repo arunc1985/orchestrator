@@ -113,6 +113,30 @@
 
             Example :: setattr(self.__class__,attribute,"NULL")
 
+    Order ::
+
+        Any attribute access has to first go via special method - __getattribute__
+        If __getattribute__ can find your attribute inside of class/instance:
+            Return the value of the attribute
+        Else
+            Check if there is __getattr__ method to handle AttributeError
+            Check if any value is assigned to unknown attribute.
+            Else
+                Raise AttributeError and BREAK
+
+    Callable & Non-Callable Attributes :
+    -----------------------------------
+
+        Callable Attributes -> 
+            - Attributes of the class that are actually executed using () braces.
+            - Example : Methods of the Class
+
+        Non-Callable Attributes -> 
+
+            - Attributes of the class that are actually not executed using () braces.
+            - If you would execute them it would result in TypeError
+            - Example : Instance Variables, Class Variables, Properties.
+
     Refer to the implementation as below.
 
 '''
@@ -206,6 +230,8 @@ class Person:
             For ex: Return only the int attributes:
                 super(Person,self).__getattribute__(attribute) if attribute.__class__ == int else "NULL"
         '''
+        # Print the attribute details.
+        print("GET :: - {} ".format(attribute))
         # Return the value of the attribute.
         return super(Person,self).__getattribute__(attribute)
 
@@ -217,6 +243,7 @@ class Person:
         # Handle the attribute..
 
         # Set attribute to the class as NULL for attributes that doesn't exist.
+        print("GETATTR :: attribute - {} & value - {} ".format(attribute,"NULL"))
         setattr(self.__class__,attribute,"NULL")
         # Return the attribute value
         return getattr(self.__class__,attribute)
@@ -230,8 +257,29 @@ if __name__ == "__main__":
     print(instance_person())
     #Select an attribute.
     print(instance_person.name) # Return the name as Sherlock
+    print(instance_person.age) # Returns 25
+    print(instance_person.location) # Returns London
+    print(instance_person.profession) # Returns Programmer
+
     # Method process_a doesn't exist in the class Person and method __getattr__ will get invoked...
     print(instance_person.process_a) # Returns NULL since value is set as NULL inside the __getattr__ method.
 
     # Method process_z doesn't exist in the class Person and method __getattr__ will get invoked...
     print(instance_person.process_z) # Returns NULL since value is set as NULL inside the __getattr__ method.
+
+
+    '''
+        Class Dictionary will contain all the attributes at the class level. 
+        * It will not contain the attributes inside of the __init__ method.
+    '''
+    print("\n Class Dictionary ::  {} \n ".format(Person.__dict__))
+    
+    '''
+        Class Instance Dictionary will contain all the attributes that are present inside of the 
+        __init__ method.
+
+        * It will not contain the attributes at class level such as ;
+            1. Class Variables.
+            2. Methods of the Class (InstanceMethod, ClassMethod, StaticMethod)
+    '''
+    print("\n Class Instance Dictionary  ::  {} \n".format(instance_person.__dict__))

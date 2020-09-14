@@ -193,7 +193,3 @@ def func_huge_tests(ranges):
         if ranges == 0:
             return huge_array
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-# Execute the function
-if __name__ == "__main__":
-    func_huge_tests(ranges=9)

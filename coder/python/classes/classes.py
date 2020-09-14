@@ -308,6 +308,19 @@
                 return True
             else False
 
+    Callable & Non-Callable Attributes :
+    -----------------------------------
+
+        Callable Attributes -> 
+            - Attributes of the class that are actually executed using () braces.
+            - Example : Methods of the Class
+
+        Non-Callable Attributes -> 
+
+            - Attributes of the class that are actually not executed using () braces.
+            - If you would execute them it would result in TypeError
+            - Example : Instance Variables, Class Variables, Properties.
+
     In this example we will see simple class definitions and create the instances of the class.
 '''
 
@@ -329,7 +342,7 @@
 Execution ::
     
     # Instance Creation
-    instance_employee = Employee()
+    instance_employee = Employee()# Call the Class
 
 Importance of instance of the class ::
     - Its created from the class.

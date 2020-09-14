@@ -86,12 +86,40 @@
 
             Example :: setattr(self.__class__,attribute,"NULL")
 
+    Analyze the Class and Instance Dictionary :
+    
+        1. Class Dictionary will contain all the attributes at the class level. 
+            * It will not contain the attributes inside of the __init__ method.
+     
+        2. Class Instance Dictionary will contain all the attributes that are present inside of the 
+            __init__ method.
+
+            * It will not contain the attributes at class level such as ;
+                1. Class Variables.
+                2. Methods of the Class (InstanceMethod, ClassMethod, StaticMethod)
+        
+    Callable & Non-Callable Attributes :
+    -----------------------------------
+
+        Callable Attributes -> 
+            - Attributes of the class that are actually executed using () braces.
+            - Example : Methods of the Class
+
+        Non-Callable Attributes -> 
+
+            - Attributes of the class that are actually not executed using () braces.
+            - If you would execute them it would result in TypeError
+            - Example : Instance Variables, Class Variables, Properties.
+        
         Refer to the implementation as below.
 
 '''
 
 # Define a Person class and perform related operations
 class Person:
+
+    # Define a Simple Class Variable
+    TEAM_NAME = "HCL-SON"
 
     def __init__(self,name,age,location,profession):
         """
@@ -245,3 +273,21 @@ if __name__ == "__main__":
 
     # Method process_z doesn't exist in the class Person and method __getattr__ will get invoked...
     print(instance_person.process_z) # Returns NULL since value is set as NULL inside the __getattr__ method.
+
+    # Access the Class and instance dict to know more about the class & instance attributes.
+    
+    '''
+        Class Dictionary will contain all the attributes at the class level. 
+        * It will not contain the attributes inside of the __init__ method.
+    '''
+    print("\n Class Dictionary ::  {} \n ".format(Person.__dict__))
+    
+    '''
+        Class Instance Dictionary will contain all the attributes that are present inside of the 
+        __init__ method.
+
+        * It will not contain the attributes at class level such as ;
+            1. Class Variables.
+            2. Methods of the Class (InstanceMethod, ClassMethod, StaticMethod)
+    '''
+    print("\n Class Instance Dictionary  ::  {} \n".format(instance_person.__dict__))

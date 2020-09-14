@@ -120,6 +120,18 @@
         objects of any kind will not be set at the class/instance level.
 
 
+    Callable & Non-Callable Attributes :
+    -----------------------------------
+
+        Callable Attributes -> 
+            - Attributes of the class that are actually executed using () braces.
+            - Example : Methods of the Class
+
+        Non-Callable Attributes -> 
+
+            - Attributes of the class that are actually not executed using () braces.
+            - If you would execute them it would result in TypeError
+            - Example : Instance Variables, Class Variables, Properties.
 '''
 
 # Define a Person class and perform related operations
@@ -273,6 +285,7 @@ class Person:
 # Execute
 if __name__ == "__main__":
     instance_person = Person("Sherlock",15,"London","Programmer") # Returns an instance of the person class.
+    #instance_person.name()# TypeError
     # Display details
     print(instance_person())
     # Instance attribute...

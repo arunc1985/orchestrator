@@ -147,38 +147,6 @@ def print_memory_stats():
                                         # Example 2
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-# Define a decorator to find the time taken for executing a block of code.
-
-
-# Decorator to execute a function and return the result...
-def time_profiler(function): # Wrapped Function
-    def function_args(*args,**kwargs): # Args of the wrapped function
-
-        # Before executing function - you can do any pre-steps
-        # Execute the function
-        #It's executed as self.function(*args,**kwargs)
-        #It means the function will get executed with all of its arguments.
-        # Set the Start time
-        start_time = time.time()
-        print("\n")
-        print("-"*50)
-        print("Execute Function - {} ".format(function.__name__))
-        result = function(*args,**kwargs)   
-        # Set the End time
-        end_time = time.time()
-        # Find the total time
-        total_time = int(end_time-start_time)
-        # Print the time in Seconds.
-        print("Total time(Seconds) taken to execute function - {} is - {} seconds .".format(function.__name__,total_time))
-        print("Total time(Minutes) taken to execute function - {} is - {} minutes .".format(function.__name__,total_time/60))
-        print("\n")
-        print("-"*50)
-        # After executing function - you can do any post-steps
-        return result
-    return function_args
-
-
-
 # Define a function to print the values in the Generator *
 def func_gen_print_until_stop_iteration(gen_object):
     '''
@@ -208,6 +176,7 @@ def func_array_parser_gen(*arrays):
         :param arrays: N number of arrays - tuple args
         * Perform multiple operations inside the function *
         Execution : Pass multiple arrays
+            # Create a Generator object
             gen_object = func_array_parser_gen(range(10,10000),range(100,20000),range(1000,5000),range(100,4000))
             # Generator invoke
             func_gen_print_until_stop_iteration(gen_object)
@@ -255,11 +224,3 @@ def func_array_parser_array(*arrays):
     # Return the array
     return master_array
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-# Execute
-if __name__ == "__main__":
-
-
-    gen_object = func_array_parser_gen(range(10,10000),range(100,20000),range(1000,5000),range(100,4000))
-    # Generator invoke
-    func_gen_print_until_stop_iteration(gen_object)

@@ -27,7 +27,7 @@
     Method :: __call__
     -------------------
 
-        In this example , we will a special magic method __call__ for invoking an instance of the class.                    
+        In this example , we will see a special magic method __call__ for invoking an instance of the class.                    
         After creating an instance of the class, when the instance is called the __call__ method is invoked.
 
             def __call__(self,*arguments):
@@ -56,25 +56,27 @@
     Method :: __del__
     -------------------
 
-        In this example , we will a special magic method __del__ for deleting attributes of the class.
+        In this example , we will see a special magic method __del__ for deleting attributes of the class.
         If you define __del__ method, it will get invoked only at the end of all execution of the class.
 
     Method :: __setattr__
     -----------------------
 
-        In this example , we will a special magic method __setattr__ for setting attributes of the class.
+        In this example , we will see a special magic method __setattr__ for setting attributes of the class.
         If you define __setattr__ method, it will get invoked whenever we set attributes to the instance
         of the class.
         
         Use this method only if you would like to customize the way the attributes are set in python.
         ---------------------------------------------------------------------------------------------
 
-        Setting the value of an attribute.
+        Purpose :: Setting the value of an attribute.
+
         This method gets invoked whenever a new attribute is set at the instance level.
         For ex: 
             - I have a class named Person
             - I create an instance of Person class as instance_person = Person()
-            - When I set some value to the instance:
+            - When I set some value to the instance of class : instance_person:
+                # Set account_number with some value
                 - instance_person.account_number = 10AXYZBHEAPRFULL5000
                 - account_number is an attribute
                 - account_number is set to the instance of the Person Class, thus becomes
@@ -91,13 +93,11 @@
                 # Call built-in setattr and set the value to an attribute...  
                 setattr(self.__class__,attr,value)
 
-
         The above code will set the value to an attribute and it will be accessible to the instance
         of the class.
 
         This method __setattr__ will get invoked whenever an attribute is set to instance
         of the class, example instance_person.account_number defined above.
-
 
 
         ** Note :: **
@@ -119,6 +119,24 @@
         the attributes of any other types such as lists, dicts, tuples or
         objects of any kind will not be set at the class/instance level.
 
+    Callable & Non-Callable Attributes :
+    -----------------------------------
+
+        Callable Attributes -> 
+            - Attributes of the class that are actually executed using () braces.
+            - Example : Methods of the Class
+
+        Non-Callable Attributes -> 
+
+            - Attributes of the class that are actually not executed using () braces.
+            - If you would execute them it would result in TypeError
+            - Example : Instance Variables, Class Variables, Properties.
+
+    Note ::
+
+        Any attribute to the set to the instance of the class goes via method __setattr__
+        Any attribute to be obtained will go via __getattribute__
+        Any attribute that's not available at Class/Instance level will go via __getattr__
 
 '''
 
@@ -146,7 +164,8 @@ class Person:
                     self.profession=profession
                 5. The instance variables are accessible only inside the instance methods of the class
         """
-        # Assign the parameters to the instance variables
+        
+        # Assign the parameters to the instance variables - Set the values to attributes
         self.name=name
         self.age=age
         self.location=location
@@ -253,8 +272,42 @@ class Person:
             objects of any kind will not be set at the class/instance level.
         '''
         print("Set value as - {} to the attribute - {} ".format(value,attribute))
-        # Set the value of the attribute.
+
+        # Set the value of the attribute to the class.
+        # The attribute thus set will be accessible at class level and also instance of the class level.
         setattr(self.__class__,attribute,value)
+
+    def __getattribute__(self,attribute):
+        '''
+            This method gets called for all the attributes of the class.
+            Return the value of the attribute.
+            :param attribute: The attribute being accessed.
+
+            If you wish to override the way the attributes are returned,
+            then this is the right place.
+            For ex: Return only the string attributes:
+                super(Person,self).__getattribute__(attribute) if attribute.__class__ == str else "NULL"
+
+            For ex: Return only the int attributes:
+                super(Person,self).__getattribute__(attribute) if attribute.__class__ == int else "NULL"
+        '''
+        # Print the attribute details.
+        print("GET :: - {} ".format(attribute))
+        # Return the value of the attribute.
+        return super(Person,self).__getattribute__(attribute)
+
+    def __getattr__(self,attribute):
+        '''
+            Handle the attribute in case of AttributeError
+            :param attribute: The attribute being accessed.
+        '''
+        # Handle the attribute..
+
+        # Set attribute to the class as NULL for attributes that doesn't exist.
+        print("GETATTR :: attribute - {} & value - {} ".format(attribute,"NULL"))
+        setattr(self.__class__,attribute,"NULL")
+        # Return the attribute value
+        return getattr(self.__class__,attribute)
 
     def __del__(self):
         '''
@@ -266,6 +319,7 @@ class Person:
                 - Huge memory operations
                 ~ Similar tasks...
         '''
+        print("\n From __del__ \n")
         print("Memory location of self - {} ".format(id(self)))
         print("Delete the object - {} ".format(self))
         del self
@@ -273,9 +327,12 @@ class Person:
 # Execute
 if __name__ == "__main__":
     instance_person = Person("Sherlock",15,"London","Programmer") # Returns an instance of the person class.
-    # Display details
+    # Display details - Invokes __call__ method by calling the instance of the class.
     print(instance_person())
-    # Instance attribute...
+    # Instance attribute...Set a value to an attribute
     instance_person.account_number = "10AXYZBHEAPRFULL5000"
+    # Set the Team's SCRUM Master
+    instance_person.team_scrum_master = "Sangeetha!"
     print(instance_person.account_number)
+    print(instance_person.team_scrum_master)
     # __del__ method will get invoked now.

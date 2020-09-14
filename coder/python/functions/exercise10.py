@@ -192,6 +192,7 @@ def func_array_parser_gen(*arrays):
         :param arrays: N number of arrays - tuple args
         * Perform multiple operations inside the function *
         Execution : Pass multiple arrays
+            # Create a Generator object
             gen_object = func_array_parser_gen(range(10,10000),range(100,20000),range(1000,5000),range(100,4000))
             # Generator invoke
             func_gen_print_until_stop_iteration(gen_object)
@@ -235,8 +236,3 @@ def func_array_parser_array(*arrays):
                 iter_sum+=num
     return iter_sum
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-# Execute
-if __name__ == "__main__":
-
-    func_array_parser_array(range(10,10000),range(100,20000),range(1000,5000),range(100,4000))    
