@@ -110,6 +110,216 @@
                So the function name gets transformed as function object at run-time.
         """
 
+    Function Argument Types:
+    ------------------------
+        
+        * There are 4 kinds of arguments to any given function. *
+
+            1. Positional Arguments
+            -----------------------
+                
+                Description ::
+                --------------
+                    
+                    - Positional Arguments are passed in an order from left -> right .
+                    - A Function can have any n.o. positional arguments .
+                    - It's mandatory to pass values to all the positional arguments .
+                    - Its mandate to pass values for all these arguments.
+                    - If we dont pass any of the value it would result in an exception.
+
+                Example ::
+                ----------
+                    
+                    # A Simple function to add all the arguments in the function and return the final value.
+
+                    def function(posa,posb,posc,posd):
+                        # Add the numbers and return the final value.
+                        return posa+posb+posc+posd
+                    
+                    This function has 4 arguments which are positional.
+                    Its mandate to pass values for all these arguments.
+                    If we dont pass any of the value it would result in an exception.
+
+                Execution of above function ::
+                ------------------------------
+
+                    - function(10,20,30,40) # Valid - Has all the 4 Arguments.
+
+                    - function(10,20,30) # Exception - Has only 3 Arguments.
+
+                    - function(10,30,40) # Exception - Has only 3 Arguments.
+
+                    - function(20,30,40) # Exception - Has only 3 Arguments.
+
+            2. Tuple Arguments
+            ------------------
+
+                Description ::
+                --------------
+                    
+                    - Tuple Arguments are denoted by * 
+                    - A tuple argument can take any number of values. There is no limit.
+                    - Unlike Positional Arguments tuple arguments gives freedom to pass any number of values.
+                    - It's not mandatory to pass value to the tuple arguments .
+                    - The arguments can be passed in any order, no restrictions .
+                
+                Example ::
+                ----------
+                    
+                    # A Simple function to add all the arguments in the function and return the final value.
+                    
+                    def function(*args):
+                        # Add the numbers and return the final value.
+
+                        # Define a Counter
+                        set_counter = 0
+
+                        # For each iteration increment the counter by 1
+                        
+                        for data in args:
+                            set_counter += 1
+                        return set_counter
+                
+                Execution of above function ::
+                ------------------------------
+                    
+                    - function(10,20,30,40) # Valid - Output is 4
+
+                    - function(10,20,30) # Valid - Output is 3
+
+                    - function(10,30) # Valid - Output is 2
+
+                    - function(40) # Valid - Output is 1
+                    
+                    - function() # Valid - Output is 0.
+                        - When no arguments are passed the output is 0, since variable set_counter is initialized as 0 .
+                        - Variable set_counter is not incremented .
+                        - The below for loop will not get executed since args is not passed.
+                            for data in args:
+                                set_counter += 1
+
+            3. Keyword Arguments
+            --------------------
+
+                Description ::
+                --------------
+                    
+                    - Keyword Arguments are denoted by **
+                    - A keyword argument can take any number of values. There is no limit.
+                    - keyword arguments are passed in key:value pairs.
+                    - Unlike Positional Arguments keyword arguments gives freedom to pass any number of values.
+                    - It's not mandatory to pass value to the keyword arguments .
+                    - The arguments can be passed in any order, no restrictions .
+                    - Keyword arguments are stored as dictionary.
+                    - Keyword arguments are iterated as the way we iterate dictionary.
+                        - for key,value in kwargs.items():
+                              print(key,value)  
+                
+                Example ::
+                ----------
+                    
+                    # A Simple function to add all the arguments in the function and return the final value.
+                    
+                    def function(**kwargs):
+                        # Add the numbers and return the final value.
+
+                        # Define a Counter
+                        set_counter = 0
+
+                        # For each iteration increment the counter by 1
+                        
+                        for key,value in kwargs.items():
+                            set_counter += 1
+                        return set_counter
+                
+                Execution of above function ::
+                ------------------------------
+                    
+                    - function(x=10,y=20,z=30,a=40) # Valid - Output is 4
+
+                    - function(x=10,y=20,z=30) # Valid - Output is 3
+
+                    - function(x=10,z=30) # Valid - Output is 2
+
+                    - function(y=40) # Valid - Output is 1
+
+                    - function() # Valid - Output is 0.
+                        - When no arguments are passed the output is 0, since variable set_counter is initialized as 0 .
+                        - Variable set_counter is not incremented .
+                        - The below for loop will not get executed since kwargs is not passed.
+                            for key,value in kwargs.items():
+                                set_counter += 1
+
+            4. Default Arguments
+            ---------------------
+
+                Description ::
+                --------------
+                    
+                    - Default Arguments are passed to the function as default values to arguments.
+                    - They get initialized at the time of function creation.
+                    - def function(x=10,y=20,z=30,a=40,b=50) during function creation will initialize the values as;
+                          x=10,y=20,z=30,a=40,b=50
+                    - Unlike Positional Arguments Default Arguments gives freedom to pass any number of values.                    
+                    - The arguments can be passed in any order, no restrictions .
+                    - It's not mandatory to pass value to the Default Arguments .
+                        - During execution, If the values are not passed the default values will apply.
+                        - During execution, If the values are passed the new values will apply and the
+                          default values will not be taken.
+                    - They look similar to positional arguments, but have some default values associated with it .
+
+
+                Example ::
+                ----------
+                    
+                    # A Simple function to add all the arguments in the function and return the final value.
+
+                    def function(x=10,y=20,z=30,a=40,b=50):
+                        # Add the numbers and return the final value.
+                        return x+y+z+a+b
+
+                Execution of above function ::
+                ------------------------------
+                    
+                    # Check without modifying the default arguments
+                    ------------------------------------------------
+                        # Refer below, all default arguments are taken by default  - Output is 150.
+                        - function(x=10,y=20,z=30,a=40) # Valid - Output is 150                
+                        
+                        # Refer below, arguments a,b are taken by default  - Output is 150.
+                        - function(x=10,y=20,z=30) # Valid - Output is 150.
+                        
+                        # Refer below, arguments y,z are taken by default  - Output is 150.
+                        - function(x=10,a=40) # Valid - Output is 150.
+                        
+                        # Refer below, arguments x,y,z are taken by default  - Output is 150.
+                        - function(a=40) # Valid - Output is 150.
+                    
+                    # Check by modifying the default arguments
+                    ------------------------------------------------
+                        # Refer below, all default arguments are taken by default  - Output is 150.
+                        - function(x=10,y=20,z=30,a=40) # Valid - Output is 150                
+                        
+                        # Refer below, arguments a,b are passed new values  - Output is 360.
+                        - function(x=10,y=20,z=30,a=100,b=200) # Valid - Output is 360.
+                        
+                        # Refer below, arguments x,y,z,a,b are passed new values - Output is 306
+                        - function(x=1,y=2,z=3,a=100,b=200) # Valid - Output is 306.
+
+                    # Check by passing the default arguments in any order
+                    ------------------------------------------------
+                        # Refer below, arguments can be passed in any order - no issues at all.
+                        - function(a=40,z=10,c=20,b=100,y=500) # Valid - Output is 670.
+
+                        # Refer below, arguments can be passed in any order - no issues at all.
+                        - function(z=10,c=20,b=0,y=500,a=40) # Valid - Output is 570.
+
+                        # Refer below, arguments can be passed in any order - no issues at all.
+                        - function(a=4,c=2,b=1,z=1,y=5) # Valid - Output is 13.
+
+                        # Refer below, arguments can be passed in any order - no issues at all.
+                        - function(z=10,y=10,x=10,b=10,a=10) # Valid - Output is 50.
+
 '''
 
                                         # Example 1 

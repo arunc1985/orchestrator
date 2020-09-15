@@ -1461,6 +1461,133 @@ print("New & modified dictionary = {} ".format(result))
                                         # Example 18
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+'''
+  What's list slicing ?
+  
+  Slicing means from the original array, take a portion of the array as a new list.
+
+  Example : Let's Say we have a list listA = [1,2,3,4,5,6,7,8,9]
+  And we want to slice the list listA in different formats.
+
+  NOTE ::
+    - List Slice means taking a portion of the list.
+    - Slice can be done in 2 ways,
+      - Without Steps
+
+        -- Example :: listA[1:5] # Take from index 1 until index 4 # 5 will no be included.
+        -- Slice without steps has a single Colon as :
+
+      - With Steps
+
+        -- Example :: listA[1::2] 
+            #Take from index 1 and increment by 2 until index is available in list.
+            listA[1::2] will give indexes as ;
+            listA[1] ,listA[3],listA[5],listA[7],listA[9]
+            It will this Stop at listA[9] since 9 + 2 = 11 and listA has only 9 indexes.
+        -- Slice with steps has a double Colon as ::
+
+'''
+# List Operations - Indexing, Slicing, Copy and Deep Copy.
+
+# Define a list with 10 elements
+listA = [1,2,3,4,5,6,7,8,9,10]# This will create a list of 10 elements from 0 to 9
+
+# Slice the list listA - Select elements from Position 1 until 5. 
+#listA[1:5] - It gives listA[1],listA[2],listA[3],listA[4]. 5 is not included.
+slice_lista = listA[1:5]
+print("\n Example 18 Output :: \n ")
+
+print("Original Array = {} ".format(listA))
+print("Memory Location of Original Array listA = {} ".format(id(listA)))
+print("slice_lista Array = {} ".format(slice_lista))
+print("Memory Location of Original Array slice_lista = {} ".format(id(slice_lista)))
+print("The newly sliced array is only part of the original array. Original is unaffected, only a slice is created.")
+print("The Memory Location of Original Array is different from the Sliced Array.")
+print("\n \n")
+
+# Slice the list listA - Select elements from Position 5 until end. 
+#listA[5:] - It gives listA[5],listA[6],listA[7],listA[8],listA[9].
+slice_lista = listA[5:]
+print("Original Array = {} ".format(listA))
+print("Memory Location of Original Array listA = {} ".format(id(listA)))
+print("slice_lista Array = {} ".format(slice_lista))
+print("Memory Location of Original Array slice_lista = {} ".format(id(slice_lista)))
+print("The newly sliced array is only part of the original array. Original is unaffected, only a slice is created.")
+print("The Memory Location of Original Array is different from the Sliced Array.")
+print("\n \n")
+
+'''
+  
+  # Slice the list listA - Select elements from Position 1 until end with slice step. 
+  #listA[1::2] - It starts from listA[1] and increments by 2 and goes until end of list.
+  # listA[1], listA[3],listA[5],listA[7],listA[9] -> It will end here since listA has only 9 elements.
+  # It would thus give output as [2, 4, 6, 8, 10]
+  listA[1]=2, listA[3]=4, listA[5]=6, listA[7]=8, listA[9]=10
+  In the example below the Slice step is 2, defined as listA[1::2], in which case the elements are;
+  listA[1], listA[3],listA[5],listA[7],listA[9]
+
+'''
+#Create a slice as listA[1::2] -> Start with Position 1 and increment by 2.
+print("Create a slice as listA[1::2] -> Start with Position 1 and increment by 2.")
+slice_lista = listA[1::2]
+print("Original Array = {} ".format(listA))
+print("Memory Location of Original Array listA = {} ".format(id(listA)))
+print("slice_lista Array = {} ".format(slice_lista))
+print("Memory Location of Original Array slice_lista = {} ".format(id(slice_lista)))
+print("The newly sliced array is only part of the original array. Original is unaffected, only a slice is created.")
+print("The Memory Location of Original Array is different from the Sliced Array.")
+print("\n \n")
+
+
+'''
+  # Slice the list listA - Select elements from Position 1 until end with slice step. 
+  #listA[1::2] - It starts from listA[1] and increments by 2 and goes until end of list.
+  # listA[1], listA[3],listA[5],listA[7],listA[9] -> It will end here since listA has only 9 elements.
+  # It would thus give output as [2, 4, 6, 8, 10]
+  listA[1]=2, listA[3]=4, listA[5]=6, listA[7]=8, listA[9]=10
+  In the example above the Slice step is 2, defined as listA[1::2], in which case the elements are;
+  listA[1], listA[3],listA[5],listA[7],listA[9]
+
+  But if the step is higher like this: 
+  listA[1::10], in this case the slice step is 10 and it would get incremented by 10.
+  In which case the elements are;
+  listA[1] , listA[11] etc.... but in our case the list listA has only 9 elements and listA[11] is not available in the
+  list listA, this it will not be processed and it would just return listA[1] alone.
+  Output will be :: [2]
+
+  So based on the slice step it will get incremented and it will collect data from the list it it's available,
+  when the index is not there, it will break and return the list.
+
+  Consider another example :
+  listA[2::4] - It start from position 2 , increments by 4 and goes until index is available in list.
+  listA[2::4] - listA[2], listA[6], listA[10] # Here index 10 is not available in listA.
+  listA has got 9 indexes only from 0 to 9.
+  Hence for slice of listA[2::4] : Indexes valid are listA[2], listA[6].
+  So Output will be : listA[2::4] = [3,7]
+'''
+# Create a slice as listA[1::10] -> Start with Position 1 and increment by 10.
+print("Create a slice as listA[1::10] -> Start with Position 1 and increment by 10.")
+slice_lista = listA[1::10]
+print("Original Array = {} ".format(listA))
+print("Memory Location of Original Array listA = {} ".format(id(listA)))
+print("slice_lista Array = {} ".format(slice_lista))
+print("Memory Location of Original Array slice_lista = {} ".format(id(slice_lista)))
+print("The newly sliced array is only part of the original array. Original is unaffected, only a slice is created.")
+print("The Memory Location of Original Array is different from the Sliced Array.")
+print("\n \n")
+
+
+# Create a slice as listA[2::4] -> Start with Position 1 and increment by 4.
+print("Create a slice as listA[2::4] -> Start with Position 1 and increment by 4.")
+slice_lista = listA[2::4]
+print("Original Array = {} ".format(listA))
+print("Memory Location of Original Array listA = {} ".format(id(listA)))
+print("slice_lista Array = {} ".format(slice_lista))
+print("Memory Location of Original Array slice_lista = {} ".format(id(slice_lista)))
+print("The newly sliced array is only part of the original array. Original is unaffected, only a slice is created.")
+print("The Memory Location of Original Array is different from the Sliced Array.")
+print("\n \n")
+
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
                                         # Example 19
