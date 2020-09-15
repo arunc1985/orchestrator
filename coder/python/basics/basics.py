@@ -1462,29 +1462,116 @@ print("New & modified dictionary = {} ".format(result))
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 '''
-  What's list slicing ?
+  What's List Slicing ?
   
   Slicing means from the original array, take a portion of the array as a new list.
 
+  From the bigger piece get me a smaller portion. Just like Slice of Cake :-)
+
+  When we create the slice , the slice gets stored in different memory location
+  and the original list is not modified .
+
   Example : Let's Say we have a list listA = [1,2,3,4,5,6,7,8,9]
-  And we want to slice the list listA in different formats.
+
+  List index always starts with 0 . An Index is different from the value.
+
+  So this listA = [1,2,3,4,5,6,7,8,9] has 9 elements starting from 1....9.
+  So this listA has got 8 indexes. Indexes means the position.
+
+  listA = [1,2,3,4,5,6,7,8,9]
+
+  Here index is taken as follows and the list index always starts with 0 .
+
+    listA[0] = 1
+    listA[1] = 2
+    listA[2] = 3
+    listA[3] = 4
+    listA[4] = 5
+    listA[5] = 6
+    listA[6] = 7
+    listA[7] = 8
+    listA[8] = 9
+
+  To find the number of elements in the array:
+
+   - print(listA.__len__())
+   - print(len(listA))
+
+  To find the number of indices in the array:
+
+   - print(listA.__len__() - 1)
+   - print(len(listA) - 1)
+
+  And now we want to slice the list listA in different formats.
 
   NOTE ::
+
     - List Slice means taking a portion of the list.
-    - Slice can be done in 2 ways,
+
+    - Slice can be done in 2 ways:
+
       - Without Steps
 
-        -- Example :: listA[1:5] # Take from index 1 until index 4 # 5 will no be included.
+        -- Example :: 
+
+            listA[1:5] # Take from index 1 until index 4 # 5 will not be included.
+        
         -- Slice without steps has a single Colon as :
 
       - With Steps
 
         -- Example :: listA[1::2] 
+
             #Take from index 1 and increment by 2 until index is available in list.
+
             listA[1::2] will give indexes as ;
-            listA[1] ,listA[3],listA[5],listA[7],listA[9]
-            It will this Stop at listA[9] since 9 + 2 = 11 and listA has only 9 indexes.
+            listA[1] ,listA[3],listA[5],listA[7]
+            
+            * It will this Stop at listA[7] since 7 + 2 = 9 and listA has only 8 indexes.
+
         -- Slice with steps has a double Colon as ::
+
+  Note ::
+
+    Slicing is different from Indexing.
+      - In case of indexing:
+        - Python will return the element at a given index.
+        - If the index is there then the value will be returned.
+        - If the index is not there, then the value will not be returned, but
+          it will raise an exception IndexError.
+      - In case of slicing:
+        - Python will slice the available indexes and it wont raise any exception.
+        - It will return all the possible values.
+
+      Example ::
+
+          listA=[10,20,30,40,50,60,70,80,90,100]
+          print("N.o indices = {} ".format(len(listA) - 1))
+          print("\n\n")
+
+          # Indexing :: 
+            print("Value at index 5 = {} ".format(listA[5]))
+            print("Value at index 4 = {} ".format(listA[4]))
+            print("Value at index 3 = {} ".format(listA[3]))
+            print("Value at index 2 = {} ".format(listA[2]))
+            print("Value at index 1 = {} ".format(listA[1]))
+            print("Value at index 0 = {} ".format(listA[0]))
+            print("Value at index 6 = {} ".format(listA[6]))
+            print("Value at index 7 = {} ".format(listA[7]))
+            print("Value at index 8 = {} ".format(listA[8]))
+            print("Value at index 9 = {} ".format(listA[9]))
+            # The below command listA[10] will raise IndexError since index 10 is not the list.
+            print("Value at index 10 = {} ".format(listA[10]))
+          
+          # Slicing :: 
+
+            print("Slice from 1 to 5 = {} ".format(listA[1:5]))
+
+            # The below command will not raise exception. Python will return values until
+            available index . So no errors or exceptions in case of slicing invalid indexes.
+
+            print("Slice from 1 to 5 = {} ".format(listA[1:10000]))
+
 
 '''
 # List Operations - Indexing, Slicing, Copy and Deep Copy.
@@ -1559,11 +1646,11 @@ print("\n \n")
   when the index is not there, it will break and return the list.
 
   Consider another example :
-  listA[2::4] - It start from position 2 , increments by 4 and goes until index is available in list.
-  listA[2::4] - listA[2], listA[6], listA[10] # Here index 10 is not available in listA.
-  listA has got 9 indexes only from 0 to 9.
-  Hence for slice of listA[2::4] : Indexes valid are listA[2], listA[6].
-  So Output will be : listA[2::4] = [3,7]
+    listA[2::4] - It start from position 2 , increments by 4 and goes until index is available in list.
+    listA[2::4] - listA[2], listA[6], listA[10] # Here index 10 is not available in listA.
+    listA has got 9 indexes only from 0 to 9.
+    Hence for slice of listA[2::4] : Indexes valid are listA[2], listA[6].
+    So Output will be : listA[2::4] = [3,7]
 '''
 # Create a slice as listA[1::10] -> Start with Position 1 and increment by 10.
 print("Create a slice as listA[1::10] -> Start with Position 1 and increment by 10.")
@@ -1592,6 +1679,44 @@ print("\n \n")
 
                                         # Example 19
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# List indexing. List has both positive and negative indices.
+# In case if any index is not available while indexing, it will result in IndexError
+
+listA=[10,20,30,40,50,60,70,80,90,100]
+print("N.o indices = {} ".format(len(listA) - 1))
+print("\n\n")
+# Indexing
+print("Positive Indexes..\n")
+print("Value at index 0 = {} ".format(listA[0]))
+print("Value at index 1 = {} ".format(listA[1]))
+print("Value at index 2 = {} ".format(listA[2]))
+print("Value at index 3 = {} ".format(listA[3]))
+print("Value at index 4 = {} ".format(listA[4]))
+print("Value at index 5 = {} ".format(listA[5]))
+print("Value at index 6 = {} ".format(listA[6]))
+print("Value at index 7 = {} ".format(listA[7]))
+print("Value at index 8 = {} ".format(listA[8]))
+print("Value at index 9 = {} ".format(listA[9]))
+
+# Below command will result in IndexError since index 10 is not there.
+#print("Value at index 10 = {} ".format(listA[10])) 
+
+print("\nNegative Indexes..")
+print("Value at index -1 = {} ".format(listA[-1]))
+print("Value at index -2 = {} ".format(listA[-2]))
+print("Value at index -3 = {} ".format(listA[-3]))
+print("Value at index -4 = {} ".format(listA[-4]))
+print("Value at index -5 = {} ".format(listA[-5]))
+print("Value at index -6 = {} ".format(listA[-6]))
+print("Value at index -7 = {} ".format(listA[-7]))
+print("Value at index -8 = {} ".format(listA[-8]))
+print("Value at index -9 = {} ".format(listA[-9]))
+print("Value at index -9 = {} ".format(listA[-10]))
+
+# Below command will result in IndexError since index -11 is not there.
+#print("Value at index -11 = {} ".format(listA[-11])) 
+
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
