@@ -9,15 +9,30 @@ cd containers/dockers/exercise001
 
 --------------------------------------------------------------------------------------------------------------
 
+
+										# STAGES to run app in the image
+--------------------------------------------------------------------------------------------------------------
+
+Stage 1 : Create a Dockerfile.
+Stage 2 : Build a Docker Image.
+Stage 3 : Run the Docker Image as a Container.
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
 										# Build a new Image
 --------------------------------------------------------------------------------------------------------------
 
-# From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
+# From this directory, run this command. 
+Ensure dockerfile is present in the same directory where you would run the docker build command
 
 Syntax ::
 --------
 
-docker build -t <<IMAGE-NAME>>:<<TAG-NAME>> -f <<PATH-TO-DOCKERFILE>>
+docker build -t <<IMAGE-NAME>>:<<TAG-NAME>> -f <<PATH-TO-DOCKERFILE>> .
+
+# Note : docker build command ends with a DOT(.)
 
 Description ::
 -------------
@@ -31,7 +46,7 @@ Description ::
 Example ::
 ----------
 # Build a Docker Image with name as python-app and tag as exercise001
-docker build -t python-app:exercise001 -f dockerfile .
+docker build -t python-app-son-testing:v1 -f dockerfile .
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -41,14 +56,20 @@ docker build -t python-app:exercise001 -f dockerfile .
 --------------------------------------------------------------------------------------------------------------
 # Run this command to check if the images have been created
 
+# Command to return all the available images
 docker images
+
+# Command to check if your image is created
+docker images | grep <<IMAGE-NAME>>
+
+Example :: docker images | grep python-app
 
 # The above command must show the image that we created in the previous step python-app and tag as exercise001
 
 --------------------------------------------------------------------------------------------------------------
 
 
-										# Run the Image as a Container
+										# Run the Image as a Container :: Create a Container
 --------------------------------------------------------------------------------------------------------------
 # Run the Docker-Image
 
@@ -62,7 +83,7 @@ Example::
 ----------
 
 # Run the Image as a Container
-docker run --name container-exercise001 python-app:exercise001
+docker run --name arun-python-app-v1 python-app-son-testing:v1
 
 # Run the Docker-Image as a Container and delete once job done.
   Using --rm flag will delete container from memory once execution over.
@@ -71,7 +92,7 @@ docker run --name container-exercise001 python-app:exercise001
 # Run the docker container
 # When you run this command - the CMD command in the docker file will get executed.
 
-docker run --rm --name container-exercise001 python-app:exercise001
+docker run --rm --name arun-python-app-v1 python-app-son-testing:v1
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -83,6 +104,7 @@ docker ps # This Command will list your container if its up and running. Long Ru
 
 docker ps -a # This Command will list your container if it has run and exited.
 
+Example :: docker ps -a | grep arun-python-app-v1
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -97,7 +119,7 @@ docker logs <<CONTAINER-NAME>>
 
 Example::
 ----------
-docker logs container-exercise001
+docker logs arun-python-app-v1
 
 --------------------------------------------------------------------------------------------------------------
 
