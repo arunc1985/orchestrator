@@ -602,6 +602,9 @@ Execution ::
 """
 class Employee:
 
+    #Define a Class Variable here...
+    OFFICE_NAME=""
+
     def __init__(self,name,location,profession):
 
         '''
@@ -627,6 +630,22 @@ class Employee:
 
             The arguments that are set here inside the __init__ constructor can be accessed
             inside of all the instance methods of the class.
+
+            The arguments that are set here inside the __init__ constructor are the instance
+            Variables of the class.
+
+            The arguments that are set at class level are known as Class Variables.
+
+
+            The variables that are set at the class level are accessible inside of the
+            instance methods of the class. For ex: This variable OFFICE_NAME is 
+            accessible inside method about defined below.
+
+            How can we access the class variables inside of the instance method?
+            The variables that are defined at the class level such as class variables,
+            methods are always accessible to the instance since an instance is a child of
+            the class...
+
         '''
         
         # Set the arguments to the instance of the class to be used inside instance methods.
@@ -641,6 +660,8 @@ class Employee:
     def about(self):
         '''
             Display details about an Employee
+            You can access class variable OFFICE_NAME inside this method
+            as self.OFFICE_NAME using the instance self.
         '''
         return "Hello All! My name is {} and I am from {} and I am {}".format(self.name,self.location,self.profession)
 
@@ -869,3 +890,263 @@ class Employee:
 
 
 #---------------------------------------------------------------------------------------------------------
+
+
+
+
+                                                # Example 6
+#---------------------------------------------------------------------------------------------------------
+
+
+"""
+# Define a Simple Class and create an instance.
+# The class below has 3 methods - interpreter will just create the class  and it will be stored in some memory location.
+
+Methods ::
+    
+    def __init__ : Used as a Constructor. For Class initialization.
+                   In this case we initialize the class with following attributes:
+                    1. name
+                    2. location
+                    3. profession
+
+    def about : Display all details about an employee.
+
+    def check_employee_qualification : Check Employee's Qualification based on experience level.
+
+# The class below has 3 properties
+
+Properties ::
+    
+    def name: Return the name 
+    def location: Return the location
+    def profession: Return the profession
+
+    * Properties are used for :
+        - Returning the value of an attribute.
+        - They are called by the instance of the class.
+            - instance_employee = Employee(name,location,profession)
+            - print(instance_employee.name)
+            - print(instance_employee.location)
+            - print(instance_employee.profession)
+        - They are not called using braces - ()
+        - But methods are called using braces - ()
+            - instance_employee.about()
+
+# To create an instance for this class:
+    instance_employee = Employee(name,location,profession)
+    print(instance_employee) # Prints Instance and it will be stored in some memory location.
+# NOTE :: 
+    The location of the instance in memory is different from that of the Class itself.
+    Get the memory location of the class - print(id(Employee))
+    Get the memory location of the instance of the class - print(id(instance_employee))
+    ** They both will be different.
+
+
+Execution ::
+    
+    # Instance Creation
+    Employee(name,location,profession)
+
+    print("\n\n")
+
+    instance_employee = Employee("Arun","Chennai","Programmer",15)
+    print("Instance is - {} ".format(instance_employee))
+    print("Name is - {} ".format(instance_employee.name))
+    print("Location is - {} ".format(instance_employee.location))
+    print("Profession is - {} ".format(instance_employee.profession))
+    print("Experience is - {} ".format(instance_employee.experience))
+    print("Get the memory location of the class - {} ".format(id(Employee)))
+    print("Get the memory location of the instance of the class - {} ".format(id(instance_employee)))
+    
+    print("\n\n")
+
+    print("Access the various properties and get details..")
+    # Print the properties
+    print("Name is - {} ".format(instance_employee.get_name))
+    print("Location is - {} ".format(instance_employee.get_location))
+    print("Profession is - {} ".format(instance_employee.get_profession))
+
+    print("\n\n")
+
+    print("Get the Employee Details ..")
+    emp_details = instance_employee.about()
+    print(emp_details)
+
+    print("\n\n")
+
+    print("Check the Employee Qualification ..")
+    emp_details = instance_employee.check_employee_qualification()
+    print(emp_details)
+
+    print("\n\n")
+
+    print("Access the various properties and get details..")
+    # Print the properties
+    print("Name is - {} ".format(instance_employee.get_name))
+    print("Location is - {} ".format(instance_employee.get_location))
+    print("Profession is - {} ".format(instance_employee.get_profession))
+
+"""
+
+class Employee:
+
+    # Define a Class Variable.
+    EXPECTED_EXPERIENCE_IN_YEARS=20
+
+    def __init__(self,name,location,profession,experience):
+
+        '''
+            This Block is used for initialization.
+
+            __init__ is the Constructor. Its a Magic/Special Method.
+
+            It gets called when the instance is created.
+            The arguments to this method name,location,profession are all positional arguments and value must be
+            passed while creating the instance.
+
+            Example::
+
+                instance_employee = Employee(name,location,profession)
+                Example ::
+                    instance_employee = Employee("Arun","Chennai","Mentor")
+                When we create an instance as above, the first mandate argument self
+                becomes the instance of the class.
+
+                * So self becomes instance_employee *
+
+            The argument self defined above is a pre-requisite for instance methods.
+            This argument self becomes instance of the class once the class is run and executed.
+            There are various types of methods in Class - Refer detailed documentation above.
+
+            The arguments that are set here inside the __init__ constructor can be accessed
+            inside of all the instance methods of the class.
+
+            :param name: Name of the Employee - String
+            :param location: Base Location of the Employee - String
+            :param profession: Job/Profession of the Employee - String
+            :param experience: Experience of the Employee in Years - Integer
+        '''
+        
+        # Set the arguments to the instance of the class to be used inside instance methods.
+        # Set the name of the person to the instance of the class
+        self.name = name
+        # Set the location of the person to the instance of the class
+        self.location = location
+        # Set the profession of the person to the instance of the class
+        self. profession = profession
+        # Set the experience of the person to the instance of the class
+        self.experience = experience
+
+    
+    def about(self):
+        '''
+            Display details about an Employee
+
+            Note ::
+                At run time the first argument to this method self becomes
+                the instance of the class.
+
+                instance_employee = Employee(name,location,profession)
+
+                The first argument self will become as instance_employee
+
+                The instance method must be always executed using the instance of the class.
+                The method about must be called as follows;
+
+                instance_employee.about()
+        '''
+        print("Access Class Variable EXPECTED_EXPERIENCE_IN_YEARS from instance method :: {} ".format(self.EXPECTED_EXPERIENCE_IN_YEARS))
+        return "Hello All! My name is {} and I am from {} and I am {}".format(self.name,self.location,self.profession)
+
+
+    def check_employee_qualification(self):
+        '''
+            Check the qualification of an employee based on the years of experience.
+            If an employee's years of experience is >= expected experience in years:
+                THEN Employee is Qualified!
+            else
+                Employee is not Qualified!
+        '''
+        # Add an if-condition to check if an employee is qualified.
+        if self.experience >= self.EXPECTED_EXPERIENCE_IN_YEARS:
+            return "Employee - {} is Qualified! ".format(self.name)
+        else:
+            return "Employee - {} is not Qualified! ".format(self.name)
+
+
+    @classmethod
+    def check_employee_details(cls,employee_curr_experience):
+        ''' 
+            Return all employee details
+            :param experience : Experience in years of an employee
+
+            If an employee's years of experience is >= expected experience in years:
+                THEN Employee is Qualified!
+            else
+                Employee is not Qualified!
+
+            Note ::
+                At run time the first argument to this method cls becomes
+                the class itself.
+
+                instance_employee = Employee(name,location,profession)
+
+                The first argument cls will become as Employee
+
+                A classmethod can be invoked without creating an instance of the class.
+                Which means you can actually call the method check_employee_details as follows;
+
+                Employee.check_employee_details(20)
+
+                You can also call the classmethod using the instance of the class.
+                instance_employee.check_employee_details(20)
+
+        '''
+        # Check and return as True or False
+        print("Total Experience in Years is :: {} ".format(cls.EXPECTED_EXPERIENCE_IN_YEARS))
+        return True if employee_curr_experience >= cls.EXPECTED_EXPERIENCE_IN_YEARS else False
+
+
+    @property
+    def get_name(self):
+        '''
+            Return the name of the employee
+        '''
+        return self.name
+
+
+    @property
+    def get_location(self):
+        '''
+            Return the location of the employee
+        '''
+        return self.location
+    
+
+    @property
+    def get_profession(self):
+        '''
+            Return the profession of the employee
+        '''
+        return self.profession
+
+    @property
+    def get_experience(self):
+        '''
+            Return the experience of the employee in years
+        '''
+        return self.experience
+
+
+
+#---------------------------------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    instance_employee = Employee("Arun","Chennai","Mentor",20)
+    print("Employee Details :: Instance Method")
+    print(instance_employee.about())
+    print("\nEmployee Qualification :: Instance Method")
+    print(instance_employee.check_employee_qualification())
+    print("\nEmployee Experience :: Class Method")
+    print(Employee.check_employee_details(20))
