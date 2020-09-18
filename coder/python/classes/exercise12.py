@@ -275,28 +275,35 @@
 
 class Person:
 
+    # Class Variable to hold the instances
+    CLASS_INSTANCE_HOLDER = {}
+    
     def __new__(cls,*args):
+
         '''
-            Create an instance and return.
-            Print the Instance and the Arguments
+            The instance will get created only once. 
+            The instance gets stored in class variable CLASS_INSTANCE_HOLDER.
 
             Note ::
 
-                Create an instance of the Person class and invoke about method.
+                Create 2 instances and check if both the instances are at same memory location.
 
                 # Returns an instance of the person class.
-                instance_person = Person("Sherlock",15,"London","Programmer")
-                instance_person.about()
+                instance_person = Person("Sherlock",35,"London","Programmer")
 
                 # Returns an instance of the person class.
                 instance_person_b = Person("Tom",30,"Sweden","Programmer")
-                instance_person_b.about()
+
+                # Assert the memory location and they must be same.
+                print(id(instance_person) == id(instance_person_b))
+                assert id(instance_person) == id(instance_person_b)
         '''
-        # Creating an instance of the Class.
-        instance = object.__new__(cls)
-        print("Instance is - {} ".format(instance))
-        print("Args passed during instance creation - {} ".format(args))
-        return instance
+        if not cls.CLASS_INSTANCE_HOLDER.__contains__('instance'):
+            # Creating an instance of the Class.
+            # Use the built-in object to create the instance.
+            instance = object.__new__(cls)
+            cls.CLASS_INSTANCE_HOLDER['instance']=instance
+        return cls.CLASS_INSTANCE_HOLDER['instance']
     
     def __init__(self,name,age,location,profession):
         """
@@ -424,7 +431,7 @@ class Person:
             the attributes of any other types such as lists, dicts, tuples or
             objects of any kind will not be set at the class/instance level.
         '''
-        print("Set value as - {} to the attribute - {} ".format(value,attribute))
+        print("\nSet value as - {} to the attribute - {} ".format(value,attribute))
         # Set the value of the attribute.
         setattr(self.__class__,attribute,value)
 
@@ -438,12 +445,22 @@ class Person:
                 - Huge memory operations
                 ~ Similar tasks...
         '''
-        print("Memory location of self - {} ".format(id(self)))
-        print("Delete the object - {} ".format(self))
+        print("\nMemory location of self - {} ".format(id(self)))
+        print("\nDelete the object - {} ".format(self))
         del self
 
 # Execute
 if __name__ == "__main__":
-    instance_person = Person("Sherlock",15,"London","Programmer") # Returns an instance of the person class.
-    instance_person.about()
 
+    # Returns an instance of the person class.
+    instance_person = Person("Sherlock",35,"London","Programmer")
+
+    # Returns an instance of the person class.
+    instance_person_b = Person("Tom",30,"Sweden","Programmer")
+
+    # Assert the memory location and they must be same.
+    print("\nMemory location of above instances is same ? - {}\n".format(id(instance_person) == id(instance_person_b)))
+    print("\nAssert the memory location and they must be same.\n")
+    assert id(instance_person) == id(instance_person_b)
+
+    # Finally the DEL Method will get invoked.
