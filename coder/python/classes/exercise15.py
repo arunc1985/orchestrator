@@ -331,9 +331,6 @@ class Generator:
                 3. The variables thus assigned below are known as *instance variables*
                 4. Example of instance variables are shown below;
                     self.number_ranges=number_ranges
-                    self.age=age
-                    self.location=location
-                    self.profession=profession
                 5. The instance variables are accessible only inside the instance methods of the class
         """
         # Assign the parameters to the instance variables
@@ -358,17 +355,36 @@ class Generator:
             It returns the value each time __next__ or next() is called.
             It does return until the value > 0.
             Then it stops returning values but returns None
+
+            Initially this number would be 10 as per instance creation above.
+            self.number_ranges = 10
+
+            Each time we call __next__() like print(instance_gen.__next__())
+                - self.number_ranges gets decremented by 1
+                - The power of the number is calcluated and returned.
+
+            Until self.number_ranges > 0 the power will be calcluated and returned.
+            
+            Else it will raise an exception ValueError.
+            
+                Traceback (most recent call last):
+                  File "exercise15.py", line 389, in <module>
+                    print(next(instance_gen))
+                  File "exercise15.py", line 373, in __next__
+                    raise ValueError("No more items to process...")
+                ValueError: No more items to process...
         '''
         if self.number_ranges > 0:
+            # Find the square of the number and return
             result = self.number_ranges ** 2
             self.number_ranges -= 1
             return result
-
+        raise ValueError("No more items to process...")
 # Execute
 if __name__ == "__main__":
     
     # Create an instance of the Generator Class
-    instance_gen = Generator(10)        
+    instance_gen = Generator(100)        
     print(instance_gen.__next__())
     print(instance_gen.__next__())
     print(instance_gen.__next__())

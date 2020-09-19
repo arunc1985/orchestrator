@@ -515,6 +515,6 @@ class Person:
 if __name__ == "__main__":
 
     # Create an instance of the class..
-    instance_person = Person("Sherlock","Holmes",35,"London","Programmer",200000,15)
+    instance_person = Person("Sherlock","Holmes",35,"London","Programmer",1000,15)
     # Get the details of the Person
     print(instance_person.about())

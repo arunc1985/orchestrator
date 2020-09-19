@@ -305,8 +305,24 @@ class Person:
             # This method will not get called, This line will not get executed.
             instance_person.about()
             
-            * But method __del__ will get called since its a magic method, it will get called at end by default.
+            Example ::
 
+                # Create an instance of the class..
+                instance_person = Person("Sherlock",35,"London","Programmer")
+
+                # The above line will not create an instance since in __new__ method exception is raised.
+                # We would get following exception as a result of creating an instance.
+
+                """
+                    Traceback (most recent call last):
+                      File "exercise13.py", line 464, in <module>
+                        instance_person = Person("Sherlock",35,"London","Programmer")
+                      File "exercise13.py", line 314, in __new__
+                        raise Exception("Instance Creation not Permitted. Class is Secured.")
+                    Exception: Instance Creation not Permitted. Class is Secured.
+                """    
+
+            * But method __del__ will get called since its a magic method, it will get called at end by default.
         '''
         # Creating an instance of the Class.
         # Use the built-in object to create the instance.
@@ -454,6 +470,7 @@ class Person:
                 - Huge memory operations
                 ~ Similar tasks...
         '''
+        print("\n\nFrom __del__ :: \n\n")
         print("\nMemory location of self - {} ".format(id(self)))
         print("\nDelete the object - {} ".format(self))
         del self

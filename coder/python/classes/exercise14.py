@@ -261,23 +261,50 @@
     -----------------------
 
         In this example , we will a special magic method __iter__ for creating an iterable.
+
         When we define __iter__ method in the class we can iterate on the object.
 
-        For Example :
+        For Example :: Let's Say i have a simple class called Generator
+
             class Generator:
+
+                # Define an iter magic method
                 def __iter__(self):
                     yield from range(1000,10000)
 
-            # Creating an instance
-            instance_gen = Generator()
-            # Iterate on the instance and print the values
-            for data in instance_gen:
-                print(data)
+                # Creating an instance
+                instance_gen = Generator()
+
+                # Iterate on the instance and print the values, it will print whatever you have
+                defined as a logic inside of the __iter__ method.
+
+                for data in instance_gen:
+                    print(data)
 
         Note :: If __iter__ method is not defined in the class, then its not possible
                 to iterate on the object of the class.
         
         Use this method only if you would like to iterate on the object of the class.
+        An Iterable is an object that can be iterated to obtain the values inside of it.
+
+        Example ::
+            
+            Python 3.8.5 (tags/v3.8.5:580fbb0, Jul 20 2020, 15:43:08) [MSC v.1926 32 bit (Intel)] on win32
+            Type "help", "copyright", "credits" or "license" for more information.
+            >>> x=[1,2,3,4,5]
+            >>> for i in x:
+            ...   i
+            ...
+            1
+            2
+            3
+            4
+            5
+            >>>
+
+            Here variable x is an iterable since it's a list.
+            A list can be iterated using a for loop and values can be obtained.
+
         -------------------------------------------------------------------------------------------------
 
 
@@ -312,20 +339,48 @@ class Generator:
                 3. The variables thus assigned below are known as *instance variables*
                 4. Example of instance variables are shown below;
                     self.number_ranges=number_ranges
-                    self.age=age
-                    self.location=location
-                    self.profession=profession
                 5. The instance variables are accessible only inside the instance methods of the class
         """
         # Assign the parameters to the instance variables
         self.number_ranges=number_ranges
 
+    def __call__(self):
+        ''' 
+            This method enables an instance of the class to become a Callable.
+            Example ::
+
+                    # Create an instance of the Generator Class
+                    instance_gen = Generator(100)        
+                    # Call the instance
+                    instance_gen() # Print True
+            Note ::
+
+                If __call__ method is not defined in the class, then its not possible
+                to call the instance.
+
+                It would result in an exception as below;
+                    Traceback (most recent call last):
+                      File "<stdin>", line 1, in <module>
+                    TypeError: 'Person' object is not callable
+        '''
+        # Return True
+        return True
+
     def __iter__(self):
         '''
             Create an iterator object and return.
             Defining __iter__ method inside of the class makes the instance iterable.
-            If __iter__ method is not defined in the class, then its not possible 
-            to iterate on the object of the class.            
+
+            NOTE ::
+                If __iter__ method is not defined in the class, then its not possible 
+                to iterate on the object of the class.            
+
+                It would result in an exception as below;
+                ...
+                    Traceback (most recent call last):
+                      File "<stdin>", line 1, in <module>
+                    TypeError: 'Person' object is not iterable
+
 
             Define Iterator as follows:
 
@@ -334,6 +389,19 @@ class Generator:
 
                 Option 2 ::
                     return iter(range(0,self.number_ranges))
+
+            Example ::
+
+                instance_gen = Generator(100000)    
+                self.number_ranges becomes as 100000    
+                
+                Statement :
+                    - yield from range(0,self.number_ranges)
+                        The above statement yields all numbers from 0 until 100000
+
+                    - return iter(range(0,self.number_ranges))
+                        The above statement returns all numbers from 0 until 100000
+
         '''
         # Yield range of values
         # Staring from 0 until specified range, yield all the values
@@ -343,7 +411,9 @@ class Generator:
 if __name__ == "__main__":
     
     # Create an instance of the Generator Class
-    instance_gen = Generator(100000)        
+    instance_gen = Generator(100)        
+    # Call the instance
+    print(instance_gen())
     # Iterate and get the values
     for num in instance_gen:
         print(num)

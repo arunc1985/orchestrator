@@ -269,6 +269,17 @@
             - Attributes of the class that are actually not executed using () braces.
             - If you would execute them it would result in TypeError
             - Example : Instance Variables, Class Variables, Properties.
+
+    __new__ and __init__
+    ---------------------
+
+        __new__ : Is for Instance Creation. Can be customized to control the creation of instances.
+        __init__ : Is used as a Constructor. It needs the instance that was created by __new__.
+
+        __init__ method gets called only after __new__ because __new__ gives us the instane of the class.
+        __init__ method needs an instance to perform any task, it uses the instance created under __new__.
+
+
 '''
 
 # Define a Person class and perform related operations
@@ -283,6 +294,11 @@ class Person:
         '''
             The instance will get created only once. 
             The instance gets stored in class variable CLASS_INSTANCE_HOLDER.
+            This method has been overridden to make sure;
+            1. Only 1 instance will be available.
+            2. Any number of instances cannot be created.
+            3. Only 1 instance will be existing in memory.
+            4. Even if you try to create multiple instances, only the default 1 instance wil get returned.
 
             Note ::
 
@@ -297,13 +313,37 @@ class Person:
                 # Assert the memory location and they must be same.
                 print(id(instance_person) == id(instance_person_b))
                 assert id(instance_person) == id(instance_person_b)
+
+                1. Create an instance only if the class variable CLASS_INSTANCE_HOLDER
+                    doesn't have the key instance_available.
+
+                2. First time we create an instance, this dictionary at class level CLASS_INSTANCE_HOLDER
+                   will get updated as follows.
+                        # Instance is Created
+                        instance = object.__new__(cls)
+                        # It is stored in a Class variable
+                        cls.CLASS_INSTANCE_HOLDER['instance_available']=instance
+                        
+                3. Next time we create an instance the following if condition will fail;
+
+                    if not cls.CLASS_INSTANCE_HOLDER.__contains__('instance_available')
+                    and the instance that was created above will get returned.
+
+                    return cls.CLASS_INSTANCE_HOLDER['instance_available']                
+
+                That's the reason we would have only 1 instance available for this class.
+                Even if you would call million times only the 1 instance that is available
+                will get returned.
+
+                And the memory locations of all the instances will remain the same.
+
         '''
-        if not cls.CLASS_INSTANCE_HOLDER.__contains__('instance'):
+        if not cls.CLASS_INSTANCE_HOLDER.__contains__('instance_available'):
             # Creating an instance of the Class.
             # Use the built-in object to create the instance.
             instance = object.__new__(cls)
-            cls.CLASS_INSTANCE_HOLDER['instance']=instance
-        return cls.CLASS_INSTANCE_HOLDER['instance']
+            cls.CLASS_INSTANCE_HOLDER['instance_available']=instance
+        return cls.CLASS_INSTANCE_HOLDER['instance_available']
     
     def __init__(self,name,age,location,profession):
         """

@@ -317,7 +317,7 @@
             instance_person = Person("Sherlock",35,"London","Programmer")
             # Get the details of the Person
             instance_person.about()
-            # Check Qualification
+            # Check Qualification - Call a Private Method...
             instance_person.__check_qualification()
             """
                 It will result in AttriButeError since private methods cannot be called outside of the class.
@@ -329,14 +329,18 @@
                 
             """    
 
-        Calling private methods inside of the class will not result in AttributeError
+        Calling private methods inside of the class will not result in AttributeError and it will work
         ---------------------------------------------------------------------------------------------------
 
-            Refer method process defined inside of the Person Class.
+            * Refer method process defined inside of the Person Class.
+
             It internally invokes __check_qualification method and it works.
+
             instance_person = Person("Sherlock","Holmes",35,"London","Programmer")
+            
             # Call the Process method
             instance_person.process()
+            
             # Output works
             My name is Sherlock Holmes and I am 35 , I am From London and I am a Programmer
 
@@ -436,6 +440,8 @@ class Person:
     def process(self):
         '''
             Processes the records of the person...
+            Invoke private method __check_qualification and return output.
+            Calling private methods inside of the class will not result in AttributeError and it will work
         '''
         # Check a condition and process. Print details of the person if they would be qualified.
         return self.about() if bool(self.__check_qualification()) else "Unqualified!!"
@@ -449,8 +455,18 @@ if __name__ == "__main__":
     # Check Qualification
     print(instance_person.process())
     print(instance_person.about())
+    
     # Print the full name of the Person
     print(instance_person.__fullname)  
+
+    """
+        It will result in AttriButeError since private variables cannot be called outside of the class.
+
+        Traceback (most recent call last):
+          File "exercise16.py", line 459, in <module>
+            print(instance_person.__fullname)
+        AttributeError: 'Person' object has no attribute '__fullname'
+    """
 
     # Check Qualification
     instance_person.__check_qualification()

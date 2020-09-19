@@ -119,8 +119,6 @@
         the attributes of any other types such as lists, dicts, tuples or
         objects of any kind will not be set at the class/instance level.
 
-
-
     Method :: __new__
     -----------------------
 
@@ -269,6 +267,16 @@
             - Attributes of the class that are actually not executed using () braces.
             - If you would execute them it would result in TypeError
             - Example : Instance Variables, Class Variables, Properties.
+
+    __new__ and __init__
+    ---------------------
+
+        __new__ : Is for Instance Creation. Can be customized to control the creation of instances.
+        __init__ : Is used as a Constructor. It needs the instance that was created by __new__.
+
+        __init__ method gets called only after __new__ because __new__ gives us the instane of the class.
+        __init__ method needs an instance to perform any task, it uses the instance created under __new__.
+
 '''
 
 # Define a Person class and perform related operations
@@ -278,6 +286,8 @@ class Person:
     def __new__(cls,*args):
         '''
             Create an instance and return.
+            __new__ gets invoked before __init__ method.
+
             Print the Instance and the Arguments
 
             Note ::
@@ -293,9 +303,12 @@ class Person:
                 instance_person_b.about()
         '''
         # Creating an instance of the Class.
+
         instance = object.__new__(cls)
+        print("\n\n From __new__ block!")
+        print(object)
         print("Instance is - {} ".format(instance))
-        print("Args passed during instance creation - {} ".format(args))
+        print("Args passed during instance creation - {} \n\n".format(args))
         return instance
     
     def __init__(self,name,age,location,profession):
@@ -317,7 +330,11 @@ class Person:
                     self.location=location
                     self.profession=profession
                 5. The instance variables are accessible only inside the instance methods of the class
+
+            __init__ method gets called only after __new__ because __new__ gives us the instane of the class.
+            __init__ method needs an instance to perform any task, it uses the instance created under __new__.
         """
+        print("\nFrom __init__ :: Invoke the Constructor \n")
         # Assign the parameters to the instance variables
         self.name=name
         self.age=age
@@ -444,6 +461,8 @@ class Person:
 
 # Execute
 if __name__ == "__main__":
-    instance_person = Person("Sherlock",15,"London","Programmer") # Returns an instance of the person class.
+     # Returns an instance of the person class.
+     # Since __new__ is defined for Person Class. It will get invoked when the instance is created.
+    instance_person = Person("Sherlock",15,"London","Programmer")
     instance_person.about()
 
