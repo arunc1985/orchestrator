@@ -425,19 +425,170 @@ def func_tests_nested(x,y):
 
 
 # Write a function and pass many arguments
-def print_name(*names):
-  '''
-    Print the name and location
-    *names is known as tuple arguments in python
-    What are tuple args?
-    It means args that are seperated by a "," .
-    You can pass any n.o. arguments to the function
-    Tuple args are diff from positional args.
-    If you dont pass any vals to these args, it will not
-    raise any error...  
-  '''
-  for each_name in names:
-    print("My name is {} ".format(each_name))
+# Example of positional and default arguments
+def print_name(location,profession,fname='Arun',lname='Chandramouli'):
+  """
+    Params location and profession and positional args:
+      -> Values must be passed else it will raise an Exception
+      -> Values must be passed in an order
 
+      Examples of Valid calls ::
+
+        result = print_name("Chennai","Sofware")
+        print(result)
+        result = print_name("Bangalore","Sofware","Binita","Prasad")
+        print(result)
+        result = print_name("Bangalore","Sofware",lname="Prasad",fname="Binita")
+        print(result)
+
+      Examples of In-valid calls ::
+
+        result = print_name() # Will return Exception
+        print(result)
+        result = print_name("Bangalore") # Will return Exception
+        print(result)
+
+    Params fname and lname are default arguments
+
+      -> For default arguments the values get initialized during function creation.
+
+      -> Even if we dont pass any values we still will not get any exception .
+
+      -> If we pass any value the arguments will be reinitialized and it will take new values that we pass..
+
+      Examples of Valid calls ::
+
+        result = print_name("Chennai","Sofware")
+        print(result)
+        result = print_name("Bangalore","Sofware","Binita","Prasad")
+        print(result)
+        result = print_name("Bangalore","Sofware",lname="Prasad",fname="Binita")
+        print(result)
+
+        result = print_name()
+        print(result)
+        result = print_name("Bangalore")
+        print(result)
+
+    Execute as ::
+
+    if __name__ == "__main__":
+
+      result = print_name("Chennai","Sofware")
+      print(result)
+
+      result = print_name("Bangalore","Sofware","Binita","Prasad")
+      print(result)
+
+
+      result = print_name("Bangalore","Sofware",lname="Prasad",fname="Binita")
+      print(result)
+
+
+
+  """
+  return fname + " " + lname
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+                                        # Example 6
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Write a function and pass many arguments
+# Example of positional and default arguments
+
+def func_array(original_array,result_array = []):
+
+  """
+    Parameter original_array is a positional argument .
+      -> Values must be passed, else it will raise an exception .
+
+    Parameter result_array is a default argument .
+      -> Even if we dont pass any values it wont raise any exception .
+      -> If we pass values it will re-initialize and take the new value.
+
+      In this case result_array is a default argument , an empty array.
+      If we execute it as below with the default values :
+       -> The result_array will get affected multiple times .
+       -> The result_array will get appended and populated for each call.
+       -> The array in the same memory location will get affected multiple times.
+
+       Example ::
+
+          STEP 1 ::
+            result = func_array([1,2,3,4,5])
+            print(result) # [2,4,6,8,10]
+
+          STEP 2 ::
+            result = func_array([1,2,3,4,5])
+            print(result) # [2,4,6,8,10,2,4,6,8,10]
+            The 2nd time we run it also contains the result of Step 1
+            This is because result_array is a mutable argument and it gets
+            affected in the same memory location.
+          
+          STEP 3 ::
+
+            result = func_array([1,2,3,4,5],result_array=[100,200,300])
+            print(result) # [100,200,300,2,4,6,8,10]
+
+            In this case the result_array parameter is reinitialized
+            and it will not contain the execution result of Step 1 and Step 2.
+
+        Execute as ::
+
+            if __name__ == "__main__":
+              result = func_array([1,2,3,4,5])
+              print(result)
+
+              result = func_array([1,2,3,4,5])
+              print(result)
+
+              result = func_array([1,2,3,4,5],result_array=[100,200,300])
+              print(result)
+              
+              result = func_array([1,2,3,4,5],result_array=[100,200,300])
+              print(result)
+              
+
+  """
+  
+  # Iterate the original_array and multiply each number by 2...
+  for each_val in original_array:
+    # multiply by 2 and append to new array
+    result_array.append(each_val*2)
+  # Return the new modified array
+  return result_array
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+                                          # Example 7
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Write a function and pass many arguments
+# Example of tuple arguments
+
+def func_array(*numbers):
+
+  """
+    Parameter numbers is a tuple argument .
+    We can pass any number of values to this function.
+    Even if we dont pass any value, it will not give any exception.
+
+    Example ::
+
+        result = func_array(1,2,3,4,5)
+        print(result) # 15
+
+        result = func_array()
+        print(result) # 0
+  """
+  
+  # Initialize the calc_sum as 0
+  calc_sum = 0
+  # Iterate the tuple * numbers * and find the sum of all the numbers.
+  for each_val in numbers:
+    calc_sum += each_val
+  return calc_sum
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

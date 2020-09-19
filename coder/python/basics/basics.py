@@ -902,7 +902,6 @@ print("Memory loc of new array - {} ".format(id(final_result_array)))
 
 '''
 
-
 # Simple function for arrays
 def func_array(original_array,result_array = []):
   """

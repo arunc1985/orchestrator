@@ -466,7 +466,8 @@ class Person:
             2. Income
         '''
         # Write multiple conditions.
-        self.bonus_criteria = {self.income > 100000:5,self.income > 90000 and self.income < 100000:5.5,
+        self.bonus_criteria = {self.income > 100000:5,
+        self.income > 90000 and self.income < 100000:5.5,
         self.income > 80000 and self.income < 90000:6,self.income > 60000 and self.income < 80000:6.5,
         self.income > 40000 and self.income < 60000:7,self.income > 30000 and self.income < 40000:7.5,
         self.income > 10000 and self.income < 30000:9,self.income > 5000 and self.income < 10000:10}
