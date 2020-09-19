@@ -120,11 +120,30 @@ def func_gen_print_until_stop_iteration(gen_object):
     '''
       Print the values in the Generator Object.
       :param gen_object: Generator Object.
+
+      gen_object.throw is used to throw any exception while processing
+      records in an order.
+
+      You can use and throw any built-in exception types of custome user-defined exception.
+
+      This can be of good use while processing data pipelines.
+      Add an if-condition and throw.
+    
+      Example ::
+          if curr_item > 500:
+            gen_object.throw(ValueError("Limit Reached and not required to proceed further !"))
+
+
     '''
     try:
       # While Loop will run until all values in generator is exhausted.
       while True:
-        print(gen_object.__next__())
+        curr_item = gen_object.__next__()
+        print(curr_item)
+        # Raise an exception and exit if value crossed certain limit.
+        if curr_item > 500:
+          gen_object.throw(ValueError("Limit Reached and not required to proceed further !"))
+
     except StopIteration as error:
       # This block will get hit once all values are exhausted.
       print("All Records in Generator have been processed successfully!")

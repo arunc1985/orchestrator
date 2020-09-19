@@ -134,7 +134,6 @@ import os
 import psutil
 from memory_profiler import profile
 
-
                                         # Example 1 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -193,3 +192,9 @@ def func_huge_tests(ranges):
         if ranges == 0:
             return huge_array
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+if __name__ == "__main__":
+
+    # Execute 
+    func_huge_tests(ranges=15)

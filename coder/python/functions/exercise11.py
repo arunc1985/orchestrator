@@ -181,8 +181,6 @@ def func_array_parser_gen(*arrays):
             # Generator invoke
             func_gen_print_until_stop_iteration(gen_object)
     '''
-    # Master Array for adding data
-    master_array = []
     # Iterate each array - for the sum
     for each_array in arrays:
         # Print memory stats
@@ -224,3 +222,11 @@ def func_array_parser_array(*arrays):
     # Return the array
     return master_array
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+if __name__ == "__main__":
+
+    #func_array_parser_array(range(10,10000),range(100,20000),range(1000,5000),range(100,4000))            
+
+    gen_object = func_array_parser_gen(range(10,10000),range(100,20000),range(1000,5000),range(100,4000))
+    # Generator invoke
+    func_gen_print_until_stop_iteration(gen_object)

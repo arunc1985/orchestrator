@@ -367,6 +367,20 @@
         print(instance_person.about())
         # Output comes and it works
         My name is Sherlock Holmes and I am 35 , I am From London and I am a Programmer
+
+    Writing Optimized if-else conditions
+    ------------------------------------
+
+    Refer to following methods in the Person Class.
+
+        1. def calculate_bonus
+
+            This method has complex if-else conditions for finding the bonus.
+
+        2. def return_bonus
+
+            This method replaces complex conditions with a dictionary.
+    
     
 '''
 
@@ -374,7 +388,7 @@
 
 class Person:
 
-    def __init__(self,fname,lname,age,location,profession):
+    def __init__(self,fname,lname,age,location,profession,income,experience):
         """
             This Constructor takes 4 arguments;
             :param fname: First name of the Person
@@ -382,6 +396,8 @@ class Person:
             :param age: Age of the Person
             :param location: Location of the Person
             :param profession: Profession of the Person
+            :param income: CTC/Month
+            :param experience: Years of experience in Tota;
 
             Note :: 
                 1 . The parameters defined inside the __init__ method are accessible only to the
@@ -394,6 +410,8 @@ class Person:
                     self.age=age
                     self.location=location
                     self.profession=profession
+                    self.income=income
+                    self.experience=experience
                 5. The instance variables are accessible only inside the instance methods of the class
         """
         # Assign the parameters to the instance variables
@@ -404,6 +422,59 @@ class Person:
         self.location=location
         self.profession=profession
         self.qualify_age=20 # We can also hard-code instance variables
+        self.income=income
+        self.experience=experience
+
+    def calculate_bonus(self):
+        '''
+            Define a method to calculate the bonus of a person based on;
+            1. Years of Experience.
+            2. Income
+        '''
+        # Write multiple conditions.
+        if self.income > 100000:
+            return 5
+
+        elif self.income > 90000 and self.income < 100000:
+            return 5.5
+
+        elif self.income > 80000 and self.income < 90000:
+            return 6
+
+        elif self.income > 60000 and self.income < 80000:
+            return 6.5
+
+        elif self.income > 40000 and self.income < 60000:
+            return 7
+
+        elif self.income > 30000 and self.income < 40000:
+            return 7.5
+
+        elif self.income > 10000 and self.income < 30000:
+            return 9
+
+        elif self.income > 5000 and self.income < 10000:
+            return 10
+
+        else:
+            return 12.5
+
+    def return_bonus(self):
+        '''
+            Define a method to calculate the bonus of a person based on;
+            1. Years of Experience.
+            2. Income
+        '''
+        # Write multiple conditions.
+        self.bonus_criteria = {self.income > 100000:5,self.income > 90000 and self.income < 100000:5.5,
+        self.income > 80000 and self.income < 90000:6,self.income > 60000 and self.income < 80000:6.5,
+        self.income > 40000 and self.income < 60000:7,self.income > 30000 and self.income < 40000:7.5,
+        self.income > 10000 and self.income < 30000:9,self.income > 5000 and self.income < 10000:10}
+        # Find and return the Bonus. Only 1 of above condition and become True.
+        # If none of the condition is satisfied return default of 12.5
+        # This is similar to Switch Case and more optimal compared to method calculate_bonus defined above.
+        return self.bonus_criteria.get(True,12.5)
+
 
     def __check_qualification(self):
         """
@@ -430,8 +501,8 @@ class Person:
 
         """
         # Display details
-        return "My name is {} and I am {} , I am From {} and I am a {}".format(self.__full_name,
-            self.age,self.location,self.profession)
+        return "My name is {} and I am {} , I am From {} and I am a {} and my * Halloween * bonus is {}%".format(self.__full_name,
+            self.age,self.location,self.profession,self.return_bonus())
 
     def process(self):
         '''
@@ -444,22 +515,6 @@ class Person:
 if __name__ == "__main__":
 
     # Create an instance of the class..
-    instance_person = Person("Sherlock","Holmes",35,"London","Programmer")
+    instance_person = Person("Sherlock","Holmes",35,"London","Programmer",200000,15)
     # Get the details of the Person
-    # Check Qualification
-    print(instance_person.process())
     print(instance_person.about())
-    # Print the full name of the Person
-    print(instance_person.__fullname)  
-
-    # Check Qualification
-    instance_person.__check_qualification()
-    
-    """
-        It will result in AttriButeError since private methods cannot be called outside of the class.
-
-        Traceback (most recent call last):
-          File "exercise16.py", line 378, in <module>
-            instance_person.__check_qualification()
-        AttributeError: 'Person' object has no attribute '__check_qualification'
-    """

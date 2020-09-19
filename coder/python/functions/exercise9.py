@@ -211,3 +211,8 @@ def func_array_parser(*arrays):
         driver()# Execute the driver
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+# Execute
+if __name__ == "__main__":
+    func_array_parser(range(10,1000),range(10,10000),range(100,5000),range(500,10000))
+
