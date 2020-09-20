@@ -991,6 +991,77 @@ Execution ::
 
 class Employee:
 
+    """
+        Execute this class as shown below,
+
+        if __name__ == "__main__":
+
+            instance_employee = Employee("Arun","Chennai","Mentor",20)
+
+            # Call staticmethod - check_employee_bonus
+            '''
+                Summary ::
+
+                    A Staticmethod can be called by the class directly and also it can be
+                    called by the instance of the class.
+            '''
+            print("\nCall Staticmethod - check_employee_bonus using the class directly\n")
+            print("------------------------------------------------------------------")
+            bonus = Employee.check_employee_bonus(90000)
+            print("Output :: {} ".format(bonus))
+            print("------------------------------------------------------------------\n\n")
+
+
+            print("\nCall Staticmethod - check_employee_bonus using the instance of the class\n")
+            print("------------------------------------------------------------------")
+            bonus = instance_employee.check_employee_bonus(90000)
+            print("Output :: {} ".format(bonus))
+            print("------------------------------------------------------------------\n\n")
+
+
+            # Call classmethod - check_employee_details
+            '''
+                Summary ::
+                
+                    A classmethod can be called by the class directly and also it can be
+                    called by the instance of the class.
+            '''
+
+            print("\nCall Classmethod - check_employee_details using the class directly\n")
+            print("------------------------------------------------------------------")
+            details = Employee.check_employee_details(20)
+            print("Output :: {} ".format(details))
+            print("------------------------------------------------------------------\n\n")
+
+
+            print("\nCall Classmethod - check_employee_details using the instance of the class\n")
+            print("------------------------------------------------------------------")
+            details = instance_employee.check_employee_details(20)
+            print("Output :: {} ".format(details))
+            print("------------------------------------------------------------------\n\n")
+
+
+
+            # Call instancemethod - about and check_qualification
+            '''
+                Summary ::
+                
+                    An instancemethod can be called only by the instance of the class.
+            '''
+
+            print("\nCall instancemethod - check_employee_qualification using the instance of the class\n")
+            print("------------------------------------------------------------------")
+            details = instance_employee.check_employee_qualification()
+            print("Output :: {} ".format(details))
+            print("------------------------------------------------------------------\n\n")
+
+            print("\nCall instancemethod - about using the instance of the class\n")
+            print("------------------------------------------------------------------")
+            details = instance_employee.about()
+            print("Output :: {} ".format(details))
+            print("------------------------------------------------------------------\n\n")
+
+    """
     # Define a Class Variable.
     EXPECTED_EXPERIENCE_IN_YEARS=20
 
@@ -1009,7 +1080,7 @@ class Employee:
 
                 instance_employee = Employee(name,location,profession)
                 Example ::
-                    instance_employee = Employee("Arun","Chennai","Mentor")
+                    instance_employee = Employee("Arun","Chennai","Mentor",20)
                 When we create an instance as above, the first mandate argument self
                 becomes the instance of the class.
 
@@ -1037,7 +1108,6 @@ class Employee:
         self. profession = profession
         # Set the experience of the person to the instance of the class
         self.experience = experience
-
     
     def about(self):
         '''
@@ -1055,10 +1125,19 @@ class Employee:
                 The method about must be called as follows;
 
                 instance_employee.about()
-        '''
-        print("Access Class Variable EXPECTED_EXPERIENCE_IN_YEARS from instance method :: {} ".format(self.EXPECTED_EXPERIENCE_IN_YEARS))
-        return "Hello All! My name is {} and I am from {} and I am {}".format(self.name,self.location,self.profession)
 
+
+            What is a instancemethod ?
+
+             - A Method that has doesn't have any decorator @classmethod or @staticmethod.
+             - A Method that has a mandate positional argument like classmethod.
+             - The first argument to the method will get converted as the instance of the class itself at run time.
+             - A Method that can have any number of arguments.
+             - A Method that cannot be called by the class directly. We need to do instance creation.
+             - A Method that can be called by the instance of the Class alone.
+
+        '''
+        return "Hello All! My name is {} and I am from {} and I am {}".format(self.name,self.location,self.profession)
 
     def check_employee_qualification(self):
         '''
@@ -1073,7 +1152,6 @@ class Employee:
             return "Employee - {} is Qualified! ".format(self.name)
         else:
             return "Employee - {} is not Qualified! ".format(self.name)
-
 
     @classmethod
     def check_employee_details(cls,employee_curr_experience):
@@ -1102,11 +1180,46 @@ class Employee:
                 You can also call the classmethod using the instance of the class.
                 instance_employee.check_employee_details(20)
 
+            What is a Classmethod ?
+
+             - A Method that has a decorator @classmethod.
+             - A Method that has a mandate positional argument like instancemethod.
+             - The first argument to the method will get converted as the class itself at run time.
+             - A Method that can have any number of arguments.
+             - A Method that can be called by the class directly. No need to go for instance creation.
+             - A Method that can also be called by the instance of the Class.
         '''
+
         # Check and return as True or False
         print("Total Experience in Years is :: {} ".format(cls.EXPECTED_EXPERIENCE_IN_YEARS))
         return True if employee_curr_experience >= cls.EXPECTED_EXPERIENCE_IN_YEARS else False
 
+    @staticmethod
+    def check_employee_bonus(employee_salary):
+        '''
+            Given the Employee Salary find the Bonus.
+            :param employee_salary: Employee's Salary.
+
+            What is a Staticmethod ?
+
+             - A Method that has a decorator @staticmethod.
+             - A Method that doesnt have any mandate positional argument like instancemethod or classmethod.
+             - A Method that is similar to a python function.
+             - A Method that can have any number of arguments.
+             - A Method that can be called by the class directly. No need to for instance creation.
+             - A Method that can also be called by the instance of the Class.
+        '''
+        # Add Condition and find Bonus
+        if employee_salary > 100000:
+            return 10
+        elif employee_salary > 70000 and employee_salary < 100000:
+            return 12
+        elif employee_salary > 50000 and employee_salary < 70000:
+            return 14
+        elif employee_salary > 30000 and employee_salary < 50000:
+            return 16
+        else :
+            return 20
 
     @property
     def get_name(self):
@@ -1140,11 +1253,139 @@ class Employee:
 
 #---------------------------------------------------------------------------------------------------------
 
+
+                                                # Example 7
+#---------------------------------------------------------------------------------------------------------
+
+# Define a Simple Class to test the instance method, class method and staticmethods.
+
+class Tests_Methods_Accessibility:
+
+    # Define Simple class variables
+    CLASS_VARIABLE_TESTING=200000
+    STATUS = True
+
+    '''
+        Define multiple methods to check the attributes among the methods.
+
+        Questions ::
+        ------------
+
+        Q: Can I access a Classmethod inside of the instance method?
+        A: Yes
+            - How ?
+            - An instance of the class is actually a child of the class.
+            - Example :: instance_tests = Tests_Methods_Accessibility().
+            - instance_tests is the child of the class and the class is Tests_Methods_Accessibility.
+            - Whatever a class can access the instance of the class can also access it.
+            - We can call the classmethod from the instancemethod using self,
+              Ex: In this class we can call classmethod: tests_class_method from instancemethod as,
+                --- self.tests_class_method()
+
+        Q: Can I access a Class Variable inside of the instance method?
+        A: Yes
+            - How ?
+            - We have 2 Class variables namely ;
+                -- CLASS_VARIABLE_TESTING
+                -- STATUS
+            - An instance of the class is actually a child of the class.
+            - Example :: instance_tests = Tests_Methods_Accessibility().
+            - instance_tests is the child of the class and the class is Tests_Methods_Accessibility.
+            - Whatever a class can access the instance of the class can also access it.
+            - We can call the class variable from the instancemethod using self,
+              Ex: In this class we can call the class variables as follows;
+                --- self.CLASS_VARIABLE_TESTING
+                --- self.STATUS
+
+        Q: Can I access a Staticmethod inside of the instance method?
+        A: Yes
+            - How ?
+            - An instance of the class is actually a child of the class.
+            - Example :: instance_tests = Tests_Methods_Accessibility().
+            - instance_tests is the child of the class and the class is Tests_Methods_Accessibility.
+            - Whatever a class can access the instance of the class can also access it.
+            - We can call the staticmethod from the instancemethod using self,
+              Ex: In this class we can call staticmethod: tests_static_method from instancemethod as,
+                --- self.tests_static_method()
+
+        Q: Can I access a Staticmethod inside of the Classmethod?
+        A: Yes
+            - How ?
+            - A Staticmethod is at the class level and can be accessed by the class directly.
+            - We can call the staticmethod from the classmethod using cls,
+                Ex: In this class we can call staticmethod: tests_static_method from classmethod as,
+                --- cls.tests_static_method()
+    
+        Q: Can I access a Classmethod inside of the Staticmethod?
+        A: Yes
+
+
+    '''
+
+    # Define a Simple Instance method.
+    def tests_instance_method(self):
+        '''
+            A Simple instance method.
+            The first positional argument self becomes the instance of the class.            
+        '''
+        # Accessing a class method inside of the instance method.
+        print("\nInvoke classmethod - tests_class_method from the instancemethod tests_instance_method\n")
+        result = self.tests_class_method()
+        print("Result is - {} ".format(result))
+
+        print("\nInvoke Class Variables: CLASS_VARIABLE_TESTING and STATUS from the instancemethod tests_instance_method\n")
+        print("Value of Class Variable CLASS_VARIABLE_TESTING is - {} ".format(self.CLASS_VARIABLE_TESTING))
+        print("Value of Class Variable STATUS is - {} ".format(self.STATUS))
+        print("\n\n")
+        print("-"*100)
+        print("\n\n")
+
+
+        print("\nInvoke staticmethod - tests_static_method from the instancemethod tests_instance_method\n")
+        result = self.tests_static_method()
+        print("Result is - {} ".format(result))
+
+        print("\n\n")
+        print("-"*100)
+        print("\n\n")
+
+        return "Hey Guys! I am an instancemethod, my name is tests_instance_method"
+
+    # Define a Simple Class method.
+    @classmethod
+    def tests_class_method(cls):
+        '''
+            A Simple Class method.
+            The first positional argument cls becomes the class.            
+        '''
+        print("\nInvoke staticmethod - tests_static_method from the classmethod tests_class_method\n")
+        result = cls.tests_static_method()
+        print("Result is - {} ".format(result))
+
+        print("\n\n")
+        print("-"*100)
+        print("\n\n")
+
+        return "Hey Guys! I am a Classmethod, my name is tests_class_method"
+
+    # Define a Simple Static method.
+    @staticmethod
+    def tests_static_method():
+        '''
+            A Simple Static method.
+            In  case of the staticmethod, its not mandate to pass any positional argument,
+            just like instance or class methods.
+        '''
+        return "Hey Guys! I am a Staticmethod, my name is tests_static_method"
+
+                                                
+#---------------------------------------------------------------------------------------------------------
+
 if __name__ == "__main__":
-    instance_employee = Employee("Arun","Chennai","Mentor",20)
-    print("Employee Details :: Instance Method")
-    print(instance_employee.about())
-    print("\nEmployee Qualification :: Instance Method")
-    print(instance_employee.check_employee_qualification())
-    print("\nEmployee Experience :: Class Method")
-    print(Employee.check_employee_details(20))
+
+    # Create an instance
+    instance_tests = Tests_Methods_Accessibility()
+    # Call the instancemethod
+    instance_tests.tests_instance_method()
+    # Call the classmethod using class directly - no need for instance
+    Tests_Methods_Accessibility.tests_class_method()
