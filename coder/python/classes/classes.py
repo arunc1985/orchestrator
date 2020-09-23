@@ -1322,6 +1322,14 @@ class Tests_Methods_Accessibility:
 
     '''
 
+    def __init__(self,name):
+        '''
+            Constructor ~
+        '''
+        # Define an insantance variable
+        self.name = name
+
+
     # Define a Simple Instance method.
     def tests_instance_method(self):
         '''
@@ -1336,6 +1344,12 @@ class Tests_Methods_Accessibility:
         print("\nInvoke Class Variables: CLASS_VARIABLE_TESTING and STATUS from the instancemethod tests_instance_method\n")
         print("Value of Class Variable CLASS_VARIABLE_TESTING is - {} ".format(self.CLASS_VARIABLE_TESTING))
         print("Value of Class Variable STATUS is - {} ".format(self.STATUS))
+        print("\n\n")
+        print("-"*100)
+        print("\n\n")
+
+        print("\nInvoke Instance Variables: name from the instancemethod tests_instance_method\n")
+        print("Value of Instance Variable name is - {} ".format(self.name))
         print("\n\n")
         print("-"*100)
         print("\n\n")
@@ -1366,16 +1380,89 @@ class Tests_Methods_Accessibility:
         print("-"*100)
         print("\n\n")
 
+
+        print("\nAccess Class variables inside the classmethod tests_class_method\n")
+        print("Class Variable CLASS_VARIABLE_TESTING = {} ".format(cls.CLASS_VARIABLE_TESTING))
+        print("Class Variable STATUS = {} ".format(cls.STATUS))
+        print("\n\n")
+        print("-"*100)
+        print("\n\n")
+
+        """
+            # Uncomment these lines, run and see below error..
+
+            -----------------------------------------------------------------------------------
+            print("\nInvoke Instance Variables: name from the classmethod tests_class_method\n")
+            print("Value of Instance Variable name is - {} ".format(cls.name))
+            print("\n\n")
+            print("-"*100)
+            print("\n\n")
+            -----------------------------------------------------------------------------------
+
+
+            We cannot call an instance variable inside of a classmethod.
+            This is because an instance variable is always associated with an instance.
+            But in the reverse, we can always call class variables and all methods 
+            inside of the instance method, because an instance is a child of the class.
+            A Child has all access to what a parent has...
+
+            You would get this error if we were to access an instance variable inside of classmethod or 
+            staticmethod..
+
+            Traceback (most recent call last):
+              File "classes/classes.py", line 1450, in <module>
+                instance_tests.tests_instance_method()
+              File "classes/classes.py", line 1341, in tests_instance_method
+                result = self.tests_class_method()
+              File "classes/classes.py", line 1393, in tests_class_method
+                print("Value of Instance Variable name is - {} ".format(cls.name))
+            AttributeError: type object 'Tests_Methods_Accessibility' has no attribute 'name'
+
+        """
+
+
         return "Hey Guys! I am a Classmethod, my name is tests_class_method"
+
+    # Define a Simple Class method.
+    @classmethod
+    def tests_class_method_simple(cls):
+        '''
+            A Simple Class method.
+            The first positional argument cls becomes the class.            
+        '''
+        return "Hey Guys! I am a simple Classmethod, my name is tests_class_method_simple"
+
 
     # Define a Simple Static method.
     @staticmethod
     def tests_static_method():
         '''
             A Simple Static method.
+            The Staticmethod doesn't have any mandate arguments.
+            It is as simple as a python function.
+            Like in case of instance methods we have instance as the first argument that is mandate.
+            Like in case of class methods we have class as the first argument that is mandate.
+            But in case of staticmethod no such argument is mandate.
             In  case of the staticmethod, its not mandate to pass any positional argument,
             just like instance or class methods.
         '''
+
+        print("\nInvoke classmethod - tests_class_method_simple from the staticmethod tests_static_method\n")
+        # Access the classmethod using the class name directly...
+        result = Tests_Methods_Accessibility.tests_class_method_simple()
+        print("Result is - {} ".format(result))
+
+        print("\n\n")
+        print("-"*100)
+        print("\n\n")
+
+        print("\nAccess Class variables inside the staticmethod tests_static_method\n")
+        print("Class Variable CLASS_VARIABLE_TESTING = {} ".format(Tests_Methods_Accessibility.CLASS_VARIABLE_TESTING))
+        print("Class Variable STATUS = {} ".format(Tests_Methods_Accessibility.STATUS))
+        print("\n\n")
+        print("-"*100)
+        print("\n\n")
+
         return "Hey Guys! I am a Staticmethod, my name is tests_static_method"
 
                                                 
@@ -1384,8 +1471,10 @@ class Tests_Methods_Accessibility:
 if __name__ == "__main__":
 
     # Create an instance
-    instance_tests = Tests_Methods_Accessibility()
+    instance_tests = Tests_Methods_Accessibility("Tim Peters")
     # Call the instancemethod
     instance_tests.tests_instance_method()
     # Call the classmethod using class directly - no need for instance
     Tests_Methods_Accessibility.tests_class_method()
+    # Call the staticmethod using class directly - no need for instance
+    Tests_Methods_Accessibility.tests_static_method()    
