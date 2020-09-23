@@ -378,8 +378,9 @@ def func_tests(x,y):
 #Function with any n.o. Arguments
 def func_tests_args(*args):
     '''
-        Example: Execute as func_tests_args(10,20,25,30)
-        func_tests_args()
+        Example: 
+            Execute as func_tests_args(10,20,25,30)
+            Execute as func_tests_args()
     '''
     x=0
     for i in args:
@@ -590,5 +591,54 @@ def func_array(*numbers):
   for each_val in numbers:
     calc_sum += each_val
   return calc_sum
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+                                          # Example 8
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+  #Function with Keyword Arguments
+def func_tests_args_kwargs(*args,**kwargs):
+    '''
+      Function Creation :
+       - kwargs is a keyword argument ... **
+       - It gets stored as a python dictionary in memory
+       - We need to iterate the dict and get the values     
+        Example: Execute as func_tests_kwargs(x=10,y=20,z=30)
+
+        *args and **kwargs are both optional arguments and
+        they dont raise any error even if you dont pass any values...
+
+        Pass value to both *args, **kwargs
+        Pass value to *args alone
+        Pass value to **kwargs alone
+        Dont Pass value to both *args, **kwargs
+    '''
+    # Iterate the tuple args and get the values
+    print("\nIterate the tuple args and get the values\n")
+    for items in args:
+      print(items)
+    # Iterate the keyword args(dict) and print the values
+    print("\nIterate the keyword args(dict) and print the values\n")
+    for key,value in kwargs.items():
+        print("Key = {} and Value = {} ".format(key,value))
+
+# Pass value to both *args, **kwargs
+print("\n\nPass value to both *args, **kwargs\n\n")
+func_tests_args_kwargs(1,2,3,4,5,6,7,8,9,10,0,name='Arun',location='Chennai',profession="Programmer")
+
+# Pass value to *args alone
+print("\n\nPass value to *args alone\n\n")
+func_tests_args_kwargs(1,2,3,4,5,6,7,8,9,10,0)
+
+# Pass value to **kwargs alone
+print("\n\nPass value to **kwargs alone\n\n")
+func_tests_args_kwargs(name='Arun',location='Chennai',profession="Programmer")
+
+# Dont Pass value to both *args, **kwargs
+print("\n\nDont Pass value to both *args, **kwargs\n\n")
+func_tests_args_kwargs()
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
