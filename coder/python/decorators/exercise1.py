@@ -99,6 +99,15 @@ import traceback
 
 # Type 1 : Decorator without arguments. This will take function and it's args as input, execute and return output
 
+'''
+    def decorator_exec(function): # Wrapped Function
+        def function_args(*args,**kwargs): # Args of the wrapped 
+                print("Execute function - {} ".format(function))
+                result = function(*args,**kwargs)
+                return result
+        return function_args
+'''
+
 def decorator_exec(function): # Wrapped Function
     def function_args(*args,**kwargs): # Args of the wrapped function
         # Before executing function - you can do any pre-steps
@@ -150,6 +159,12 @@ def decorator_exec_with_args(*deco_args,**deco_kwargs): # Args of decorator
 '''
     Test the above decorators with examples. Apply decorator and get results.
 '''
+
+# Test Type 1 decorator
+# Simple function to tell Hello World
+@decorator_exec
+def hello_world():
+    return "Hello World! How are you! I am Python!"
 
 # Test Type 1 decorator
 @decorator_exec # This decorator is not having arguments
