@@ -1,37 +1,211 @@
+
+
+										# Clone Code and files from github
+--------------------------------------------------------------------------------------------------------------
+
+git clone https://github.com/arunc1985/orchestrator.git
+cd orchestrator
+git checkout dockers
+cd containers/dockers/exercise003
+
+--------------------------------------------------------------------------------------------------------------
+
+										# STAGES to run app in the image
+--------------------------------------------------------------------------------------------------------------
+
+Stage 1 : Create a Dockerfile.
+Stage 2 : Build a Docker Image.
+Stage 3 : Run the Docker Image as a Container.
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Build a new Image
+--------------------------------------------------------------------------------------------------------------
+
 # From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
 
+Syntax ::
+--------
+
+docker build -t <<IMAGE-NAME>>:<<TAG-NAME>> --build-arg <<ARGS>> -f <<PATH-TO-DOCKERFILE>>
+
+Description ::
+-------------
+<<IMAGE-NAME>> - Name you would like to give for your Docker Image.
+<<TAG-NAME>> - Version the Image with a proper Tag. An Image can also have multiple tags.
+<<PATH-TO-DOCKERFILE>> - Full Path of the docker file.
+--build-arg <<ARGS>> - Denotes arguments to be passed to docker while building image.
+
+-t - Tag an Image.
+-f - Denotes File Path.
+
+Example ::
+----------
+# Build a Docker Image with name as python-app and tag as exercise002
+
+
 # Build the Image
-docker build -t python-app:exerciseC --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final -f dockerfile .
+--------------------
+
+docker build -t python-app:exerciseC \
+	--build-arg REQ_PIP_FILE=./finally/requirements \
+	--build-arg FINAL_DIR_NAME=finally \
+	--build-arg BUILT_BY=SON-QA \
+	-f dockerfile .
+
+--------------------------------------------------------------------------------------------------------------
 
 
-# Tag name will be latest by default ~ Not Recommended...
-docker build -t python-app --build-arg REQ_PIP_FILE=/final/requirements --build-arg FINAL_DIR_NAME=final -f dockerfile .
+										# Checking the new Image
+--------------------------------------------------------------------------------------------------------------
+# Run this command to check if the images have been created
+
+# Command to return all the available images
+docker images
+
+# Command to check if your image is created
+docker images | grep <<IMAGE-NAME>>
+
+Example :: docker images | grep python-app
+
+# The above command must show the image that we created in the previous step python-app and tag as exercise001
+
+--------------------------------------------------------------------------------------------------------------
 
 
-# Run the Image as a Container
+										# Run the Image as a Container :: Create a Container
+--------------------------------------------------------------------------------------------------------------
+# Run the Docker-Image
+
+Syntax::
+--------
+docker run --name <<container-name>> <<image-name:tag-name>>
+  OR
+docker run --name <<container-name>> <<image-id>>
+
+Delete the Container once its in STOP/Exit mode
+------------------------------------------------
+
+docker run --rm --name <<container-name>> <<image-id>>
+
+
+Example::
+----------
+
+# Run the Docker-Image as a Container and delete once job done.
+  Using --rm flag will delete container from memory once execution over.
+  Which means neither docker ps/docker ps -a/docker ps -q would list my container.
+
+# Run the docker container
+# When you run this command - the CMD command in the docker file will get executed.
 
 # Remove Container once execution done..
 
-
-docker run --name arun-tests \
-	-e firstname=Arun \
-	-e lastname=Chandramouli \
-	-e profession=Programmer \
-	python-app:exerciseC
-
-
-
 # -e denotes the environment variables
-docker run --rm --name arun-tests \
+docker run --rm --name arun-enabler-exerciseC \
 	-e firstname=Arun \
 	-e lastname=Chandramouli \
 	-e profession=Programmer \
 	python-app:exerciseC
 
 
-docker run --rm --name arun-tests \
-	-e firstname=Ayush \
-	-e lastname=Shah \
-	-e profession=Programmer \
-	python-app:exerciseC
+--------------------------------------------------------------------------------------------------------------
 
+										# Check the Status of the Running Container
+--------------------------------------------------------------------------------------------------------------
+# Check if Container is running using below command.
+
+docker ps # This Command will list your container if its up and running. Long Running Processes.
+
+docker ps -a # This Command will list your container if it has run and exited.
+
+Example :: docker ps -a | grep arun-enabler-exerciseC
+
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Get the Logs of my Container
+--------------------------------------------------------------------------------------------------------------
+# Check the logs of the Container running using below command. This will tell you all the activities.
+
+Syntax::
+--------
+docker logs <<CONTAINER-NAME>>
+
+
+**********************************************************************************************
+Docker logs on a container will work if your container is either in a Running or Exited State.
+If you had deleted the container , then logs on that container will not work.
+**********************************************************************************************
+
+Example::
+----------
+docker logs arun-enabler-exercisec
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Delete the Docker Images
+--------------------------------------------------------------------------------------------------------------
+# Delete the Docker Image
+
+Syntax ::
+----------
+
+docker rmi -f <<IMAGE-NAME>>:<<TAG-NAME>>
+docker rmi -f <<IMAGE-ID>>
+
+Description ::
+--------------
+
+docker rmi -f - Instruct docker to delete image forcefully
+
+<<IMAGE-NAME>>:<<TAG-NAME>> - Full image name including Tag
+
+<<IMAGE-ID>> - ID Of the image (Run Command docker images to get image name, ID and other details)
+
+Example ::
+----------
+
+Delete a Single Image
+**********************
+docker rmi -f python-app:exerciseC
+
+Delete Multiple Images
+**********************
+docker rmi -f python-app:exerciseC centos:8
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Delete the Docker Container
+--------------------------------------------------------------------------------------------------------------
+# Delete the Docker Image
+
+Syntax ::
+----------
+
+docker rm -f <<CONTAINER-NAME>>
+
+
+Description ::
+--------------
+
+docker rm -f - Instruct docker to delete container forcefully
+
+<<CONTAINER-NAME>> - Name of the running container
+
+
+Example ::
+----------
+
+Delete a Single Container
+*************************
+docker rm -f arun-enabler-exerciseC
+
+Delete Multiple Containers
+****************************
+docker rm -f arun-enabler-exerciseC
+--------------------------------------------------------------------------------------------------------------
