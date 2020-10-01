@@ -2,6 +2,8 @@
 FROM centos:8
 
 # Define build arguments to be executed and passed during the docker build
+# While building the image we have to pass these build args, and the docker engine will take those args
+# to create a docker image.. Passing args to the docker build process.
 
 # Requirements file to do pip install
 ARG REQ_PIP_FILE

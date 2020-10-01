@@ -83,7 +83,7 @@ Example::
 ----------
 
 # Run the Image as a Container
-docker run --name arun-python-app-v1 python-app-son-testing:v1
+docker run --name arun-enabler python-app-son-testing:v1
 
 # Run the Docker-Image as a Container and delete once job done.
   Using --rm flag will delete container from memory once execution over.
@@ -116,6 +116,12 @@ Example :: docker ps -a | grep arun-python-app-v1
 Syntax::
 --------
 docker logs <<CONTAINER-NAME>>
+
+
+**********************************************************************************************
+Docker logs on a container will work if your container is either in a Running or Exited State.
+If you had deleted the container , then logs on that container will not work.
+**********************************************************************************************
 
 Example::
 ----------

@@ -1,7 +1,7 @@
 # Base OS is Centos and Tag/Version is 8 - https://hub.docker.com/
 # Objective : Run the simple python app on a centos image.
 
-#STEP 1 : FROM keyword : From the dockerhub download centos image for me
+#STEP 1 : FROM keyword : From the dockerhub download centos image for me with tag as 8
 FROM centos:8
 
 # All the commands below will be executed on the base os ..i.e. in this case centos
