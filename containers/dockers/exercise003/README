@@ -58,6 +58,27 @@ docker build -t python-app:exerciseC \
 --------------------------------------------------------------------------------------------------------------
 
 
+
+										# Tag the Image, Push to Docker Registry
+--------------------------------------------------------------------------------------------------------------
+
+# Run this command to tag and push the image to the DockerHub Registry
+
+docker tag <<IMAGE-NAME>>:<<TAG-NAME>> <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+docker push <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+docker tag python-app:exercise002 jupiter19/jupiter19:tag-arun-reg-exercise002
+docker push jupiter19/jupiter19:tag-arun-reg-exercise002
+
+# To pull an image that you just pused to DockerHub - Run this Command
+
+docker pull <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+docker pull jupiter19/jupiter19:tag-arun-reg-exercise002
+
+--------------------------------------------------------------------------------------------------------------
+
+
 										# Checking the new Image
 --------------------------------------------------------------------------------------------------------------
 # Run this command to check if the images have been created

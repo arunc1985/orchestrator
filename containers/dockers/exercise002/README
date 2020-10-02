@@ -37,6 +37,8 @@ Description ::
 <<TAG-NAME>> - Version the Image with a proper Tag. An Image can also have multiple tags.
 <<PATH-TO-DOCKERFILE>> - Full Path of the docker file.
 --build-arg <<ARGS>> - Denotes arguments to be passed to docker while building image.
+                       The args are configurable, User can pass any number of args.
+
 
 -t - Tag an Image.
 -f - Denotes File Path.
@@ -75,6 +77,27 @@ Example :: docker images | grep python-app
 --------------------------------------------------------------------------------------------------------------
 
 
+										# Tag the Image, Push to Docker Registry
+--------------------------------------------------------------------------------------------------------------
+
+# Run this command to tag and push the image to the DockerHub Registry
+
+docker tag <<IMAGE-NAME>>:<<TAG-NAME>> <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+docker push <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+docker tag python-app:exercise002 jupiter19/jupiter19:tag-arun-reg-exercise002
+docker push jupiter19/jupiter19:tag-arun-reg-exercise002
+
+# To pull an image that you just pused to DockerHub - Run this Command
+
+docker pull <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+docker pull jupiter19/jupiter19:tag-arun-reg-exercise002
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
 										# Run the Image as a Container :: Create a Container
 --------------------------------------------------------------------------------------------------------------
 # Run the Docker-Image
@@ -84,6 +107,10 @@ Syntax::
 docker run --name <<container-name>> <<image-name:tag-name>>
   OR
 docker run --name <<container-name>> <<image-id>>
+  OR
+
+# Giving --rm flag will remove the container from memory, if it's in Stopped/Exited State.
+docker run --rm --name <<container-name>> <<image-name:tag-name>>
 
 Example::
 ----------
@@ -98,7 +125,21 @@ docker run --name arun-enabler-exercise002 python-app:exercise002
 # Run the docker container
 # When you run this command - the CMD command in the docker file will get executed.
 
-docker run --rm --name arun-python-app-v1 python-app-son-testing:v1
+docker run --rm --name arun-python-app-v1 python-app:exercise002
+
+
+While trying to run the image as a Container:
+---------------------------------------------
+
+ - Docker Engine looks for the image locally.
+ - IF the image is available locally:
+ 	THEN it proceeds and functions as expected
+ - ELSE :
+ 	THEN it will try to connect to the DockerHUB and download the image
+ 	THEN it will try to run the container.
+ -ELSE
+    - IF Image is not available in DockerHUB also:
+ 	 	THEN it will raise exception and QUIT
 
 --------------------------------------------------------------------------------------------------------------
 
