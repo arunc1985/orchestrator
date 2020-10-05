@@ -24,7 +24,8 @@ Stage 3 : Run the Docker Image as a Container.
 										# Build a new Image
 --------------------------------------------------------------------------------------------------------------
 
-# From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
+# From this directory, run this command. Ensure dockerfile is present in the same directory where you would 
+run the docker build command
 
 Syntax ::
 --------
@@ -43,13 +44,13 @@ Description ::
 
 Example ::
 ----------
-# Build a Docker Image with name as python-app and tag as exercise002
+# Build a Docker Image with name as python-app and tag as exercise003
 
 
 # Build the Image
 --------------------
 
-docker build -t python-app:exerciseC \
+docker build -t python-app:exercise003 \
 	--build-arg REQ_PIP_FILE=./finally/requirements \
 	--build-arg FINAL_DIR_NAME=finally \
 	--build-arg BUILT_BY=SON-QA \
@@ -67,14 +68,14 @@ docker build -t python-app:exerciseC \
 docker tag <<IMAGE-NAME>>:<<TAG-NAME>> <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
 docker push <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
 
-docker tag python-app:exercise002 jupiter19/jupiter19:tag-arun-reg-exercise002
-docker push jupiter19/jupiter19:tag-arun-reg-exercise002
+docker tag python-app:exercise003 jupiter19/jupiter19:tag-arun-reg-exercise003
+docker push jupiter19/jupiter19:tag-arun-reg-exercise003
 
 # To pull an image that you just pused to DockerHub - Run this Command
 
 docker pull <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
 
-docker pull jupiter19/jupiter19:tag-arun-reg-exercise002
+docker pull jupiter19/jupiter19:tag-arun-reg-exercise003
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -125,11 +126,11 @@ Example::
 # Remove Container once execution done..
 
 # -e denotes the environment variables
-docker run --rm --name arun-enabler-exerciseC \
+docker run --rm --name arun-enabler-exercise003 \
 	-e firstname=Arun \
 	-e lastname=Chandramouli \
 	-e profession=Programmer \
-	python-app:exerciseC
+	python-app:exercise003
 
 
 --------------------------------------------------------------------------------------------------------------
@@ -142,7 +143,7 @@ docker ps # This Command will list your container if its up and running. Long Ru
 
 docker ps -a # This Command will list your container if it has run and exited.
 
-Example :: docker ps -a | grep arun-enabler-exerciseC
+Example :: docker ps -a | grep arun-enabler-exercise003
 
 --------------------------------------------------------------------------------------------------------------
 

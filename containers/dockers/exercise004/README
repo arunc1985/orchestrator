@@ -43,17 +43,13 @@ Description ::
 
 Example ::
 ----------
-# Build a Docker Image with name as python-app and tag as exercise002
+# Build a Docker Image with name as python-app and tag as exercise004
 
 
 # Build the Image
 --------------------
 
-docker build -t python-flask-app:hello-world \
-	--build-arg REQ_PIP_FILE=./finally/requirements \
-	--build-arg FINAL_DIR_NAME=finally \
-	--build-arg BUILT_BY=SON-QA \
-	-f dockerfile .
+docker build -t python-flask-app:exercise004 -f dockerfile .
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -68,7 +64,7 @@ docker images
 # Command to check if your image is created
 docker images | grep <<IMAGE-NAME>>
 
-Example :: docker images | grep python-flask-app:hello-world
+Example :: docker images | grep python-flask-app:exercise004
 
 # The above command must show the image that we created in the previous step python-app and tag as exercise001
 
@@ -110,7 +106,7 @@ docker run --name arun-enabler-flaskpy3 \
 	-e FLASKPORT=4500 \
 	-e CODER='By Arun!' \
 	-p 4500:4500 \
-	python-flask-app:hello-world
+	python-flask-app:exercise004
 
 # Run the image as Container as Daemon Process using -d ...
 
@@ -120,10 +116,11 @@ docker run -d --rm \
 	-e FLASKPORT=4500 \
 	-e CODER='By Arun!' \
 	-p 4500:4500 \
-	python-flask-app:hello-world
+	python-flask-app:exercise004
 
 
 # Run CURL and get output
+curl -XGET http://localhost:4500/
 curl -XGET http://localhost:4500/welcome/Arun/Chandramouli
 
 # Execute command on a running container
@@ -192,11 +189,11 @@ Example ::
 
 Delete a Single Image
 **********************
-docker rmi -f python-flask-app:hello-world
+docker rmi -f python-flask-app:exercise004
 
 Delete Multiple Images
 **********************
-docker rmi -f python-flask-app:hello-world centos:8
+docker rmi -f python-flask-app:exercise004 centos:8
 --------------------------------------------------------------------------------------------------------------
 
 
