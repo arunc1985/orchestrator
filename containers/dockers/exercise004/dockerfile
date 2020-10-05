@@ -4,5 +4,11 @@ RUN python3 --version
 RUN mkdir tests
 ADD /application /tests
 RUN ls tests
+
+# Install python modules using requirements file
 RUN pip3 install -r tests/requirements
+
+# Install python modules directly
+#RUN pip3 install flask requests
+
 CMD python3 tests/flask_app.py ${firstname} ${lastname}

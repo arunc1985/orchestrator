@@ -7,7 +7,6 @@ app = Flask(__name__)
 def hello():
   return {True:"I Love Docker and K8s"}
 
-
 @app.route('/welcome/<fname>/<lname>')
 def hello_world(fname,lname):
   return {True:"Hello There! {} {}!! How are you !  Welcome to Docker!".format(fname,lname)}
