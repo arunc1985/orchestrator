@@ -1,0 +1,14 @@
+ A Sample BDD (Behavioral Driven Development using Python - Behave)
+
+ To install this module run as;
+
+ pip install behave
+ ------------------
+
+ References ::
+ -------------
+
+  - https://behave.readthedocs.io/en/latest/tutorial.html#feature-files
+
+  - https://jenisys.github.io/behave.example/
+
