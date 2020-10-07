@@ -64,11 +64,56 @@ docker images
 # Command to check if your image is created
 docker images | grep <<IMAGE-NAME>>
 
-Example :: docker images | grep python-flask-app:exercise004
+Example :: 
+	
+	docker images | grep python-flask-app
 
 # The above command must show the image that we created in the previous step python-app and tag as exercise001
 
 --------------------------------------------------------------------------------------------------------------
+
+
+
+										# Tag the Image, Push to Docker Registry
+--------------------------------------------------------------------------------------------------------------
+
+# Run this command to tag and push the image to the DockerHub Registry
+
+docker tag <<IMAGE-NAME>>:<<TAG-NAME>> <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+docker push <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+
+
+docker tag python-flask-app:exercise004 jupiter19/jupiter19:tag-arun-reg-exercise004
+docker push jupiter19/jupiter19:tag-arun-reg-exercise004
+
+
+
+# To pull an image that you just pused to DockerHub - Run this Command
+
+docker pull <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+docker pull jupiter19/jupiter19:tag-arun-reg-exercise004
+
+# Run the image as a container
+docker run -d --rm \
+	--name arun-enabler-flaskpy3 \
+	-e FLASKHOSTNAME='0.0.0.0' \
+	-e FLASKPORT=4500 \
+	-e CODER='By Arun!' \
+	-p 4500:4500 \
+	jupiter19/jupiter19:tag-arun-reg-exercise004
+
+
+
+# Run CURL and get output
+curl -XGET http://localhost:4500/
+curl -XGET http://localhost:4500/welcome/Arun/Chandramouli
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
 
 
 										# Run the Image as a Container :: Create a Container
@@ -225,4 +270,33 @@ docker rm -f arun-enabler-flaskpy3
 Delete Multiple Containers
 ****************************
 docker rm -f arun-enabler-flaskpy3 <<CONTAINER-NAME>> <<CONTAINER-NAME>>
+--------------------------------------------------------------------------------------------------------------
+								
+										# Run this Application inside of the Kubernetes
+
+--------------------------------------------------------------------------------------------------------------
+
+Please refer to the contents of the deployment yaml file - k8s.yaml
+
+Run the yaml file as ;
+
+kubectl apply -f k8s.yaml
+
+# Check Deployments
+kubectl get deployments
+
+# Check Services
+kubectl get services
+
+# Check PODS
+kubectl get pods
+
+# POD Logs
+kubectl logs <<POD-NAME>> # Take POD name from command "kubectl get pods"
+
+# Run CURL and get output
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+
 --------------------------------------------------------------------------------------------------------------
