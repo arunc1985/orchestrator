@@ -1,6 +1,6 @@
  A Sample BDD (Behavioral Driven Development using Python - Behave)
 
- To install this module run as;
+ We have to install python behave module as a pre-requisite.
 
  pip install behave
  ------------------
@@ -11,4 +11,17 @@
   - https://behave.readthedocs.io/en/latest/tutorial.html#feature-files
 
   - https://jenisys.github.io/behave.example/
+
+
+Execution ::
+------------
+
+ - Goto Dir chapter1
+ - Run as 
+
+ 	python -m behave features/ --no-capture
+
+ 	When we give flag as --no-capture - It will also print output to screen, if we have any print statement in our code,
+ 	it will get printed too.
+
 
