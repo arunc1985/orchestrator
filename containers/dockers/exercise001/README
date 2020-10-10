@@ -46,7 +46,7 @@ Description ::
 Example ::
 ----------
 # Build a Docker Image with name as python-app and tag as exercise001
-docker build -t python-app-son-testing:v1 -f dockerfile .
+docker build -t python-app-son-testing:exercise001 -f dockerfile .
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ Example::
 ----------
 
 # Run the Image as a Container
-docker run --name arun-enabler python-app-son-testing:v1
+docker run --name arun-python-app-exercise001 python-app-son-testing:exercise001
 
 # Run the Docker-Image as a Container and delete once job done.
   Using --rm flag will delete container from memory once execution over.
@@ -92,7 +92,7 @@ docker run --name arun-enabler python-app-son-testing:v1
 # Run the docker container
 # When you run this command - the CMD command in the docker file will get executed.
 
-docker run --rm --name arun-python-app-v1 python-app-son-testing:v1
+docker run --rm --name arun-python-app-exercise001 python-app-son-testing:exercise001
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -104,7 +104,7 @@ docker ps # This Command will list your container if its up and running. Long Ru
 
 docker ps -a # This Command will list your container if it has run and exited.
 
-Example :: docker ps -a | grep arun-python-app-v1
+Example :: docker ps -a | grep arun-python-app-exercise001
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -125,7 +125,7 @@ If you had deleted the container , then logs on that container will not work.
 
 Example::
 ----------
-docker logs arun-python-app-v1
+docker logs arun-python-app-exercise001
 
 --------------------------------------------------------------------------------------------------------------
 

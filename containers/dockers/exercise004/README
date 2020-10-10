@@ -154,7 +154,10 @@ docker run --name arun-enabler-flaskpy3 \
 	python-flask-app:exercise004
 
 # Run the image as Container as Daemon Process using -d ...
+--rm will remove the container from memory if,
 
+   - Its in STOP state or EXIT state
+   
 docker run -d --rm \
 	--name arun-enabler-flaskpy3 \
 	-e FLASKHOSTNAME='0.0.0.0' \
@@ -172,6 +175,22 @@ curl -XGET http://localhost:4500/welcome/Arun/Chandramouli
 Example the below command checks for python version on a container by id 3585ec0ea68c
 
 docker exec -it arun-enabler-flaskpy3 python3 -V
+
+# Takes you inside of the container
+docker exec -it arun-enabler-flaskpy3 bash 
+
+# Install Pandas package on the container
+docker exec -it arun-enabler-flaskpy3 python3 -m pip install pandas
+# login to container and check 
+
+docker exec -it arun-enabler-flaskpy3 bash 
+
+$ docker exec -it arun-enabler-flaskpy3 bash
+[root@c664d98a6944 /]# python3 -c "import pandas;print(pandas)"
+<module 'pandas' from '/usr/local/lib64/python3.6/site-packages/pandas/__init__.py'>
+[root@c664d98a6944 /]#
+
+
 
 --------------------------------------------------------------------------------------------------------------
 
@@ -294,9 +313,125 @@ kubectl get pods
 # POD Logs
 kubectl logs <<POD-NAME>> # Take POD name from command "kubectl get pods"
 
+# Execute commands on a specific container inside of POD
+
+Syntax : kubectl exec -it <<POD-NAME>> -c <<CONTAINER-NAME>> <<COMMAND>>
+
 # Run CURL and get output
 curl -XGET http://localhost:6000/
 curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
 
+
+--------------------------------------------------------------------------------------------------------------
+
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get services
+  --------------------
+NAME                               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes                         ClusterIP      10.96.0.1       <none>        443/TCP          40s
+python-flask-application-service   LoadBalancer   10.97.239.196   localhost     6000:31658/TCP   42s
+
+--------------------------------------------------------------------------------------------------------------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get deployments
+  --------------------
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+python-flask-application   2/2     2            2           107s
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$
+
+--------------------------------------------------------------------------------------------------------------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get pods
+NAME                                        READY   STATUS    RESTARTS   AGE
+python-flask-application-69fd5c8798-98jxt   1/1     Running   0          3m15s
+python-flask-application-69fd5c8798-pvwxt   1/1     Running   0          3m15s
+
+--------------------------------------------------------------------------------------------------------------
+
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get pods
+  -----------------
+
+NAME                                        READY   STATUS    RESTARTS   AGE
+python-flask-application-69fd5c8798-98jxt   1/1     Running   0          3m15s
+python-flask-application-69fd5c8798-pvwxt   1/1     Running   0          3m15s
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl logs python-flask-application-69fd5c8798-98jxt
+  -------------------------------------------------------
+
+Arun
+ * Serving Flask app "flask_app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 224-927-885
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+# Run CURL and get output
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ curl -XGET http://localhost:6000/
+{
+  "true": "I Love Docker and K8s"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl logs python-flask-application-69fd5c8798-pvwxt
+  ------------------------------------------------------
+
+Arun
+ * Serving Flask app "flask_app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 240-306-614
+192.168.65.3 - - [10/Oct/2020 06:43:19] "GET / HTTP/1.1" 200 -
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl logs python-flask-application-69fd5c8798-pvwxt
+  ------------------------------------------------------
+
+Arun
+ * Serving Flask app "flask_app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 240-306-614
+192.168.65.3 - - [10/Oct/2020 06:43:19] "GET / HTTP/1.1" 200 -
+192.168.65.3 - - [10/Oct/2020 06:43:56] "GET /welcome/Arun/Chandramouli HTTP/1.1" 200 -
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
 
 --------------------------------------------------------------------------------------------------------------
