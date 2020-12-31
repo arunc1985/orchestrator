@@ -82,3 +82,10 @@ Note ::
 --------
 If you see deploy.yaml we had used the following image - docker.io/jupiter19/jupiter19:testing-pymongo
 The Code for the image is here - https://github.com/arunc1985/orchestrator/blob/k8s/containers/dockers/basics/exercise007
+
+K8s Services Reference ::
+-------------------------
+https://kubernetes.io/docs/concepts/services-networking/service/
+https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+https://kubernetes.io/docs/concepts/services-networking/service/
+https://www.bmc.com/blogs/kubernetes-services/
