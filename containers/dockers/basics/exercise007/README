@@ -1,0 +1,97 @@
+
+Aim of the exercise: Host a simple flask app via K8s. 
+
+1. Create a simple flask app
+2. Build a Docker image
+3. Tag & Push the image to docker hub
+4. Create K8s deployment yaml file for pulling and running the flask app image
+5. Access the application via K8s
+
+Pre-Requisite:
+	1. Docker installed and running
+	2. K8s installed and running
+	3. kubectl enabled to run
+
+Note : In this example we will run 1 Container inside of the POD.
+
+
+# Clone the Code..
+
+git clone https://github.com/arunc1985/orchestrator.git
+git checkout dockers
+cd containers/dockers/exercise007/
+
+
+# Delete the deployment if in case if already exists
+
+kubectl delete deployment python-mongo && kubectl delete services python-mongo-service
+
+# Delete the image if it already exists
+docker rmi -f python-mongo:testing
+
+
+# Build the python flask app image, tag it and push the image to docker hub registry
+
+docker build -t python-mongo:testing -f dockerfile-ubuntu .
+
+docker tag python-mongo:testing jupiter19/jupiter19:testing-pymongo
+docker push jupiter19/jupiter19:testing-pymongo
+
+
+# Create a deployment in K8s
+kubectl apply -f k8s.yaml
+
+# Check the status of the PODs and Deployments
+$ kubectl get deployments
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+# It must return some output as follows
+
+$ kubectl get deployments
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+python-mongo   2/2     2            2           142m
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
+kubectl get pods
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+# It must return some output as follows
+$ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+python-mongo-d9f48d897-djvqz   1/1     Running   0          141m
+python-mongo-d9f48d897-wsvzl   1/1     Running   0          141m
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+
+To describe and list all pods run command : kubectl describe pods
+To describe all data about a single pod run command : kubectl describe pod <<POD-NAME>>
+
+# Run CURL Command to test the application running inside of K8s
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+# The above CURL commands must return some output as follows
+
+$ curl -XGET http://localhost:6000/
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+$ curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+# Execute the container inside K8s POD in an interactive mode..
+# To run command on a container inside a POD.
+
+Syntax :
+	kubectl exec -it <<POD-NAME>> -c <<CONTAINER-NAME>> <<COMMAND>>
+
+Example :
+	kubectl exec -it python-mongo-c5687b876-4zbnd -c python-mongo-app bash
