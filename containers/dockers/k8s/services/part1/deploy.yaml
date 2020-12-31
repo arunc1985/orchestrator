@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  selector:
+    matchLabels:
+      run: load-balancer-example
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: load-balancer-example
+    spec:
+      containers:
+        - name: hello-world
+          image: docker.io/jupiter19/jupiter19:testing-pymongo
+          imagePullPolicy: Always
+          env:
+          - name: CODER
+            value: "Kubernetes"
+          - name: FLASKHOSTNAME
+            value: "0.0.0.0"
+          - name: FLASKPORT
+            value: "5000"
+          ports:
+            - containerPort: 80

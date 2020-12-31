@@ -1,0 +1,84 @@
+Aim::
+-----
+There are basically 4 types of services being used as described here:
+https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+
+In this example we are going to use ** LoadBalancer ** service type
+
+---------------------------------------------------------------------------------------------------------------------
+Services can be exposed in different ways by specifying a type in the ServiceSpec:
+
+ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+
+NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.
+
+LoadBalancer - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+
+ExternalName - Exposes the Service using an arbitrary name (specified by externalName in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of kube-dns.
+
+---------------------------------------------------------------------------------------------------------------------
+
+# First delete all
+kubectl delete deployments --all && kubectl delete pods --all && kubectl delete services --all
+
+# Deploy the Application
+kubectl apply -f deploy.yaml
+
+# Check the Status
+kubectl get deployments hello-world
+kubectl describe deployments hello-world
+kubectl get replicasets
+kubectl describe replicasets
+kubectl get pods
+
+
+
+#Before creating & exposing the service - Run CURL Command to test the application running inside of K8s
+# ** IT WILL FAIL **
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+****************
+FAILED MESSAGE:
+****************
+
+-----------------------------------------------------------------------------------------------------------------------
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part1 (k8s)
+$ curl -XGET http://localhost:6000/
+curl: (7) Failed to connect to localhost port 6000: Connection refused
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part1 (k8s)
+$ curl -XGET http://localhost:5000/
+curl: (7) Failed to connect to localhost port 5000: Connection refused
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+# Create a service and expose in port 6000
+# The command below will expose the PORT, here target-port=5000 since the app container is running in PORT 5000
+# In this example we are going to use ** LoadBalancer ** service type
+
+kubectl expose deployment hello-world --type=LoadBalancer --name=example-service --port=6000 --target-port=5000
+kubectl get services
+kubectl describe service example-service
+kubectl get svc example-service
+
+****************************************************************************************
+kubectl get svc example-service
+NAME              TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+example-service   LoadBalancer   10.101.163.59   localhost     6000:31613/TCP   4s
+
+****************************************************************************************
+
+# Get PODS
+kubectl get pods --selector="run=load-balancer-example" --output=wide
+
+#After exposing the service - Run CURL Command to test the application running inside of K8s
+** It Works **
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+Note :: 
+--------
+If you see deploy.yaml we had used the following image - docker.io/jupiter19/jupiter19:testing-pymongo
+The Code for the image is here - https://github.com/arunc1985/orchestrator/blob/k8s/containers/dockers/basics/exercise007
