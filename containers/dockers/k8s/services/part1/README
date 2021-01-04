@@ -7,7 +7,7 @@ To access this exercise do the following steps ::
 -----------------------------------------------------------
 git clone https://github.com/arunc1985/orchestrator.git
 git checkout k8s
-cd containers/dockers/k8s/services/part2
+cd containers/dockers/k8s/services/part1
 -----------------------------------------------------------
 
 In this example we are going to use ** LoadBalancer ** service type
