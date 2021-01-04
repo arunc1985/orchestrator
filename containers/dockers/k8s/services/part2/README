@@ -3,6 +3,14 @@ Aim::
 There are basically 4 types of services being used as described here:
 https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
 
+
+To access this exercise do the following steps ::
+-----------------------------------------------------------
+git clone https://github.com/arunc1985/orchestrator.git
+git checkout k8s
+cd containers/dockers/k8s/services/part2
+-----------------------------------------------------------
+
 In this example we are going to use ** ClusterIP ** service type
 
 ---------------------------------------------------------------------------------------------------------------------
