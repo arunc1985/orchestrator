@@ -11,7 +11,7 @@ git checkout k8s
 cd containers/dockers/k8s/services/part2
 -----------------------------------------------------------
 
-In this example we are going to use ** ClusterIP ** service type
+In this example we are going to use ** NodePort ** service type
 
 ---------------------------------------------------------------------------------------------------------------------
 Services can be exposed in different ways by specifying a type in the ServiceSpec:
@@ -39,20 +39,28 @@ kubectl get replicasets
 kubectl describe replicasets
 kubectl get pods
 
+---------------------------------------------------------------------------------------------------------------------
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+hello-world-5c5d8c4799-ncqx9   1/1     Running   0          31s
+hello-world-5c5d8c4799-zxq58   1/1     Running   0          31s
+---------------------------------------------------------------------------------------------------------------------
 
 # Create a service and expose in port 6000
 # The command below will expose the PORT, here target-port=5000 since the app container is running in PORT 5000
-# In this example we are going to use ** LoadBalancer ** service type
+# In this example we are going to use ** NodePort ** service type
 
-kubectl expose deployment hello-world --type=ClusterIP --name=example-service --port=6000 --target-port=5000
+kubectl expose deployment hello-world --type=NodePort --name=example-service --port=6000 --target-port=5000
 kubectl get services
 kubectl describe service example-service
 kubectl get svc example-service
 
 ****************************************************************************************
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
 $ kubectl get svc example-service
-NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-example-service   ClusterIP   10.110.41.195   <none>        6000/TCP   13s
+NAME              TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+example-service   NodePort   10.109.187.136   <none>        6000:30314/TCP   3s
 ****************************************************************************************
 
 As you see above the service is of type ClusterIP and it will not be accessible outside of Cluster
@@ -68,20 +76,66 @@ hello-world-5c5d8c4799-cs968   1/1     Running   0          19m   10.1.7.245   d
 
 -----------------------------------------------------------------------------------------------------------------------
 
-# Login to the POD
-arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part2 (k8s)
-$ kubectl exec --stdin --tty hello-world-5c5d8c4799-2qfq7 -- bash
+# Get details about the service
+kubectl get svc example-service --output yaml
+From the command output shown below the NodePort value is : 30314. We must use this PORT
+for accessing our application
 
-# Now run the CURL Command to send a request to the running application and it works as shown below;
+-----------------------------------------------------------------------------------------------------------------------
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ kubectl get svc example-service --output yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-01-04T07:24:53Z"
+  name: example-service
+  namespace: default
+  resourceVersion: "5154738"
+  selfLink: /api/v1/namespaces/default/services/example-service
+  uid: dbae0efc-49d0-4793-ac53-2ade0d098d94
+spec:
+  clusterIP: 10.109.187.136
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30314
+    port: 6000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    run: load-balancer-example
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
+-----------------------------------------------------------------------------------------------------------------------
 
-10.110.41.195 -> This IP is the Cluster IP - Refer to cmd above : kubectl get svc example-service
----------------------------------------------------------------------------------------------------
+# Find List of available nodes
 
-[root@hello-world-5c5d8c4799-2qfq7 /]# curl http://10.110.41.195:6000/
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ kubectl get nodes --output wide
+NAME             STATUS   ROLES    AGE    VERSION          INTERNAL-IP    EXTERNAL-IP   OS-IMAGE         KERNEL-VERSION     CONTAINER-RUNTIME
+
+docker-desktop   Ready    master   132d   v1.16.6-beta.0   192.168.65.3   <none>        Docker Desktop   4.19.76-linuxkit   docker://19.3.12
+
+From the command above the EXTERNAL-IP is <none>
+
+-----------------------------------------------------------------------------------------------------------------------
+
+# Access the application using localhost and node-port. But as per command above if you would get a value for EXTERNAL-IP other than <none>, you have to use that only
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ curl -XGET http://localhost:30314/
 {
   "true": "Hello There! Welcome to K8s!"
 }
-[root@hello-world-5c5d8c4799-2qfq7 /]#
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ curl -XGET http://localhost:30314/welcome/Arun/Chandramouli
+{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
 
 -----------------------------------------------------------------------------------------------------------------------
 
