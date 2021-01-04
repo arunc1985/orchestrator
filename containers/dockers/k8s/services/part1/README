@@ -95,4 +95,8 @@ K8s Services Reference ::
 https://kubernetes.io/docs/concepts/services-networking/service/
 https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
 https://kubernetes.io/docs/concepts/services-networking/service/
+https://cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps#kubectl-apply
 https://www.bmc.com/blogs/kubernetes-services/
+https://gardener.cloud/documentation/guides/applications/service-access/
+https://docs.giantswarm.io/guides/accessing-services-from-the-outside/
+https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-mapping-external-services
