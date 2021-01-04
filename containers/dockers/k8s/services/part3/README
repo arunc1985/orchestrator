@@ -145,20 +145,23 @@ $ curl -XGET http://localhost:30314/welcome/Arun/Chandramouli
 2. Hostname
 
 Example: kubectl describe node
+*******************************
 
 Addresses:
   InternalIP:  192.168.65.3
   Hostname:    docker-desktop
 
 Now run the above CURL command using the InternalIP
-
+*****************************************************
 Examples:
+----------
 kubectl exec hello-world-5c5d8c4799-dgx8s curl http://192.168.65.3:30579/
 kubectl exec hello-world-5c5d8c4799-dgx8s curl http://192.168.65.3:30579/welcome/Arun/Chandramouli
 
 Now run the above CURL command using the Hostname
 
 Examples:
+----------
 kubectl exec hello-world-5c5d8c4799-dgx8s curl http://docker-desktop:30579/
 kubectl exec hello-world-5c5d8c4799-dgx8s curl http://docker-desktop:30579/welcome/Arun/Chandramouli
 
