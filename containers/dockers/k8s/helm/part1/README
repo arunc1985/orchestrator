@@ -1,1 +1,131 @@
-$ kubectl delete deployments --all && kubectl delete pods --all && kubectl delete services --all && helm delete hello-helm
+-------------------------------------------------------------------------------------------------------------------
+
+To access this exercise do the following steps ::
+-----------------------------------------------------------
+git clone https://github.com/arunc1985/orchestrator.git
+git checkout k8s
+cd containers/dockers/k8s/helm/part1
+-----------------------------------------------------------
+
+Note :: As part of this HELM exercise we are using service types as * NodePort *
+
+
+---------------------------------------------------------------------------------------------------------------------
+Services can be exposed in different ways by specifying a type in the ServiceSpec:
+
+ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+
+NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.
+
+LoadBalancer - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+
+ExternalName - Exposes the Service using an arbitrary name (specified by externalName in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of kube-dns.
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+To run the application do the following steps ::
+-----------------------------------------------------------
+
+# First delete all k8s deployments and services
+kubectl delete deployments --all && kubectl delete pods --all && kubectl delete services --all && helm delete hello-helm
+
+# Lint the Chart and ensure there are no errors you must get message as "1 chart(s) linted, 0 chart(s) failed"
+helm lint ./hello-world
+
+# Install the Chart and ensure STATUS is deployed
+helm install hello-helm ./hello-world
+
+Output::
+**************************************************
+$ helm install hello-helm ./hello-world
+NAME: hello-helm
+LAST DEPLOYED: Tue Jan  5 17:51:41 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+**************************************************
+
+# Check the list of Charts and Status
+helm ls --all
+
+Output::
+**************************************************
+$ helm ls --all
+NAME            NAMESPACE       REVISION        UPDATED                                 STATUS          CHART                   APP VERSION
+hello-helm      default         1               2021-01-05 17:51:41.3436635 +0530 IST   deployed        hello-world-0.1.0       1.16.0
+**************************************************
+
+# Check the list of k8s services - we need to ensure services deployed by HELM is listed
+# hello-helm-hello-world -> Is the service I created and its listed and the type is "NodePort"
+
+kubectl get svc
+
+Output::
+**************************************************
+$ kubectl get svc
+NAME                     TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+hello-helm-hello-world   NodePort    10.107.114.113   <none>        6000:30353/TCP   2m4s
+kubernetes               ClusterIP   10.96.0.1        <none>        443/TCP          6m5s
+
+kubectl get svc hello-helm-hello-world
+NAME                     TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+hello-helm-hello-world   NodePort   10.107.114.113   <none>        6000:30353/TCP   11m
+
+**************************************************
+
+# Check if the K8s PODS are created and its status is "Running"
+kubectl get pods
+
+Output::
+************************************************************************************
+$ kubectl get pods
+NAME                                      READY   STATUS    RESTARTS   AGE
+hello-helm-hello-world-6fc44467d4-444nx   1/1     Running   0          5m25s
+hello-helm-hello-world-6fc44467d4-8bjdf   1/1     Running   0          5m25s
+************************************************************************************
+
+# Describe the POD and get details - Ensure there are no errors and containers are in "Started" state
+kubectl describe pod hello-helm-hello-world-6fc44467d4-444nx
+
+Output::
+************************************************************************************
+kubectl describe pod hello-helm-hello-world-6fc44467d4-444nx
+
+Events:
+  Type    Reason     Age        From                     Message
+  ----    ------     ----       ----                     -------
+  Normal  Scheduled  <unknown>  default-scheduler        Successfully assigned default/hello-helm-hello-world-6fc44467d4-444nx to docker-desktop
+  Normal  Pulling    7m56s      kubelet, docker-desktop  Pulling image "docker.io/jupiter19/jupiter19:testing-pymongo"
+  Normal  Pulled     7m49s      kubelet, docker-desktop  Successfully pulled image "docker.io/jupiter19/jupiter19:testing-pymongo"
+  Normal  Created    7m49s      kubelet, docker-desktop  Created container hello-world
+  Normal  Started    7m48s      kubelet, docker-desktop  Started container hello-world
+************************************************************************************
+
+
+# Access the application and observe the output
+
+As you see above the command - kubectl get svc hello-helm-hello-world, the application is exposed in PORT 30353
+# Run the following commands to get the output
+curl http://localhost:30353/
+
+Output::
+*********************************************
+$ curl http://localhost:30353/
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+# App is internally running in PORT 5000 - Execute below command inside of the POD
+
+$ kubectl exec hello-helm-hello-world-6fc44467d4-444nx -- curl http://localhost:5000/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    45  100    45    0     0   2647      0 --:--:-- --:--:-- --:--:--  2647
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+*********************************************
+
+-------------------------------------------------------------------------------------------------------------------
