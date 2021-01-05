@@ -1,0 +1,10 @@
+replicaCount: 2
+image:
+  repository: "docker.io/jupiter19/jupiter19"
+  tag: "testing-pymongo"
+  pullPolicy: Always
+service:
+  type: NodePort
+  port: 6000
+  targetport: 5000
+  name: hello-helm-service
