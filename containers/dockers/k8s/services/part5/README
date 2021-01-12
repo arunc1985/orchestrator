@@ -1,0 +1,261 @@
+Aim::
+-----
+There are basically 4 types of services being used as described here:
+https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+
+
+To access this exercise do the following steps ::
+-----------------------------------------------------------
+git clone https://github.com/arunc1985/orchestrator.git
+git checkout k8s
+cd containers/dockers/k8s/services/part5
+-----------------------------------------------------------
+
+In this example we are going to use ** NodePort ** service type
+
+---------------------------------------------------------------------------------------------------------------------
+Services can be exposed in different ways by specifying a type in the ServiceSpec:
+
+ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+
+NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.
+
+LoadBalancer - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+
+ExternalName - Exposes the Service using an arbitrary name (specified by externalName in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of kube-dns.
+
+---------------------------------------------------------------------------------------------------------------------
+
+# First delete all
+kubectl delete deployments --all && kubectl delete pods --all && kubectl delete services --all
+
+# Deploy the Application
+
+kubectl run pyflask-k8s --image=docker.io/jupiter19/jupiter19:testing-pymongo --env="CODER=K8S" --env="FLASKHOSTNAME=0.0.0.0" --env="FLASKPORT=5000"
+
+Output::
+---------
+
+Command : kubectl run pyflask-k8s --image=docker.io/jupiter19/jupiter19:testing-pymongo --env="CODER=K8S" 
+---------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl run pyflask-k8s --image=docker.io/jupiter19/jupiter19:testing-pymongo --env="CODER=K8S" --env="FLASKHOSTNAME=0.0.0.0" --env="FLASKPORT=5000"
+pod/pyflask-k8s created
+
+----------------------------------------------------------------------------------------------------------------------
+
+# Check the PODS
+
+kubectl get deployments && kubectl get pods
+
+Output ::
+---------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+pyflask-k8s   1/1     Running   0          2m12s
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl get deployments && kubectl get pods
+No resources found in default namespace.
+NAME          READY   STATUS    RESTARTS   AGE
+pyflask-k8s   1/1     Running   0          2m37s
+
+*** Note :: There are no deployments shown but it has pods alone *** 
+----------------------------------------------------------------------------------------------------------------------
+
+# Describe the POD
+
+kubectl describe pod pyflask-k8s
+
+Output ::
+---------
+
+Events:
+  Type    Reason     Age        From                     Message
+  ----    ------     ----       ----                     -------
+  Normal  Scheduled  <unknown>  default-scheduler        Successfully assigned default/pyflask-k8s to docker-desktop
+  Normal  Pulled     4m46s      kubelet, docker-desktop  Container image "docker.io/jupiter19/jupiter19:testing-pymongo" already present on machine
+  Normal  Created    4m46s      kubelet, docker-desktop  Created container pyflask-k8s
+  Normal  Started    4m46s      kubelet, docker-desktop  Started container pyflask-k8s
+
+Note :: We can see that the containers are created and started.
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ docker ps | grep pyflask-k8s
+
+bf287f3462af        980d8ab2fc14             "/bin/sh -c 'python3."   8 minutes ago       Up 8 minutes                            k8s_pyflask-k8s_pyflask-k8s_default_ab5def
+
+ad-7681-42d6-ac25-47bd1b8cbefc_0
+bcd13bda279a        k8s.gcr.io/pause:3.1     "/pause"                 8 minutes ago       Up 8 minutes                            k8s_POD_pyflask-k8s_default_ab5defad-7681-
+42d6-ac25-47bd1b8cbefc_0
+
+----------------------------------------------------------------------------------------------------------------------
+
+# Expose using Services
+
+# The command below will expose the PORT, here target-port=5000 since the app container is running in PORT 5000
+# In this example we are going to use ** NodePort ** service type
+
+kubectl expose pod pyflask-k8s --type=NodePort --name=pyflask-k8s-service --port=6000 --target-port=5000
+kubectl get services
+kubectl describe service pyflask-k8s-service
+kubectl get svc pyflask-k8s-service
+
+Output ::
+----------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl get services
+-----------------------
+
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes            ClusterIP   10.96.0.1       <none>        443/TCP          15m
+pyflask-k8s-service   NodePort    10.98.106.209   <none>        6000:30116/TCP   1s
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl describe service pyflask-k8s-service
+----------------------------------------------
+
+Name:                     pyflask-k8s-service
+Namespace:                default
+Labels:                   run=pyflask-k8s
+Annotations:              <none>
+Selector:                 run=pyflask-k8s
+Type:                     NodePort
+IP:                       10.98.106.209
+LoadBalancer Ingress:     localhost
+Port:                     <unset>  6000/TCP
+TargetPort:               5000/TCP
+NodePort:                 <unset>  30116/TCP
+Endpoints:                10.1.8.126:5000
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+
+*****************************************************************
+Note :: From the above command we can see that NodePort is 30116
+*****************************************************************
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl get svc pyflask-k8s-service
+--------------------------------------
+
+NAME                  TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+pyflask-k8s-service   NodePort   10.98.106.209   <none>        6000:30116/TCP   4s
+
+Note :: As we can see from the above command, service "pyflask-k8s-service" is created and is of type NodePort
+----------------------------------------------------------------------------------------------------------------------
+
+# Get node details
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl get nodes --output wide
+NAME             STATUS   ROLES    AGE    VERSION          INTERNAL-IP    EXTERNAL-IP   OS-IMAGE         KERNEL-VERSION     CONTAINER-RUNTIME
+docker-desktop   Ready    master   140d   v1.16.6-beta.0   192.168.65.3   <none>        Docker Desktop   4.19.76-linuxkit   docker://19.3.12
+
+----------------------------------------------------------------------------------------------------------------------
+
+# Access the Application in PORT 30116
+
+curl -XGET http://localhost:30116/
+curl -XGET http://localhost:30116/welcome/Arun/Chandramouli
+
+Output ::
+---------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ curl -XGET http://localhost:30116/
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ curl -XGET http://localhost:30116/welcome/Arun/Chandramouli
+{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+#Also run the following command and get the following values;
+1. InternalIP
+2. Hostname
+
+Example: kubectl describe node
+*******************************
+
+Addresses:
+  InternalIP:  192.168.65.3
+  Hostname:    docker-desktop
+
+Now run the above CURL command using the InternalIP in PORT 30116
+*****************************************************************
+Examples:
+---------
+kubectl exec pyflask-k8s curl http://192.168.65.3:30116/
+kubectl exec pyflask-k8s curl http://192.168.65.3:30116/welcome/Arun/Chandramouli
+
+Output:
+-------
+$ kubectl exec pyflask-k8s curl http://192.168.65.3:30116/
+-----------------------------------------------------------
+
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl kubectl exec [POD] -- [COMMAND] instead.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    45  100    45    0     0  22500      0 --:--:-- --:--:-- --:--:-- 22500
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl exec pyflask-k8s curl http://192.168.65.3:30116/welcome/Arun/Chandramouli
+------------------------------------------------------------------------------------
+
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl kubectl exec [POD] -- [COMMAND] instead.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+100    83  100    83    0     0  41500      0 --:--:-- --:--:-- --:--:-- 41500
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+Now run the above CURL command using the Hostname in PORT 30116
+*****************************************************************
+
+Examples:
+----------
+kubectl exec pyflask-k8s curl http://docker-desktop:30116/
+kubectl exec pyflask-k8s curl http://docker-desktop:30116/welcome/Arun/Chandramouli
+
+Output:
+-------
+
+$ kubectl exec pyflask-k8s curl http://docker-desktop:30116/
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl kubectl exec [POD] -- [COMMAND] instead.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    45  100    45    0     0   1323      0 --:--:-- --:--:-- --:--:--  1285
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part5 (k8s)
+$ kubectl exec pyflask-k8s curl http://docker-desktop:30116/welcome/Arun/Chandramouli
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl kubectl exec [POD] -- [COMMAND] instead.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+100    83  100    83    0     0   4368      0 --:--:-- --:--:-- --:--:--  4368
+
+-----------------------------------------------------------------------------------------------------------------------
