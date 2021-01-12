@@ -1,0 +1,185 @@
+Aim::
+-----
+There are basically 4 types of services being used as described here:
+https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+
+
+To access this exercise do the following steps ::
+-----------------------------------------------------------
+git clone https://github.com/arunc1985/orchestrator.git
+git checkout k8s
+cd containers/dockers/k8s/services/part4
+-----------------------------------------------------------
+
+In this example we are going to use ** NodePort ** service type
+
+---------------------------------------------------------------------------------------------------------------------
+Services can be exposed in different ways by specifying a type in the ServiceSpec:
+
+ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+
+NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <NodeIP>:<NodePort>. Superset of ClusterIP.
+
+LoadBalancer - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+
+ExternalName - Exposes the Service using an arbitrary name (specified by externalName in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of kube-dns.
+
+---------------------------------------------------------------------------------------------------------------------
+
+# First delete all
+kubectl delete deployments --all && kubectl delete pods --all && kubectl delete services --all
+
+# Deploy the Application
+kubectl apply -f deploy.yaml
+
+# Check the Status
+kubectl get deployments hello-world
+kubectl describe deployments hello-world
+kubectl get replicasets
+kubectl describe replicasets
+kubectl get pods
+
+---------------------------------------------------------------------------------------------------------------------
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ kubectl get pods
+NAME                           READY   STATUS    RESTARTS   AGE
+hello-world-5c5d8c4799-ncqx9   1/1     Running   0          31s
+hello-world-5c5d8c4799-zxq58   1/1     Running   0          31s
+---------------------------------------------------------------------------------------------------------------------
+
+# Create a service and expose in port 6000
+# The command below will expose the PORT, here target-port=5000 since the app container is running in PORT 5000
+# In this example we are going to use ** NodePort ** service type
+
+kubectl get services
+kubectl describe service example-service
+kubectl get svc example-service
+
+****************************************************************************************
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ kubectl get svc example-service
+NAME              TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+example-service   NodePort   10.109.187.136   <none>        6000:30314/TCP   3s
+****************************************************************************************
+
+As you see above the service is of type ClusterIP and it will not be accessible outside of Cluster
+
+# Get PODS - We have to execute command inside the POD to get the required output
+kubectl get pods --selector="app=load-balancer-example" --output=wide
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part2 (k8s)
+$ kubectl get pods --selector="app=load-balancer-example" --output=wide
+NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE             NOMINATED NODE   READINESS GATES
+hello-world-5c5d8c4799-2qfq7   1/1     Running   0          19m   10.1.7.246   docker-desktop   <none>           <none>
+hello-world-5c5d8c4799-cs968   1/1     Running   0          19m   10.1.7.245   docker-desktop   <none>           <none>
+
+-----------------------------------------------------------------------------------------------------------------------
+
+# Get details about the service
+kubectl get svc example-service --output yaml
+From the command output shown below the NodePort value is : 30314. We must use this PORT
+for accessing our application
+
+-----------------------------------------------------------------------------------------------------------------------
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ kubectl get svc example-service --output yaml
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-01-04T07:24:53Z"
+  name: example-service
+  namespace: default
+  resourceVersion: "5154738"
+  selfLink: /api/v1/namespaces/default/services/example-service
+  uid: dbae0efc-49d0-4793-ac53-2ade0d098d94
+spec:
+  clusterIP: 10.109.187.136
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30314
+    port: 6000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    run: load-balancer-example
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
+-----------------------------------------------------------------------------------------------------------------------
+
+# Find List of available nodes
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ kubectl get nodes --output wide
+NAME             STATUS   ROLES    AGE    VERSION          INTERNAL-IP    EXTERNAL-IP   OS-IMAGE         KERNEL-VERSION     CONTAINER-RUNTIME
+
+docker-desktop   Ready    master   132d   v1.16.6-beta.0   192.168.65.3   <none>        Docker Desktop   4.19.76-linuxkit   docker://19.3.12
+
+From the command above the EXTERNAL-IP is <none>
+
+-----------------------------------------------------------------------------------------------------------------------
+
+# Access the application using localhost and node-port. But as per command above if you would get a value for EXTERNAL-IP other than <none>, you have to use that only
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ curl -XGET http://localhost:32202/
+{
+  "true": "Hello There! Welcome to K8s!"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/k8s/services/part3 (k8s)
+$ curl -XGET http://localhost:32202/welcome/Arun/Chandramouli
+{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+#Also run the following command and get the following values;
+1. InternalIP
+2. Hostname
+
+Example: kubectl describe node
+*******************************
+
+Addresses:
+  InternalIP:  192.168.65.3
+  Hostname:    docker-desktop
+
+Now run the above CURL command using the InternalIP
+*****************************************************
+Examples:
+----------
+kubectl exec hello-world-59dfb579bf-7vrrw curl http://192.168.65.3:32202/
+kubectl exec hello-world-59dfb579bf-7vrrw curl http://192.168.65.3:32202/welcome/Arun/Chandramouli
+
+Now run the above CURL command using the Hostname
+
+Examples:
+----------
+kubectl exec hello-world-59dfb579bf-7vrrw curl http://docker-desktop:32202/
+kubectl exec hello-world-59dfb579bf-7vrrw curl http://docker-desktop:32202/welcome/Arun/Chandramouli
+
+-----------------------------------------------------------------------------------------------------------------------
+
+Note :: 
+--------
+If you see deploy.yaml we had used the following image - docker.io/jupiter19/jupiter19:testing-pymongo
+The Code for the image is here - https://github.com/arunc1985/orchestrator/blob/k8s/containers/dockers/basics/exercise007
+
+K8s Services Reference ::
+-------------------------
+https://kubernetes.io/docs/concepts/services-networking/service/
+https://kubernetes.io/docs/tutorials/kubernetes-basics/expose/expose-intro/
+https://kubernetes.io/docs/concepts/services-networking/service/
+https://cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps#kubectl-apply
+https://www.bmc.com/blogs/kubernetes-services/
+https://gardener.cloud/documentation/guides/applications/service-access/
+https://docs.giantswarm.io/guides/accessing-services-from-the-outside/
+https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-mapping-external-services
+
+-----------------------------------------------------------------------------------------------------------------------

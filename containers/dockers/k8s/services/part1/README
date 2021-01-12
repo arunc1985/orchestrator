@@ -10,6 +10,13 @@ git checkout k8s
 cd containers/dockers/k8s/services/part1
 -----------------------------------------------------------
 
+----------------------------------------------------
+Client(End-User) <-> Service <-> App inside K8s POD
+----------------------------------------------------
+
+K8s Service actually it exposes the app running inside of K8s PODs so that the client can access the app
+without the need to login to the POD.
+
 In this example we are going to use ** LoadBalancer ** service type
 
 ---------------------------------------------------------------------------------------------------------------------
