@@ -1,0 +1,8 @@
+FROM openjdk:8
+RUN mkdir -p hsb-phase2/software/kafka/ && cd hsb-phase2/software/kafka/ && \
+wget https://mirrors.estointernet.in/apache/kafka/2.7.0/kafka_2.13-2.7.0.tgz && \
+tar -xzf kafka_2.13-2.7.0.tgz && \
+cd kafka_2.13-2.7.0 && ls && ls bin
+WORKDIR hsb-phase2/software/kafka/kafka_2.13-2.7.0
+CMD bin/zookeeper-server-start.sh -daemon config/zookeeper.properties && \
+bin/kafka-server-start.sh config/server.properties
