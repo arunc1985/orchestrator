@@ -1,0 +1,29 @@
+# Base OS is Centos
+FROM centos:8
+
+# Define build arguments to be executed and passed during the docker build
+
+# Requirements file to do pip install
+ARG REQ_PIP_FILE
+# Final Dir name 
+ARG FINAL_DIR_NAME
+
+# All the commands below will be executed on the base os ..i.e. in this case centos
+
+# Install Python3
+RUN yum install -y python3
+
+# Create a directory named final - FINAL_DIR_NAME during build-time.
+RUN mkdir ${FINAL_DIR_NAME}
+
+# Copy from the host machine to the final dir
+COPY ./application /${FINAL_DIR_NAME}
+
+# Install all the required packages - REQ_PIP_FILE is passed at build-time.
+RUN python3 -m pip install -r /finally/requirements
+
+# This CMD command will not get triggered during image build,while running the container it will run the python program.
+# Btw the variables passed below in ${} are the environment variables, will be executed while running the container.
+
+# firstname, lastname, profession - Environment Variables...
+CMD python3 finally/app.py ${firstname} ${lastname} ${profession}

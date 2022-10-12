@@ -1,0 +1,437 @@
+
+
+										# Clone Code and files from github
+--------------------------------------------------------------------------------------------------------------
+
+git clone https://github.com/arunc1985/orchestrator.git
+cd orchestrator
+git checkout dockers
+cd containers/dockers/exercise004
+
+--------------------------------------------------------------------------------------------------------------
+
+										# STAGES to run app in the image
+--------------------------------------------------------------------------------------------------------------
+
+Stage 1 : Create a Dockerfile.
+Stage 2 : Build a Docker Image.
+Stage 3 : Run the Docker Image as a Container.
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Build a new Image
+--------------------------------------------------------------------------------------------------------------
+
+# From this directory, run this command. Ensure dockerfile is present in the same directory where you would run the docker build command
+
+Syntax ::
+--------
+
+docker build -t <<IMAGE-NAME>>:<<TAG-NAME>> --build-arg <<ARGS>> -f <<PATH-TO-DOCKERFILE>>
+
+Description ::
+-------------
+<<IMAGE-NAME>> - Name you would like to give for your Docker Image.
+<<TAG-NAME>> - Version the Image with a proper Tag. An Image can also have multiple tags.
+<<PATH-TO-DOCKERFILE>> - Full Path of the docker file.
+--build-arg <<ARGS>> - Denotes arguments to be passed to docker while building image.
+
+-t - Tag an Image.
+-f - Denotes File Path.
+
+Example ::
+----------
+# Build a Docker Image with name as python-app and tag as exercise004
+
+
+# Build the Image
+--------------------
+
+docker build -t python-flask-app:exercise004 -f dockerfile .
+
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Checking the new Image
+--------------------------------------------------------------------------------------------------------------
+# Run this command to check if the images have been created
+
+# Command to return all the available images
+docker images
+
+# Command to check if your image is created
+docker images | grep <<IMAGE-NAME>>
+
+Example :: 
+	
+	docker images | grep python-flask-app
+
+# The above command must show the image that we created in the previous step python-app and tag as exercise001
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Tag the Image, Push to Docker Registry
+--------------------------------------------------------------------------------------------------------------
+
+# Run this command to tag and push the image to the DockerHub Registry
+
+docker tag <<IMAGE-NAME>>:<<TAG-NAME>> <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+docker push <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+
+
+docker tag python-flask-app:exercise004 jupiter19/jupiter19:tag-arun-reg-exercise004
+docker push jupiter19/jupiter19:tag-arun-reg-exercise004
+
+
+
+# To pull an image that you just pused to DockerHub - Run this Command
+
+docker pull <<DOCKERHUB-USERNAME>>/<<DOCKERHUB-REPONAME>>:<<TAG-NAME>>
+
+docker pull jupiter19/jupiter19:tag-arun-reg-exercise004
+
+# Run the image as a container
+docker run -d --rm \
+	--name arun-enabler-flaskpy3 \
+	-e FLASKHOSTNAME='0.0.0.0' \
+	-e FLASKPORT=4500 \
+	-e CODER='By Arun!' \
+	-p 4500:4500 \
+	jupiter19/jupiter19:tag-arun-reg-exercise004
+
+
+
+# Run CURL and get output
+curl -XGET http://localhost:4500/
+curl -XGET http://localhost:4500/welcome/Arun/Chandramouli
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+
+										# Run the Image as a Container :: Create a Container
+--------------------------------------------------------------------------------------------------------------
+# Run the Docker-Image
+
+Syntax::
+--------
+docker run --name <<container-name>> <<image-name:tag-name>>
+  OR
+docker run --name <<container-name>> <<image-id>>
+
+Delete the Container once its in STOP/Exit mode
+------------------------------------------------
+
+docker run --rm --name <<container-name>> <<image-id>>
+
+Example::
+----------
+
+# Run the Docker-Image as a Container and delete once job done.
+  Using --rm flag will delete container from memory once execution over.
+  Which means neither docker ps/docker ps -a/docker ps -q would list my container.
+
+# Run the docker container
+# When you run this command - the CMD command in the docker file will get executed.
+
+# Remove Container once execution done..
+
+# -e denotes the environment variables
+
+# Run the image as Container
+docker run --name arun-enabler-flaskpy3 \
+	-e FLASKHOSTNAME='0.0.0.0' \
+	-e FLASKPORT=4500 \
+	-e CODER='By Arun!' \
+	-p 4500:4500 \
+	python-flask-app:exercise004
+
+# Run the image as Container as Daemon Process using -d ...
+--rm will remove the container from memory if,
+
+   - Its in STOP state or EXIT state
+   
+docker run -d --rm \
+	--name arun-enabler-flaskpy3 \
+	-e FLASKHOSTNAME='0.0.0.0' \
+	-e FLASKPORT=4500 \
+	-e CODER='By Arun!' \
+	-p 4500:4500 \
+	python-flask-app:exercise004
+
+
+# Run CURL and get output
+curl -XGET http://localhost:4500/
+curl -XGET http://localhost:4500/welcome/Arun/Chandramouli
+
+# Execute command on a running container
+Example the below command checks for python version on a container by id 3585ec0ea68c
+
+docker exec -it arun-enabler-flaskpy3 python3 -V
+
+# Takes you inside of the container
+docker exec -it arun-enabler-flaskpy3 bash 
+
+# Install Pandas package on the container
+docker exec -it arun-enabler-flaskpy3 python3 -m pip install pandas
+# login to container and check 
+
+docker exec -it arun-enabler-flaskpy3 bash 
+
+$ docker exec -it arun-enabler-flaskpy3 bash
+[root@c664d98a6944 /]# python3 -c "import pandas;print(pandas)"
+<module 'pandas' from '/usr/local/lib64/python3.6/site-packages/pandas/__init__.py'>
+[root@c664d98a6944 /]#
+
+
+
+--------------------------------------------------------------------------------------------------------------
+
+										# Check the Status of the Running Container
+--------------------------------------------------------------------------------------------------------------
+# Check if Container is running using below command.
+
+docker ps # This Command will list your container if its up and running. Long Running Processes.
+
+docker ps -a # This Command will list your container if it has run and exited.
+
+Example :: docker ps -a | grep arun-enabler-flaskpy3
+
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Get the Logs of my Container
+--------------------------------------------------------------------------------------------------------------
+# Check the logs of the Container running using below command. This will tell you all the activities.
+
+Syntax::
+--------
+docker logs <<CONTAINER-NAME>>
+
+
+**********************************************************************************************
+Docker logs on a container will work if your container is either in a Running or Exited State.
+If you had deleted the container , then logs on that container will not work.
+**********************************************************************************************
+
+Example::
+----------
+docker logs arun-enabler-flaskpy3
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+										# Delete the Docker Images
+--------------------------------------------------------------------------------------------------------------
+# Delete the Docker Image
+
+Syntax ::
+----------
+
+docker rmi -f <<IMAGE-NAME>>:<<TAG-NAME>>
+docker rmi -f <<IMAGE-ID>>
+
+Description ::
+--------------
+
+docker rmi -f - Instruct docker to delete image forcefully
+
+<<IMAGE-NAME>>:<<TAG-NAME>> - Full image name including Tag
+
+<<IMAGE-ID>> - ID Of the image (Run Command docker images to get image name, ID and other details)
+
+Example ::
+----------
+
+Delete a Single Image
+**********************
+docker rmi -f python-flask-app:exercise004
+
+Delete Multiple Images
+**********************
+docker rmi -f python-flask-app:exercise004 centos:8
+--------------------------------------------------------------------------------------------------------------
+
+
+										# Delete the Docker Container
+--------------------------------------------------------------------------------------------------------------
+# Delete the Docker Image
+
+Syntax ::
+----------
+
+docker rm -f <<CONTAINER-NAME>>
+
+
+Description ::
+--------------
+
+docker rm -f - Instruct docker to delete container forcefully
+
+<<CONTAINER-NAME>> - Name of the running container
+
+
+Example ::
+----------
+
+Delete a Single Container
+*************************
+docker rm -f arun-enabler-flaskpy3
+
+Delete Multiple Containers
+****************************
+docker rm -f arun-enabler-flaskpy3 <<CONTAINER-NAME>> <<CONTAINER-NAME>>
+--------------------------------------------------------------------------------------------------------------
+								
+										# Run this Application inside of the Kubernetes
+
+--------------------------------------------------------------------------------------------------------------
+
+Please refer to the contents of the deployment yaml file - k8s.yaml
+
+Run the yaml file as ;
+
+kubectl apply -f k8s.yaml
+
+# Check Deployments
+kubectl get deployments
+
+# Check Services
+kubectl get services
+
+# Check PODS
+kubectl get pods
+
+# POD Logs
+kubectl logs <<POD-NAME>> # Take POD name from command "kubectl get pods"
+
+# Execute commands on a specific container inside of POD
+
+Syntax : kubectl exec -it <<POD-NAME>> -c <<CONTAINER-NAME>> <<COMMAND>>
+
+# Run CURL and get output
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get services
+  --------------------
+NAME                               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes                         ClusterIP      10.96.0.1       <none>        443/TCP          40s
+python-flask-application-service   LoadBalancer   10.97.239.196   localhost     6000:31658/TCP   42s
+
+--------------------------------------------------------------------------------------------------------------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get deployments
+  --------------------
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+python-flask-application   2/2     2            2           107s
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$
+
+--------------------------------------------------------------------------------------------------------------
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get pods
+NAME                                        READY   STATUS    RESTARTS   AGE
+python-flask-application-69fd5c8798-98jxt   1/1     Running   0          3m15s
+python-flask-application-69fd5c8798-pvwxt   1/1     Running   0          3m15s
+
+--------------------------------------------------------------------------------------------------------------
+
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl get pods
+  -----------------
+
+NAME                                        READY   STATUS    RESTARTS   AGE
+python-flask-application-69fd5c8798-98jxt   1/1     Running   0          3m15s
+python-flask-application-69fd5c8798-pvwxt   1/1     Running   0          3m15s
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl logs python-flask-application-69fd5c8798-98jxt
+  -------------------------------------------------------
+
+Arun
+ * Serving Flask app "flask_app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 224-927-885
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+# Run CURL and get output
+curl -XGET http://localhost:6000/
+curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ curl -XGET http://localhost:6000/
+{
+  "true": "I Love Docker and K8s"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl logs python-flask-application-69fd5c8798-pvwxt
+  ------------------------------------------------------
+
+Arun
+ * Serving Flask app "flask_app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 240-306-614
+192.168.65.3 - - [10/Oct/2020 06:43:19] "GET / HTTP/1.1" 200 -
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ curl -XGET http://localhost:6000/welcome/Arun/Chandramouli
+{
+  "true": "Hello There! Arun Chandramouli!! How are you !  Welcome to Docker!"
+}
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+$ kubectl logs python-flask-application-69fd5c8798-pvwxt
+  ------------------------------------------------------
+
+Arun
+ * Serving Flask app "flask_app" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 240-306-614
+192.168.65.3 - - [10/Oct/2020 06:43:19] "GET / HTTP/1.1" 200 -
+192.168.65.3 - - [10/Oct/2020 06:43:56] "GET /welcome/Arun/Chandramouli HTTP/1.1" 200 -
+
+arunkuch@ARUNKUCH-9NCZB MINGW64 ~/Documents/Programs/containers/orchestrator/containers/dockers/exercise004 (dockers)
+
+--------------------------------------------------------------------------------------------------------------

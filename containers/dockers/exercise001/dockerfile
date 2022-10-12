@@ -1,0 +1,24 @@
+# Base OS is Centos and Tag/Version is 8 - https://hub.docker.com/
+# Objective : Run the simple python app on a centos image.
+
+#STEP 1 : FROM keyword : From the dockerhub download centos image for me with tag as 8
+FROM centos:8
+
+# All the commands below will be executed on the base os ..i.e. in this case centos
+
+#STEP 2 :RUN Keyword : Install Python3 on centos downloaded in STEP 1
+RUN yum install -y python3
+
+#STEP 3 : Create a dir named final on centos downloaded in STEP 1
+RUN mkdir final
+
+# STEP 4 : Copy the application directory from the host machine to directory tests inside of the container
+
+# final dir was created in STEP 3 above, it will have contents of the
+# application folder - in this case app.py
+COPY ./application ./final
+
+# This CMD command will not get triggered during image build,but while running the container it will run the python program
+
+# STEP 5 : On the centos that was downloaded in STEP 1, run the app.
+CMD python3 final/app.py
